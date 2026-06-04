@@ -221,24 +221,85 @@ python3 scripts/check_secrets.py
 
 ---
 
-## Folder Structure
+## Repository Map
 
-```
-goblin-recon/
-├── AGENTS.md              ← Agent personality and rules
-├── SECURITY.md            ← Security policy
-├── API_KEYS.md            ← API key handling guide
-├── LEGAL_GUARDRAILS.md    ← Legal and platform-use rules
-├── config/                ← All configuration files
-├── scripts/               ← Python scripts for transcripts and scoring
-├── templates/             ← Output templates (coming in Week 2-4)
-├── memory/                ← Past trends and competitor snapshots
-├── vault/                 ← Approved content lives here
-│   ├── intake/            ← Raw scout reports land here
-│   ├── briefs/            ← Approved content briefs
-│   └── reports/           ← Approved competitor reports
-└── README.md              ← This file
-```
+Use this section to understand what every major file and folder does.
+
+### Core Agent Files
+
+| File | What It Does |
+|---|---|
+| `README.md` | Main technical overview for Goblin Recon. Use this first if you are setting up or reviewing the project. |
+| `INSTRUCTIONS.md` | Simple marketing-team guide with setup steps, commands, examples, and when to trigger each workflow. |
+| `AGENTS.md` | The main Hermes agent rules: identity, behavior, source verification, clip rules, and security guardrails. |
+| `HERMES_APPROVALS.md` | Explains which Hermes permissions to approve or deny when starting Goblin Recon. |
+| `GITHUB_DISTRIBUTION.md` | Explains how to distribute Goblin Recon through GitHub, what to commit, and what not to commit. |
+
+### Security and Compliance Files
+
+| File | What It Does |
+|---|---|
+| `SECURITY.md` | Business-use security policy for API keys, public-source rules, data retention, and incident response. |
+| `API_KEYS.md` | Explains safe API key handling: `.env`, Hermes secrets, company secret managers, rotation, and leak response. |
+| `SOCIAL_API_SETUP.md` | Simple guide for adding approved social media API keys and enabling integrations safely. |
+| `LEGAL_GUARDRAILS.md` | Explains platform, copyright, competitor research, source attribution, and publish/shelve rules. |
+| `PRE_LAUNCH_CHECKLIST.md` | Final checklist before rolling Goblin Recon out to the marketing team. |
+| `.env.example` | Safe template showing allowed environment variable names. Copy to `.env` locally, but never commit `.env`. |
+| `.gitignore` | Prevents local secrets, virtual environments, logs, caches, and vault outputs from being committed. |
+
+### Configuration Files
+
+| File | What It Does |
+|---|---|
+| `config/sources.yaml` | Defines where Trend Radar looks for AI trends: X/Twitter queries, Reddit subreddits, tech news sites, and Product Hunt topics. |
+| `config/scoring.yaml` | Defines score thresholds and weights for trend scoring, source scoring, moment scoring, and clip duration rules. |
+| `config/content-sources.yaml` | Defines YouTube channels, Instagram accounts, hashtags, and search query patterns for Source Hunter. |
+| `config/competitors.yaml` | Placeholder for competitors to monitor later. Keep empty until actual competitors are approved. |
+| `config/security.yaml` | Machine-readable security defaults: public-only sources, API key rules, rate limits, human review, and retention. |
+| `config/integrations.yaml` | Registry of optional third-party integrations. All social APIs are disabled by default until approved. |
+
+### Skills
+
+| File | What It Does |
+|---|---|
+| `skills/orchestrator/SKILL.md` | Main driver. Runs Trend Radar -> Source Hunter -> Moment Finder -> Human Gate when the user says `run full scan`. |
+| `skills/trend-radar/SKILL.md` | Layer 1. Finds and scores trending AI stories from public sources. |
+| `skills/source-hunter/SKILL.md` | Layer 2. Finds YouTube and Instagram sources for a selected trend or known topic. |
+| `skills/moment-finder/SKILL.md` | Layer 3. Finds 15-60 second clip moments from transcripts and creates clip briefs. |
+| `skills/competitor-scout/SKILL.md` | Standalone campaign/competitor research flow for pricing, features, messaging, and public activity. |
+
+### Scripts and Local Tooling
+
+| File | What It Does |
+|---|---|
+| `scripts/setup.sh` | One-command local setup. Creates `.venv` and installs approved Python dependencies. |
+| `scripts/check_secrets.py` | Lightweight scanner that checks the repo for accidental API keys, tokens, or webhooks before sharing or pushing. |
+| `scripts/get_youtube_transcript.py` | Pulls public YouTube captions/transcripts with timestamps using `youtube-transcript-api`. |
+| `scripts/extract_clip.py` | Validates video URLs and clip boundaries, then creates timestamped clip metadata. |
+| `scripts/score_engagement.py` | Calculates engagement velocity scores for X/Twitter, Reddit, YouTube, and Instagram-style inputs. |
+| `requirements.txt` | Pinned Python dependency list for simple installation. |
+| `pyproject.toml` | Project metadata and Python dependency declaration for `uv`. |
+| `tests/test_scripts.py` | Offline unit tests for URL validation, clip extraction, transcript input validation, and scoring safety checks. |
+
+### Templates
+
+| File | What It Does |
+|---|---|
+| `templates/trend-report.md` | Output format for daily AI trend reports. |
+| `templates/clip-brief.md` | Output format for short-form clip opportunities with timestamps, hooks, captions, and hashtags. |
+| `templates/content-brief.md` | Output format for broader content planning based on approved trends and sources. |
+| `templates/competitor-report.md` | Output format for competitor intelligence reports. |
+
+### Memory and Output Folders
+
+| Path | What It Does |
+|---|---|
+| `memory/trend-history.md` | Stores past trends for deduplication and review. Starts as a placeholder. |
+| `memory/competitor-snapshots.md` | Stores competitor snapshots for future change detection. Starts as a placeholder. |
+| `memory/content-performance.md` | Stores performance notes after content is posted, so scoring can improve later. Starts as a placeholder. |
+| `vault/intake/` | Local folder for raw scout reports. Contents are ignored by Git except `.gitkeep`. |
+| `vault/briefs/` | Local folder for approved content briefs. Contents are ignored by Git except `.gitkeep`. |
+| `vault/reports/` | Local folder for approved competitor reports. Contents are ignored by Git except `.gitkeep`. |
 
 ---
 
