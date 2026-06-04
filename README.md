@@ -17,6 +17,8 @@ Goblin Recon is an AI-powered content research agent that:
 
 **Use case:** Marketing team finds viral AI content → extracts best clips → creates faceless reels → posts on Instagram/TikTok/YouTube Shorts
 
+For a clean file-by-file explanation of the repository, read [`FILE_DESCRIPTIONS.md`](FILE_DESCRIPTIONS.md).
+
 ---
 
 ## Quick Start (5 minutes)
@@ -230,6 +232,7 @@ Use this section to understand what every major file and folder does.
 | File | What It Does |
 |---|---|
 | `README.md` | Main technical overview for Goblin Recon. Use this first if you are setting up or reviewing the project. |
+| `FILE_DESCRIPTIONS.md` | Complete file-by-file guide explaining the job of every tracked file and folder. |
 | `INSTRUCTIONS.md` | Simple marketing-team guide with setup steps, commands, examples, and when to trigger each workflow. |
 | `AGENTS.md` | The main Hermes agent rules: identity, behavior, source verification, clip rules, and security guardrails. |
 | `HERMES_APPROVALS.md` | Explains which Hermes permissions to approve or deny when starting Goblin Recon. |
