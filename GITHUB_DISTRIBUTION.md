@@ -247,7 +247,8 @@ Send this to the team:
 4. Run: python3 scripts/check_secrets.py
 5. Create your Hermes profile: hermes profile create goblin-recon
 6. Launch: hermes -p goblin-recon
-7. Type: run full scan
+7. Read HERMES_APPROVALS.md before approving tool permissions.
+8. Type: run full scan
 
 Do not paste API keys into chat. Use .env or Hermes secrets only.
 ```

@@ -199,6 +199,7 @@ Before using Goblin Recon with company accounts or third-party APIs, read:
 - `API_KEYS.md` — how keys must be stored, scoped, rotated, and revoked
 - `SOCIAL_API_SETUP.md` — simple guide for enabling approved social APIs
 - `GITHUB_DISTRIBUTION.md` — how to share through GitHub safely
+- `HERMES_APPROVALS.md` — what Hermes permissions to approve or deny
 - `LEGAL_GUARDRAILS.md` — platform, copyright, competitor research, and publishing rules
 - `PRE_LAUNCH_CHECKLIST.md` — approval checklist before company rollout
 - `config/security.yaml` — machine-readable defaults the agent should follow
