@@ -173,7 +173,6 @@ These rules protect company accounts, API keys, and unpublished content.
 - `SECURITY.md` explains the overall security policy.
 - `API_KEYS.md` explains how to handle keys safely.
 - `SOCIAL_API_SETUP.md` explains how to add approved social API keys.
-- `GITHUB_DISTRIBUTION.md` explains how to clone/copy from GitHub safely.
 - `HERMES_APPROVALS.md` explains what to approve or deny when Hermes asks for permissions.
 - `LEGAL_GUARDRAILS.md` explains platform and copyright rules.
 - `PRE_LAUNCH_CHECKLIST.md` is the final checklist before company rollout.

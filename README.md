@@ -200,7 +200,6 @@ Before using Goblin Recon with company accounts or third-party APIs, read:
 - `SECURITY.md` — project security policy
 - `API_KEYS.md` — how keys must be stored, scoped, rotated, and revoked
 - `SOCIAL_API_SETUP.md` — simple guide for enabling approved social APIs
-- `GITHUB_DISTRIBUTION.md` — how to share through GitHub safely
 - `HERMES_APPROVALS.md` — what Hermes permissions to approve or deny
 - `LEGAL_GUARDRAILS.md` — platform, copyright, competitor research, and publishing rules
 - `PRE_LAUNCH_CHECKLIST.md` — approval checklist before company rollout
@@ -236,7 +235,6 @@ Use this section to understand what every major file and folder does.
 | `INSTRUCTIONS.md` | Simple marketing-team guide with setup steps, commands, examples, and when to trigger each workflow. |
 | `AGENTS.md` | The main Hermes agent rules: identity, behavior, source verification, clip rules, and security guardrails. |
 | `HERMES_APPROVALS.md` | Explains which Hermes permissions to approve or deny when starting Goblin Recon. |
-| `GITHUB_DISTRIBUTION.md` | Explains how to distribute Goblin Recon through GitHub, what to commit, and what not to commit. |
 
 ### Security and Compliance Files
 

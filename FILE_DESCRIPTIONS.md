@@ -1,6 +1,6 @@
 # Goblin Recon File Descriptions
 
-This document explains what each file and folder in Goblin Recon does. Use it when onboarding team members or reviewing the repository in GitHub.
+This document gives a one-line purpose for each committed file and folder in Goblin Recon.
 
 Important GitHub note: the text shown beside files in the GitHub file browser is usually the **latest commit message**, not a custom file description. This file is the actual clean reference for what each file does.
 
@@ -21,7 +21,6 @@ Important GitHub note: the text shown beside files in the GitHub file browser is
 
 | File | Job |
 |---|---|
-| `GITHUB_DISTRIBUTION.md` | Explains how to distribute Goblin Recon through GitHub, what should be committed, what must never be committed, and how team members clone/update the repo. |
 | `PRE_LAUNCH_CHECKLIST.md` | Final business rollout checklist covering repository safety, API approval, source approval, legal review, data retention, and team training. |
 
 ---
