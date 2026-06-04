@@ -1,0 +1,71 @@
+# Goblin Recon — Scoring Configuration
+# Scoring weights for all layers
+
+# Trend Radar (Layer 1)
+trend_radar:
+  threshold: 60  # Minimum score to advance (out of 100)
+  dimensions:
+    - key: recency
+      max: 20
+      hint: "Published in last 24h = 20, 48h = 15, 72h = 10, older = 0"
+    - key: velocity
+      max: 20
+      hint: "Engagement per hour — high velocity means GOING viral"
+    - key: cross_source
+      max: 15
+      hint: "1 source = 5, 2 sources = 10, 3+ sources = 15"
+    - key: controversy
+      max: 15
+      hint: "Polarized comments, opposing takes, heated debate"
+    - key: visual_potential
+      max: 15
+      hint: "Can this be made into a compelling faceless reel?"
+    - key: genx_relevance
+      max: 15
+      hint: "Would AI founders and enthusiasts care about this?"
+
+# Source Hunter (Layer 2)
+source_hunter:
+  threshold: 65
+  dimensions:
+    - key: topic_match
+      max: 30
+      hint: "Title + description match story keywords"
+    - key: recency
+      max: 20
+      hint: "How old? Last 7 days = 20, 14 days = 15, 30 days = 10"
+    - key: credibility
+      max: 20
+      hint: "Channel size + authority + consistency"
+    - key: clip_potential
+      max: 15
+      hint: "Does it have quotable moments?"
+    - key: engagement_ratio
+      max: 15
+      hint: "Views per hour since publish"
+
+# Moment Finder (Layer 3)
+moment_finder:
+  min_score: 60
+  dimensions:
+    - key: quotability
+      max: 30
+      hint: "Would someone quote this in a meeting?"
+    - key: emotion
+      max: 20
+      hint: "Does it evoke strong reaction?"
+    - key: clarity
+      max: 20
+      hint: "Is the point clear without context?"
+    - key: controversy
+      max: 15
+      hint: "Does it challenge conventional thinking?"
+    - key: visual_potential
+      max: 15
+      hint: "Can it be made into a faceless reel with text overlay?"
+
+# Clip Rules
+clip_rules:
+  min_duration: 15  # seconds
+  max_duration: 60  # seconds
+  optimal_duration: 30  # seconds

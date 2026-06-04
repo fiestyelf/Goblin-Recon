@@ -1,0 +1,12 @@
+# Goblin Recon — Competitor Configuration
+# Add competitors to monitor (fill in later)
+
+competitors: []
+  # Example:
+  # - name: "Competitor Name"
+  #   website: "https://competitor.com"
+  #   pricing_page: "https://competitor.com/pricing"
+  #   blog: "https://competitor.com/blog"
+  #   twitter: "@competitor"
+  #   linkedin: "competitor"
+  #   instagram: "competitor"

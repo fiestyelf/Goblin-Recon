@@ -1,0 +1,50 @@
+# Goblin Recon — Content Source Configuration
+# YouTube channels and IG accounts for source hunting
+
+youtube:
+  podcast_channels:
+    - name: "Lex Fridman"
+      channel_id: "UCSHZKJJfhK61IS3MnH"
+      type: podcast
+      focus: AI, tech, science
+    - name: "All-In Podcast"
+      channel_id: "UCESLZhusAkFfsNsApnjF_Cg"
+      type: podcast
+      focus: tech, business, AI
+    - name: "The AI Exchange"
+      channel_id: ""
+      type: news
+      focus: AI industry
+    - name: "AI Explained"
+      channel_id: ""
+      type: educational
+      focus: AI explanations
+    - name: "Two Minute Papers"
+      channel_id: "UCbfYPyITQ-7l4upoX8nvctg"
+      type: educational
+      focus: AI research papers
+
+  search_queries:
+    - "[topic] podcast 2026"
+    - "[topic] interview"
+    - "[topic] explained"
+    - "[topic] debate"
+    - "[topic] prediction"
+    - "[topic] analysis"
+    - "[topic] breakdown"
+
+instagram:
+  tech_accounts:
+    - "therundownai"
+    - "ai_for_success"
+    - "dailyaibrief"
+    - "aaboroshke"
+    - "ainews"
+
+  search_tags:
+    - "#ainews"
+    - "#artificialintelligence"
+    - "#technews"
+    - "#aitools"
+    - "#machinelearning"
+    - "#deeplearning"

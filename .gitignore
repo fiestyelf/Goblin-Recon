@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Local secrets and machine-specific config
+.env
+.env.*
+!.env.example
+secrets.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Local outputs that may contain sensitive notes or unpublished content
+vault/intake/*
+vault/briefs/*
+vault/reports/*
+!vault/intake/.gitkeep
+!vault/briefs/.gitkeep
+!vault/reports/.gitkeep
+
+# Runtime logs
+*.log
+logs/

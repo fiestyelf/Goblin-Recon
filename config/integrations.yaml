@@ -1,0 +1,62 @@
+# Goblin Recon third-party integration registry.
+# Keep integrations disabled until company/admin approval is complete.
+
+integrations:
+  youtube_data_api:
+    enabled: false
+    approval_required: true
+    purpose: "Read public video/channel metadata when transcript-only access is not enough."
+    env_vars:
+      - YOUTUBE_API_KEY
+    recommended_scope: "Read-only public metadata"
+    avoid: "Upload, delete, edit, or manage channel permissions"
+
+  x_twitter_api:
+    enabled: false
+    approval_required: true
+    purpose: "Read public trend/search data from X/Twitter."
+    env_vars:
+      - X_BEARER_TOKEN
+    recommended_scope: "Read-only search/recent posts"
+    avoid: "Posting, deleting posts, DM access, account management"
+
+  reddit_api:
+    enabled: false
+    approval_required: true
+    purpose: "Read public subreddit posts and comments."
+    env_vars:
+      - REDDIT_CLIENT_ID
+      - REDDIT_CLIENT_SECRET
+      - REDDIT_USER_AGENT
+    recommended_scope: "Read-only public data"
+    avoid: "Private messages, moderation, posting, voting"
+
+  instagram_meta_api:
+    enabled: false
+    approval_required: true
+    purpose: "Read approved public/business account data through Meta APIs."
+    env_vars:
+      - META_APP_ID
+      - META_APP_SECRET
+      - META_ACCESS_TOKEN
+    recommended_scope: "Approved read-only insights/public content permissions"
+    avoid: "Personal account automation, scraping login-only Instagram pages"
+
+  linkedin_api:
+    enabled: false
+    approval_required: true
+    purpose: "Read approved company page or ad/library data where permitted."
+    env_vars:
+      - LINKEDIN_CLIENT_ID
+      - LINKEDIN_CLIENT_SECRET
+    recommended_scope: "Read-only organization data approved by LinkedIn"
+    avoid: "Profile scraping, personal account automation, unsolicited messaging"
+
+  discord_delivery:
+    enabled: false
+    approval_required: true
+    purpose: "Send approved briefs to a team Discord channel."
+    env_vars:
+      - DISCORD_WEBHOOK_URL
+    recommended_scope: "Single-channel incoming webhook"
+    avoid: "Admin bot permissions, server-wide permissions"

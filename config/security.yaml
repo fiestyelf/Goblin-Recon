@@ -1,0 +1,48 @@
+# Goblin Recon security and compliance defaults.
+# These are operational guardrails for the agent and the team.
+
+data_collection:
+  public_sources_only: true
+  allow_login_required_sources: false
+  allow_private_accounts: false
+  allow_paywall_bypass: false
+  allow_captcha_bypass: false
+  allow_personal_data_collection: false
+  respect_platform_terms: true
+  respect_robots_txt_when_scraping_sites: true
+
+source_policy:
+  require_url: true
+  require_publication_date: true
+  require_source_name: true
+  max_transcript_excerpt_words_in_reports: 120
+  store_raw_full_transcripts: false
+  cite_original_creator: true
+
+api_keys:
+  storage: env_or_hermes_profile_only
+  commit_keys_to_repo: false
+  share_keys_in_chat: false
+  use_personal_social_accounts: false
+  use_company_approved_accounts_only: true
+  rotate_on_team_member_exit: true
+  rotate_on_possible_exposure: true
+  minimum_rotation_days: 90
+
+rate_limits:
+  enabled: true
+  max_requests_per_source_per_minute: 30
+  backoff_on_429: true
+  stop_on_access_denied: true
+
+human_review:
+  required_before_publishing: true
+  required_for_legal_claims: true
+  required_for_competitor_claims: true
+  required_for_copyright_sensitive_clips: true
+
+retention:
+  raw_intake_days: 30
+  approved_briefs_days: 365
+  competitor_snapshots_days: 365
+  delete_on_request: true
