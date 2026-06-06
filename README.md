@@ -2,7 +2,7 @@
 
 *You trigger. It hunts.*
 
-AI-powered content research agent for GenX Academy. Finds trending stories, locates source videos, and extracts 15-60 second clip moments — all in one pipeline.
+AI-powered content research agent for GenX Academy. Two pipelines: Social Pulse (ideas, blogs, carousels) and Clip Mine (podcast clips for faceless Instagram page).
 
 ---
 
@@ -20,12 +20,16 @@ Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
 
 | Say this | It does |
 |---|---|
-| `find trending AI stories` | Layer 1 — Trend Radar |
-| `find sources for [topic]` | Layer 2 — Source Hunter |
-| `find the moment in [URL]` | Layer 3 — Moment Finder |
-| `run full scan` | All 3 layers |
+| `run social pulse` | Pipeline A — ideas, blogs, carousels, content strategy |
+| `run clip mine` | Pipeline B — podcast clips for faceless IG page |
+| `blog ideas` | Social Pulse filtered for long-form content |
+| `carousel ideas` | Social Pulse filtered for carousel topics |
+| `content strategy this week` | Social Pulse + editorial suggestions |
+| `find clips about [topic]` | Clip Mine for a specific topic |
+| `find the moment in [URL]` | Extract best clip from a video |
+| `run full scan` | Social Pulse + Clip Mine in sequence |
+| `what clips are ready` | Approved clips awaiting editor handoff |
 | `run competitor scan` | Competitor Scout |
-| `run brand check on [content]` | Brand gate validation |
 
 ## File Guide
 

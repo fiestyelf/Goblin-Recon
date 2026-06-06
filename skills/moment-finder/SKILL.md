@@ -86,6 +86,18 @@ Read transcript and mark moments where:
 - The speaker explains what actually has to change in behavior, systems, delivery, or decision-making.
 - Prefer proof, mechanism, and operational detail over motivational advice.
 
+**Scroll-Stop Moments (highest priority):**
+- Pattern: concrete number, controversy, or revelation in first 3 seconds
+- Example: "57% of all web traffic is bots", "Two nights. $238,000."
+- Category tag: Identify whether this moment is Latest AI News, Controversial, Upgrade, or Analytical
+
+**Category Assignment:**
+After identifying hot zones, tag each candidate clip:
+- Latest AI News: Breaking developments, launches, policy changes
+- Controversial/Polarizing: Debates, backlash, hot takes
+- Upgrade/Democratization: "Anyone can now do X," barrier collapsing
+- Analytical/Deep-dive: Strategic insights, economic analysis, predictions
+
 ### Step 3: Context Window
 
 For each hot zone found:
@@ -95,12 +107,17 @@ For each hot zone found:
 2. Ask: does this moment LAND? Is there setup → payoff?
 3. Ask: would someone stop scrolling for this?
 4. Score the moment:
-   - Quotability: 0-30 (would someone quote this?)
-   - Emotion: 0-20 (does it evoke strong reaction?)
-   - Clarity: 0-20 (is the point clear without context?)
-   - Controversy: 0-15 (does it challenge thinking?)
-   - Visual potential: 0-10 (faceless reel with text overlay?)
-   - Brand alignment: 0-15 (B2C science+soul/truly-seen or B2B results-not-advice)
+
+   | Dimension | Max | What to look for |
+   |-----------|-----|------------------|
+   | scroll_stop | 15 | THE test. Would someone stop scrolling for this? First 3 seconds must hook. |
+   | quotability | 25 | Would someone quote/screenshot/share this? Standalone soundbite? |
+   | emotion | 15 | Does it trigger fear, awe, anger, excitement, or curiosity? |
+   | clarity | 15 | Is the point clear without context? No jargon, no setup needed. |
+   | controversy | 10 | Does it challenge conventional thinking? Will people comment? |
+   | visual_potential | 10 | Works as faceless reel with text overlay? No face required to land. |
+   | brand_alignment | 15 | B2C science+soul/truly-seen or B2B results-not-advice |
+
 5. Add qualitative checks:
    - Truly-seen signal: strong/medium/weak
    - Emotional signature: named emotion the viewer should feel
@@ -142,7 +159,7 @@ DURATION CHECK:
 
 ### Step 5: Generate Clip Brief
 
-Use template: templates/clip-brief.md
+Use template: templates/clip-mine-brief.md
 
 For each clip:
 
@@ -199,10 +216,11 @@ HASHTAGS:
 #[tag1] #[tag2] #[tag3] #[tag4] #[tag5]
 
 SCORE: [X]/100
-- Quotability: [X]/30
-- Emotion: [X]/20
-- Clarity: [X]/20
-- Controversy: [X]/15
+- Scroll-stop: [X]/15
+- Quotability: [X]/25
+- Emotion: [X]/15
+- Clarity: [X]/15
+- Controversy: [X]/10
 - Visual potential: [X]/10
 - Brand alignment: [X]/15
 ```

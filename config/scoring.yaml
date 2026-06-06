@@ -2,76 +2,101 @@
 # Scoring weights for all layers
 
 # Trend Radar (Layer 1)
+# Priority: Instagram → TikTok → X/Twitter → Reddit → Tech News
 trend_radar:
   threshold: 60  # Minimum score to advance (out of 100)
   dimensions:
+    - key: social_velocity
+      max: 25
+      hint: "IG views/hour or TikTok plays/hour. 100K+/hr = 25, 50K+/hr = 20, 10K+/hr = 15, 1K+/hr = 10, under = 5. This is the PRIMARY signal — catches things GOING viral on social."
     - key: recency
-      max: 20
-      hint: "Published in last 24h = 20, 48h = 15, 72h = 10, older = 0"
-    - key: velocity
-      max: 20
-      hint: "Engagement per hour — high velocity means GOING viral"
+      max: 15
+      hint: "Published in last 24h = 15, 48h = 12, 72h = 8, older = 0"
     - key: cross_source
       max: 15
-      hint: "1 source = 5, 2 sources = 10, 3+ sources = 15"
+      hint: "1 source = 5, 2 sources = 10, 3+ sources = 15. IG + X = confirmed."
     - key: controversy
       max: 15
-      hint: "Polarized comments, opposing takes, heated debate"
-    - key: visual_potential
+      hint: "Polarized comments, opposing takes, heated debate. Look for comment sections on fire."
+    - key: format_stealability
       max: 15
-      hint: "Can this be made into a compelling faceless reel?"
+      hint: "Can the reel format be adapted for GenX content? Is the hook style replicable? Does the structure work for faceless?"
     - key: genx_relevance
       max: 10
-      hint: "Would GenX B2C/B2B audiences care about this?"
+      hint: "Would GenX B2C/B2B audiences care about this at a human level?"
     - key: brand_alignment
       max: 15
-      hint: "Fits B2C science+soul or B2B results-not-advice positioning; no hype/woo/corporate filler"
+      hint: "Fits B2C science+soul or B2B results-not-advice positioning; no hype/woo/corporate filler. Passes brand gate."
+  instagram_specific:
+    min_views_for_signal: 50000
+    extract_hook_style: true
+    extract_format_type: true
+    track_creator_growth: true
+  tiktok_specific:
+    min_plays_for_signal: 100000
+    extract_sound_trend: true
+    extract_format_innovation: true
 
 # Source Hunter (Layer 2)
 source_hunter:
   threshold: 65
   dimensions:
     - key: topic_match
-      max: 30
-      hint: "Title + description match story keywords"
+      max: 25
+      hint: "Title + description match story keywords. Lowered from 30 to make room for format quality."
     - key: recency
       max: 20
       hint: "How old? Last 7 days = 20, 14 days = 15, 30 days = 10"
     - key: credibility
       max: 20
-      hint: "Channel size + authority + consistency"
+      hint: "Channel size + authority + consistency. Verified badge counts."
     - key: clip_potential
       max: 15
-      hint: "Does it have quotable moments?"
+      hint: "Does it have quotable moments? Clear soundbites?"
     - key: engagement_ratio
       max: 10
-      hint: "Views per hour since publish"
+      hint: "Views per hour since publish. Social velocity."
     - key: brand_voice_fit
       max: 15
-      hint: "Creator tone aligns with GenX voice; penalize hype, fake urgency, woo, advice-merchant tone"
+      hint: "Creator tone aligns with GenX voice; penalize hype, fake urgency, woo, advice-merchant tone."
+    - key: format_reusability
+      max: 5
+      hint: "Can the video's format/structure be adapted for GenX content? Bonus for clear hooks, text overlays, or comparison formats."
+  source_priority:
+    - youtube_podcast
+    - instagram_reel
+    - tiktok
+    - podcast_audio
 
 # Moment Finder (Layer 3)
 moment_finder:
   min_score: 60
   dimensions:
-    - key: quotability
-      max: 30
-      hint: "Would someone quote this in a meeting?"
-    - key: emotion
-      max: 20
-      hint: "Does it evoke strong reaction?"
-    - key: clarity
-      max: 20
-      hint: "Is the point clear without context?"
-    - key: controversy
+    - key: scroll_stop
       max: 15
-      hint: "Does it challenge conventional thinking?"
+      hint: "THE test. Would someone stop scrolling for this? Visual + audio + hook combined. This is the #1 dimension for social content."
+    - key: quotability
+      max: 25
+      hint: "Would someone quote this in a meeting? Would it work as a text overlay?"
+    - key: emotion
+      max: 15
+      hint: "Does it evoke strong reaction? Fear, awe, anger, excitement, curiosity."
+    - key: clarity
+      max: 15
+      hint: "Is the point clear without context? Can someone understand it in 3 seconds?"
+    - key: controversy
+      max: 10
+      hint: "Does it challenge conventional thinking? Would people argue in comments?"
     - key: visual_potential
       max: 10
-      hint: "Can it be made into a faceless reel with text overlay?"
+      hint: "Can it be made into a faceless reel with text overlay and stock footage?"
     - key: brand_alignment
       max: 15
-      hint: "Moment expresses B2C science+soul/truly-seen or B2B implementation/results-not-advice"
+      hint: "Moment expresses B2C science+soul/truly-seen or B2B implementation/results-not-advice."
+  clip_duration:
+    min: 15
+    max: 60
+    optimal: 30
 
 # Brand Gate
 brand_gate:
@@ -91,3 +116,35 @@ clip_rules:
   min_duration: 15  # seconds
   max_duration: 60  # seconds
   optimal_duration: 30  # seconds
+
+# Format Quality (for trend reports)
+format_quality:
+  winning_formats:
+    - x_vs_y_comparison:
+        hook: "Which [X] is the most [Y]?"
+        works_for: "AI model comparisons, tool comparisons, timeline contrasts"
+        visual: "Side-by-side clips or split screen"
+    - shocking_stat:
+        hook: "[Number]% of [thing] is now [surprising fact]"
+        works_for: "Data-driven stories, industry shifts"
+        visual: "Animated counters, text reveal"
+    - they_dont_want_you_to_know:
+        hook: "How [group] is secretly [action]"
+        works_for: "Exposé, industry manipulation, hidden practices"
+        visual: "Screenshots, documents, dramatic text reveals"
+    - celebrity_controversy:
+        hook: "[Famous person] just [controversial AI action]"
+        works_for: "Celebrity AI adoption, Hollywood AI debates"
+        visual: "Celebrity clips + AI-generated content side-by-side"
+    - mind_blowing_science:
+        hook: "This [thing] has no [critical component] but can [amazing feat]"
+        works_for: "Robotics, AI breakthroughs, research papers"
+        visual: "Lab footage, robot demos, microscope imagery"
+    - student_versus_system:
+        hook: "[Regular person] used [AI tool] and made [impressive result]"
+        works_for: "Democratization stories, tool tutorials"
+        visual: "Before/after, process montage, result reveal"
+    - quote_card:
+        hook: "[Authority figure]: '[provocative quote]'"
+        works_for: "CEO interviews, research paper quotes, predictions"
+        visual: "Text overlay on stock footage or interview clips"

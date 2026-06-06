@@ -1,3 +1,5 @@
+<!-- DEPRECATED — Use templates/clip-mine-brief.md instead. This file kept for backward reference only. -->
+
 # Clip Brief: "[HEADLINE]"
 
 **Generated:** [timestamp]

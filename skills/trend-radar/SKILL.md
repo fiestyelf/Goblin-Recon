@@ -4,10 +4,13 @@
 Find today's top 5 trending AI stories from multiple sources.
 
 ## Triggers
-- "find trending stories"
-- "what's buzzing"
-- "daily scan"
-- "trending AI"
+- "run social pulse" — Full Social Pulse scan
+- "what's trending on Instagram" — IG-only scan
+- "what's trending on TikTok" — TikTok-only scan
+- "blog ideas" — Filtered for long-form angles
+- "carousel ideas" — Filtered for carousel topics
+- "content strategy this week" — Social Pulse + editorial suggestions
+- "run full scan" — Social Pulse + Clip Mine
 
 ## Tools Required
 - web_search
@@ -39,7 +42,20 @@ Load config/brand-voice.yaml for brand gate and blacklist
 Load memory/brand-rules.md for B2C/B2B positioning
 ```
 
-### Step 2: Scan Sources (Parallel)
+### Step 2: Scan Sources (in priority order)
+
+**Instagram (PRIMARY — scan first):**
+- Check creator accounts from config/sources.yaml: @therundownai (491K), @rowancheung (418K), @inflecta.ai, @ankitgupta.ai
+- Browse #ainews, #artificialintelligence, #aitools hashtags
+- Extract: story, hook style, format type, engagement metrics (views, likes, comments)
+- Min 50K views for signal
+- Public profiles only. No login bypass. Stop if blocked
+
+**TikTok (SECONDARY):**
+- Search hashtags: #ainews, #artificialintelligence, #aiexplained, #aitools
+- Check creator accounts from config/sources.yaml for recent posts
+- Extract: story, sound trends, format innovation, engagement (plays, shares)
+- Identify viral acceleration patterns
 
 **X/Twitter:**
 - Search each query from sources.yaml
@@ -84,13 +100,13 @@ For each unique story, calculate score (0-100):
 
 | Dimension | Max | How to Score |
 |-----------|-----|--------------|
-| Recency | 20 | 24h = 20, 48h = 15, 72h = 10, older = 0 |
-| Velocity | 20 | Use scripts/score_engagement.py |
-| Cross-source | 15 | 1 source = 5, 2 sources = 10, 3+ = 15 |
-| Controversy | 15 | Polarized comments, opposing takes |
-| Visual potential | 15 | Can this be a faceless reel? |
-| GenX relevance | 10 | Would GenX B2C/B2B audiences care? |
-| Brand alignment | 15 | Fits B2C science+soul or B2B results-not-advice positioning; no hype/woo/corporate filler |
+| social_velocity | 25 | IG views/hr or TikTok plays/hr. PRIMARY signal for trend detection |
+| recency | 15 | 24h=15, 48h=12, 72h=8, older=0 |
+| cross_source | 15 | 1 source=5, 2 sources=10, 3+ sources=15. IG+X=confirmed |
+| controversy | 15 | Polarized comments, heated debate, opposing takes |
+| format_stealability | 15 | Can the reel format be adapted for GenX? |
+| genx_relevance | 10 | Would GenX B2C or B2B audiences care? |
+| brand_alignment | 15 | Fits B2C science+soul or B2B results-not-advice; no hype/woo/corporate filler |
 
 **Threshold:** 60/100 to advance. Below = auto-shelve.
 

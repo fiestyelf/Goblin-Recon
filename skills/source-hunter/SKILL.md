@@ -4,9 +4,11 @@
 Find YouTube videos and Instagram content discussing each trending story from Layer 1.
 
 ## Triggers
-- Automatic chain from Layer 1 (trend-radar)
-- "find sources for [topic]"
-- "where are people talking about this"
+- "run clip mine" — Find best podcast clips from trending stories
+- "find clips about [topic]" — Specific topic source hunt
+- "find the moment in [URL]" — Extract from a specific video
+- "what clips are ready" — Approved clips awaiting editors
+- "run full scan" — Social Pulse + Clip Mine
 
 ## Tools Required
 - browser (for YouTube, Instagram search)
@@ -83,12 +85,13 @@ For each video/reel, calculate score (0-100):
 
 | Dimension | Max | How to Score |
 |-----------|-----|--------------|
-| Topic match | 30 | Title + description match story keywords? |
-| Recency | 20 | Last 7 days = 20, 14 days = 15, 30 days = 10 |
-| Credibility | 20 | Channel size + authority + consistency |
-| Clip potential | 15 | Does it have quotable moments? |
-| Engagement ratio | 10 | Views / hours since publish |
-| Brand voice fit | 15 | Creator/source tone aligns with GenX; penalize hype, fake urgency, woo, and advice-merchant tone |
+| topic_match | 25 | Title + description match story keywords |
+| recency | 20 | Last 7 days=20, 14 days=15, 30 days=10 |
+| credibility | 20 | Channel size + authority + consistency |
+| clip_potential | 15 | Does it have quotable moments? Soundbites? |
+| engagement_ratio | 10 | Views per hour since publish |
+| brand_voice_fit | 15 | Creator tone aligns with GenX; penalize hype, fake urgency, woo |
+| format_reusability | 5 | Can the format/clip style be adapted for our page? |
 
 **Threshold:** 65/100 to advance. Below = skip.
 

@@ -1,8 +1,103 @@
 # Goblin Recon — Source Configuration
 # Where the trend radar looks for stories
+#
+# PRIORITY ORDER: Instagram → TikTok → X/Twitter → Reddit → Tech News
+# Social platforms drive engagement. News sites provide validation.
 
 sources:
+
+  # ── LAYER 1A: INSTAGRAM (Primary Trend Detection) ──
+  instagram:
+    priority: 1
+    reason: "Highest engagement density for AI content. Creator-driven, format-visible."
+    hashtags:
+      - ainnews
+      - artificialintelligence
+      - aitools
+      - aiupdates
+      - technews
+      - machinelearning
+      - generativeai
+      - ainews
+    creator_accounts:
+      - handle: therundownai
+        followers: 491000
+        type: news_digest
+        format: carousel_slides
+        notes: "Daily AI news digest. Carousel format. High consistency."
+      - handle: rowancheung
+        followers: 418000
+        type: interview_clips
+        format: reels
+        notes: "Exclusive AI leader interviews. Clip-based. Premium sourcing."
+      - handle: inflecta.ai
+        followers: null
+        type: narrative_storytelling
+        format: reels
+        notes: "Narrative AI stories. High viral potential. 'Student made $238K' format."
+      - handle: ankitgupta.ai
+        followers: null
+        type: ai_tools
+        format: reels
+        notes: "AI tool showcases. 'Content systems not creation' angle."
+      - handle: ai_for_success
+        followers: 70000
+        type: ai_tips
+        format: reels
+        notes: "AI tips and tools for productivity."
+      - handle: dailyaibrief
+        followers: null
+        type: news
+        format: reels
+        notes: "Daily AI news briefs."
+      - handle: aaboroshke
+        followers: null
+        type: commentary
+        format: reels
+        notes: "AI commentary and analysis."
+    scrape_rules:
+      public_only: true
+      no_login_bypass: true
+      respect_rate_limits: true
+      max_profiles_per_scan: 5
+      extract: ["caption", "hashtags", "view_count", "likes", "format_type", "hook_style"]
+
+  # ── LAYER 1B: TIKTOK (Secondary Trend Detection) ──
+  tiktok:
+    priority: 2
+    reason: "Fastest viral acceleration. Format innovation originates here."
+    hashtags:
+      - ainnews
+      - artificialintelligence
+      - aiexplained
+      - technews
+      - aitools
+      - machinelearning
+      - aibreakthrough
+    creator_accounts:
+      - handle: "@ainews"
+        type: news_aggregator
+      - handle: "@tech_tok"
+        type: tech_news
+      - handle: "@futurepedia"
+        type: ai_tools
+      - handle: "@mreflow"
+        type: ai_workflow
+    search_queries:
+      - "AI news today"
+      - "AI breakthrough 2026"
+      - "AI tool that will blow your mind"
+      - "AI replaces jobs"
+      - "Claude vs ChatGPT"
+    scrape_rules:
+      public_only: true
+      respect_rate_limits: true
+      extract: ["caption", "hashtags", "play_count", "format", "sound_trend"]
+
+  # ── LAYER 1C: X/TWITTER (Validation + Velocity Check) ──
   x_twitter:
+    priority: 3
+    reason: "Real-time validation. Check if IG/TikTok trends are also breaking on X."
     queries:
       - "AI agent"
       - "LLM news"
@@ -22,7 +117,10 @@ sources:
       - "@sama"
       - "@kaboroshke"
 
+  # ── LAYER 1D: REDDIT (Community Sentiment) ──
   reddit:
+    priority: 4
+    reason: "Community validation. What are actual practitioners discussing?"
     subreddits:
       - artificial
       - singularity
@@ -33,7 +131,10 @@ sources:
     sort: hot
     min_upvotes: 100
 
+  # ── LAYER 1E: TECH NEWS (Source Verification) ──
   tech_news:
+    priority: 5
+    reason: "Verify IG/TikTok trends against credible journalism. Add publication dates + URLs."
     sites:
       - name: TechCrunch
         url: https://techcrunch.com/category/artificial-intelligence/
@@ -44,7 +145,10 @@ sources:
       - name: Ars Technica
         url: https://arstechnica.com/ai/
 
+  # ── LAYER 1F: PRODUCT HUNT (Tool/Product Trends) ──
   product_hunt:
+    priority: 6
+    reason: "What AI tools are launching? Tool trends → content angles."
     topics:
       - artificial-intelligence
       - agents

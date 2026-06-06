@@ -16,13 +16,20 @@ Goblin Recon is your AI research assistant. It finds trending AI stories, locate
 
 ## What You Get
 
-When you run Goblin Recon, it will give you:
+When you run Goblin Recon, you get two types of output:
 
-1. **Top 5 trending AI stories** of the day (with scores)
-2. **Best YouTube/Instagram videos** about those stories
-3. **Exact clip timestamps** (e.g., "start at 2:34, end at 3:04")
-4. **Suggested captions** for social media posts
-5. **Ready-to-use briefs** you just approve or reject
+### Social Pulse (for the ideas team — blogs, carousels, strategy)
+1. Trending AI topics from Instagram, TikTok, X, Reddit, and tech news
+2. Hook styles and reel formats that creators are using
+3. Blog angles, carousel ideas, and content strategy suggestions
+4. Cross-platform validation (IG + TikTok + News = confirmed trend)
+
+### Clip Mine (for video editors — faceless Instagram reels)
+1. Top 3-5 podcast/video clips (15-60 seconds) from trending AI stories
+2. Exact YouTube timestamps with transcript quotes
+3. Engagement analytics (views, comments, view velocity)
+4. Editor instructions (where to cut, text overlay suggestions, caption)
+5. Brand gate check (approved or shelved with reason)
 
 **You don't need to:**
 - Browse Reddit or Twitter for hours
@@ -256,14 +263,20 @@ Once you're inside Hermes (you see the prompt), you can say these commands:
 
 Use this table when you are not sure which command to run.
 
-| What you need | Type this | What it does |
-|---|---|---|
-| Daily content ideas from scratch | `run full scan` | Runs the full pipeline: trends, sources, clips, and approval briefs |
-| Trending AI topics only | `find trending AI stories` | Finds the top AI stories worth watching today |
-| Source material for a known topic | `find sources for [topic]` | Finds YouTube and Instagram content about that topic |
-| Best short clip from a known video | `find the moment in [video URL]` | Finds 15-60 second quotable moments from a video |
-| Competitor/campaign research | `run competitor scan` | Checks competitor pricing, features, messaging, and public activity |
-| Brand validation | `run brand check on [content]` | Checks content against GenX brand rules and blacklist |
+| Say this | It does |
+|---|---|
+| `run social pulse` | Full scan: IG, TikTok, X, Reddit, Tech News |
+| `what's trending on Instagram` | IG-only creator scan with format analysis |
+| `what's trending on TikTok` | TikTok-only trend scan |
+| `blog ideas` | Social Pulse filtered for long-form content angles |
+| `carousel ideas` | Social Pulse filtered for carousel-worthy topics |
+| `content strategy this week` | Social Pulse + editorial suggestions |
+| `run clip mine` | Find best podcast clips from trending AI stories |
+| `find clips about [topic]` | Clips for a specific topic |
+| `find the moment in [URL]` | Extract best clip from a specific video |
+| `what clips are ready` | Approved clips awaiting editor handoff |
+| `run full scan` | Social Pulse + Clip Mine together |
+| `run competitor scan` | Competitor Scout |
 
 Simple rule:
 

@@ -1,28 +1,43 @@
 # Goblin Recon — Content Source Configuration
-# YouTube channels and IG accounts for source hunting
+# YouTube channels, IG accounts, and TikTok creators for source hunting
 
 youtube:
   podcast_channels:
     - name: "Lex Fridman"
-      channel_id: "UCSHZKJJfhK61IS3MnH"
+      channel_id: "UCSHZKyawb77ixDdsGog4iWA"
       type: podcast
-      focus: AI, tech, science
+      focus: AI, tech, science, philosophy
+      notes: "Long-form interviews. High clip potential. Manual transcript extraction."
     - name: "All-In Podcast"
       channel_id: "UCESLZhusAkFfsNsApnjF_Cg"
       type: podcast
       focus: tech, business, AI
+      notes: "VC perspective. Good for B2B angle."
+    - name: "Hard Fork (NYT)"
+      channel_id: "UChj3Lgsdg5T5hqF1WGZLyqA"
+      type: podcast
+      focus: tech news, AI
+      notes: "NYT production quality. Weekly. Good for IPO/industry stories."
     - name: "The AI Exchange"
       channel_id: ""
       type: news
       focus: AI industry
+      notes: "Channel ID pending. Search by name."
     - name: "AI Explained"
       channel_id: ""
       type: educational
-      focus: AI explanations
+      focus: AI explanations, research breakdowns
+      notes: "Channel ID pending. Search by name."
     - name: "Two Minute Papers"
       channel_id: "UCbfYPyITQ-7l4upoX8nvctg"
       type: educational
       focus: AI research papers
+      notes: "Short format. Good for research paper clips."
+    - name: "Wes Roth"
+      channel_id: ""
+      type: analysis
+      focus: AI news, industry analysis
+      notes: "Weekly AI news roundups. 55K+ views. Good clip potential."
 
   search_queries:
     - "[topic] podcast 2026"
@@ -32,14 +47,18 @@ youtube:
     - "[topic] prediction"
     - "[topic] analysis"
     - "[topic] breakdown"
+    - "[topic] reaction"
 
 instagram:
   tech_accounts:
-    - "therundownai"
-    - "ai_for_success"
-    - "dailyaibrief"
-    - "aaboroshke"
-    - "ainews"
+    - therundownai
+    - rowancheung
+    - inflecta.ai
+    - ankitgupta.ai
+    - ai_for_success
+    - dailyaibrief
+    - aaboroshke
+    - ainnews
 
   search_tags:
     - "#ainews"
@@ -48,3 +67,41 @@ instagram:
     - "#aitools"
     - "#machinelearning"
     - "#deeplearning"
+    - "#aiupdates"
+    - "#generativeai"
+
+tiktok:
+  creators:
+    - handle: "@ainews"
+      type: news_aggregator
+      notes: "Daily AI news clips. Fast turnaround."
+    - handle: "@tech_tok"
+      type: tech_news
+      notes: "Broader tech with heavy AI coverage."
+    - handle: "@futurepedia"
+      type: ai_tools
+      notes: "AI tool showcases. 'Tool that will blow your mind' format."
+    - handle: "@mreflow"
+      type: ai_workflow
+      notes: "AI workflow and automation content."
+    - handle: "@rowancheung"
+      type: interview_clips
+      notes: "Also active on TikTok. Cross-platform presence."
+
+  search_queries:
+    - "AI news today"
+    - "AI breakthrough 2026"
+    - "AI tool that will blow your mind"
+    - "AI replaces jobs"
+    - "Claude vs ChatGPT"
+    - "AI agent tutorial"
+    - "AI explained in 60 seconds"
+
+  search_tags:
+    - "#ainews"
+    - "#artificialintelligence"
+    - "#aiexplained"
+    - "#technews"
+    - "#aitools"
+    - "#machinelearning"
+    - "#aibreakthrough"
