@@ -9,9 +9,22 @@
       "command": "uvx",
       "args": ["mcp-server-fetch"],
       "description": "Optional public web extraction helper. Use only for allowed public pages."
+    },
+    "ghost-browser": {
+      "command": "uvx",
+      "args": ["ghost-browser-mcp"],
+      "description": "Optional public social and JavaScript-heavy page helper. Uses local Chrome/Chromium when available. Do not bypass logins, paywalls, captchas, robots.txt, rate limits, or platform restrictions."
     }
   },
   "optionalServers": {
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "$FIRECRAWL_API_KEY"
+      },
+      "description": "Enable after setting FIRECRAWL_API_KEY locally. Use for allowed public web extraction only. Never paste or commit the API key."
+    },
     "scrapling": {
       "install": "pip install \"scrapling[ai]\"",
       "description": "Use only when normal public extraction fails on JavaScript-heavy pages. Do not bypass paywalls, captchas, login gates, robots.txt, rate limits, or platform restrictions."

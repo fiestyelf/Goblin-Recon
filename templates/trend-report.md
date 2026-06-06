@@ -5,7 +5,18 @@
 
 ---
 
-## Summary
+## Decision
+
+**Recommended action:** Run Source Hunter on [headline].
+**Effort:** [X] minutes to verify sources and pull transcripts.
+**Confidence:** [High / Medium / Low] — [one-line reason based on recency, velocity, source count, and brand fit].
+**Vault check:** [no overlap / similar angle exists: link or filename / needs differentiation].
+**Fallback:** If rejected, pursue [alternative story or angle].
+**AI Overview potential:** [Strong / Medium / Weak] — [one-line reason this could or could not be cited by AI search].
+
+---
+
+## Executive Summary
 
 - Stories scanned: [count]
 - Stories passing threshold (60/100): [count]
@@ -16,17 +27,26 @@
 
 ---
 
-## Top Trending Stories
+## Priority Stories
 
 ### 1. [HEADLINE] — Score: [X]/100
+
+**Decision:** [advance to Source Hunter / monitor / shelve]
+**Effort:** [X] minutes
+**Confidence:** [High / Medium / Low] — [one-line reason]
+**Best platform:** [Instagram Reel / LinkedIn / YouTube Shorts / Blog / Newsletter]
+**Fallback angle:** [specific alternative angle if primary angle is rejected]
 
 **Sources:**
 - [Source 1]: [URL] (published: [date])
 - [Source 2]: [URL] (published: [date])
 - [Source 3]: [URL] (published: [date])
 
-**Why it's trending:**
-[2-3 sentences explaining why this story is getting attention]
+**Why it is current:**
+[1-2 sentences explaining what is happening now, why attention is rising, and what changed recently.]
+
+**Why it matters to GenX:**
+[1-2 sentences connecting the trend to B2C/B2B pain, not generic relevance.]
 
 **Score Breakdown:**
 - Recency: [X]/20
@@ -40,16 +60,15 @@
 **Brand Fit:**
 - Brand Angle: [B2C / B2B / Both]
 - Voice Category: [alive / awakening / limitless / provocative / structural]
-- Audience resonance: [B2C/B2B reason to care]
+- Audience resonance: [specific B2C/B2B reason to care]
 - Mission-spine fit: [strong / medium / weak] — [one-line reason]
 - Blacklist Flags: [none / list violations]
 - Brand reasoning: [why this fits or risks the GenX brand]
 
-**Visual potential:**
-[Assessment of whether this can be made into a faceless reel]
-
-**Recommended next step:**
-[What to do with this story — find sources, create content, etc.]
+**Production potential:**
+- Visual potential: [faceless reel / talking-head reaction / carousel / post / weak]
+- AI Overview potential: [Strong / Medium / Weak] — [reason]
+- Vault check: [no overlap / similar exists / needs differentiation]
 
 ---
 
@@ -79,32 +98,32 @@
 
 ## Shelved Stories
 
-Stories that didn't pass threshold (below 60/100):
+Stories that did not pass threshold or brand gate:
 
 ### [HEADLINE] — Score: [X]/100
-**Reason:** [Why it was shelved — low velocity, old news, low relevance, brand alignment below 8/15, blacklist violation, etc.]
+
+**Reason:** [low velocity / stale / low relevance / brand alignment below 8/15 / blacklist violation / source risk]
 **Brand Angle:** [B2C / B2B / Both / None]
 **Audience Resonance:** [strong / medium / weak / none]
 **Mission-Spine Fit:** [strong / medium / weak / none]
 **Blacklist Flags:** [none / list violations]
+**Revisit trigger:** [what would need to change for this to become useful]
 
 ---
 
 ## Brand-Aligned Opportunities
 
-Stories with strongest fit to GenX positioning:
-
-1. **[Headline]** — [B2C/B2B/Both], Brand Alignment [X]/15, recommended use: [clip/content/competitor response]
-2. **[Headline]** — [B2C/B2B/Both], Brand Alignment [X]/15, recommended use: [clip/content/competitor response]
+1. **[Headline]** — [B2C/B2B/Both], Brand Alignment [X]/15, recommended use: [clip/content/competitor response], effort: [X] minutes
+2. **[Headline]** — [B2C/B2B/Both], Brand Alignment [X]/15, recommended use: [clip/content/competitor response], effort: [X] minutes
 
 ---
 
 ## Next Steps
 
-1. **Run Source Hunter** on top 3 stories to find YouTube/IG sources
-2. **Run Moment Finder** on best sources to extract clips
-3. **Run Brand Gate** before human approval
-4. **Present brand-approved clip briefs** for approval
+1. Run Source Hunter on [top story] first.
+2. Check vault/memory for similar angles before pulling clips.
+3. Run Moment Finder only on sources with clear timestamps or transcripts.
+4. Present only brand-approved clip briefs for human approval.
 
 ---
 

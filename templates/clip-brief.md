@@ -6,6 +6,17 @@
 
 ---
 
+## Decision
+
+**Recommended action:** [approve / modify / shelve].
+**Effort:** [X] hours to cut, caption, format, and schedule.
+**Confidence:** [High / Medium / Low] — [one-line reason based on quote strength, clarity, brand fit, and source quality].
+**Vault check:** [no overlap / similar clip exists: link or filename / needs differentiation].
+**Fallback:** If rejected, use [alternate timestamp, angle, or source].
+**AI Overview potential:** [Strong / Medium / Weak] — [one-line reason].
+
+---
+
 ## Clip Details
 
 - **URL:** youtube.com/watch?v=[VIDEO_ID]&t=[START_SEC] → t=[END_SEC]
@@ -26,19 +37,16 @@
 
 ## The Moment
 
-> "[Full transcript of the clip — the bold claim, prediction, or hot take]"
+> "[Transcript excerpt only. Include the full 15-60 second moment if needed for approval, but do not store long raw transcripts by default.]"
 
----
-
-## The Hook (First 3 Seconds)
-
-> "[What the speaker says in the first 3 seconds — this is what stops the scroll]"
+**First 3 seconds:** "[exact opening line that stops the scroll]"
+**Natural cut:** [yes / no] — [sentence begins and ends cleanly]
 
 ---
 
 ## Why Post This
 
-[1-2 sentences explaining why this clip will get engagement]
+[1-2 sentences explaining why this clip deserves production now. Name the current scenario, audience tension, or competitor gap it responds to.]
 
 - **Quotability:** [X]/30 — [brief assessment]
 - **Emotion:** [X]/20 — [brief assessment]
@@ -46,6 +54,28 @@
 - **Controversy:** [X]/15 — [brief assessment]
 - **Visual potential:** [X]/10 — [brief assessment]
 - **Brand alignment:** [X]/15 — [brief assessment]
+
+---
+
+## Platform Variants
+
+| Platform | Format | Hook Treatment | Caption Direction | Notes |
+|----------|--------|----------------|-------------------|-------|
+| Instagram Reel | [15-30s / 30-45s] faceless reel | [emotional / provocative / identity-based] | [short caption angle] | [overlay, pacing, sound, visual style] |
+| LinkedIn | [45-60s clip / text post with quote] | [operator / proof / business consequence] | [professional caption angle] | [avoid hype; focus on results or decision-making] |
+| YouTube Shorts | [15-30s short] | [bold claim first] | [search-friendly title/caption] | [retention note and title idea] |
+
+---
+
+## Suggested Copy
+
+**Caption:**
+"[Hook-based caption for social media. Keep it direct, specific, and on-brand.]"
+
+**On-screen text:**
+"[Short overlay line from the strongest quote or claim.]"
+
+**Suggested rewrite:** [If original language risks hype, woo, corporate filler, or empty transformation language, provide an on-brand rewrite.]
 
 ---
 
@@ -62,49 +92,18 @@
 
 ---
 
-## Suggested Caption
+## Production Notes
 
-"[Hook-based caption for social media — should be provocative and curiosity-driven]"
-
-**Suggested Rewrite:** [If original language risks hype, woo, corporate filler, or empty transformation language, provide an on-brand rewrite]
-
----
-
-## Format Recommendation
-
-**Type:** Faceless reel with text overlay
+**Type:** [Faceless reel / speaker clip / quote reel / carousel]
 
 **Elements:**
-- Key quote as text overlay
-- Podcast audio as background
-- Waveform animation
-- Subtle background (dark/gradient)
+- Text overlay: [key quote]
+- Background: [dark gradient / editorial texture / speaker footage / waveform]
+- Audio: [original clip / podcast audio / voiceover]
+- Captions: [on / off]
+- Style: [B2B deep green and restrained gold / B2C warm editorial cinematic / other]
 
-**Style:**
-- Bold, readable text (white on dark)
-- Text appears synced with speech
-- Optional: speaker name/channel watermark
-- B2B style: deep/forest green, restrained gold, proof-forward, zero decoration
-- B2C style: warm earth tones, editorial, cinematic, emotionally intimate
-
----
-
-## Hashtags
-
-#[tag1] #[tag2] #[tag3] #[tag4] #[tag5]
-
----
-
-## Status
-
-**Current:** Pending approval
-
-**Tracker status after approval:** [approved / in_production / scheduled / posted]
-
-**Options:**
-- `approve` → Save to vault/briefs/ for content creation
-- `shelve` → Skip this clip, record for dedup
-- `modify [instructions]` → Revise and re-propose
+**Hashtags:** #[tag1] #[tag2] #[tag3] #[tag4] #[tag5]
 
 ---
 
@@ -115,6 +114,19 @@
 - **Published:** [date]
 - **Total views:** [count]
 - **Engagement velocity:** [views/hour]
+- **Source status:** [confirmed / unverified / restricted / stale]
+
+---
+
+## Status
+
+**Current:** Pending approval
+**Tracker status after approval:** [approved / in_production / scheduled / posted]
+
+**Options:**
+- `approve` → Save to vault/briefs/ for content creation
+- `shelve` → Skip this clip, record for dedup
+- `modify [instructions]` → Revise and re-propose
 
 ---
 

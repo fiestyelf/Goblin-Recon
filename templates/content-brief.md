@@ -4,33 +4,42 @@
 **Trend Score:** [X]/100
 **Brand Angle:** [B2C / B2B / Both]
 **Brand Alignment:** [X]/15
-**Audience Resonance:** [B2C/B2B reason to care]
-**Mission-Spine Fit:** [strong / medium / weak]
 **Status:** [Approved / Pending / Shelved]
 
 ---
 
-## Trend Details
+## Decision
+
+**Recommended action:** [create / modify / shelve].
+**Effort:** [X] hours from source review to scheduled post.
+**Confidence:** [High / Medium / Low] — [one-line reason based on source quality, current scenario, brand fit, and production feasibility].
+**Vault check:** [no overlap / similar piece exists: link or filename / needs differentiation].
+**Fallback:** If rejected, use [alternative hook, format, or trend angle].
+**AI Overview potential:** [Strong / Medium / Weak] — [one-line reason].
+
+---
+
+## Current Scenario
 
 **Headline:** [full headline]
-**Sources:**
-- [Source 1]: [URL]
-- [Source 2]: [URL]
-- [Source 3]: [URL]
+**Why now:** [1-2 sentences explaining what changed recently and why this matters today.]
+**Audience tension:** [the specific B2C/B2B pain, fear, desire, or operational problem this names]
 
-**Why it's trending:**
-[2-3 sentences explaining the trend]
+**Sources:**
+- [Source 1]: [URL] (published: [date]) — [what it proves]
+- [Source 2]: [URL] (published: [date]) — [what it proves]
+- [Source 3]: [URL] (published: [date]) — [what it proves]
 
 ---
 
 ## Content Opportunity
 
-**Format:** [Faceless reel / Carousel / Story / Post]
-**Platform:** [Instagram / TikTok / YouTube Shorts / LinkedIn]
+**Format:** [Faceless reel / Carousel / Story / Post / Newsletter / LinkedIn post]
+**Primary platform:** [Instagram / YouTube Shorts / LinkedIn / Newsletter]
 **Target audience:** [B2C ideal customer / B2B SME owner / Speaking buyer / AI founders]
 
 **Angle:**
-[How to approach this content — what makes it interesting for GenX Academy's audience]
+[How to approach this content. Name the sharp point of view, not just the topic.]
 
 **Hook:**
 [Opening line that stops the scroll]
@@ -40,8 +49,22 @@
 
 ---
 
+## Platform and Distribution
+
+| Platform | Best Format | Caption Direction | Posting Window | Repurpose Note |
+|----------|-------------|-------------------|----------------|----------------|
+| Instagram | [Reel / Carousel / Story] | [caption angle] | [specific window or unknown] | [how to adapt] |
+| LinkedIn | [Text post / Clip / Document post] | [operator/proof angle] | [specific window or unknown] | [how to adapt] |
+| YouTube Shorts | [Short] | [search-friendly angle] | [specific window or unknown] | [how to adapt] |
+
+**AI Search note:** [What exact question this content could answer for AI search, if any.]
+
+---
+
 ## Brand Gate
 
+- **Audience Resonance:** [specific B2C/B2B reason to care]
+- **Mission-Spine Fit:** [strong / medium / weak] — [one-line reason]
 - **Voice Category:** [alive / awakening / limitless / provocative / structural]
 - **First-Touch Feeling:** [recognized / challenged / relieved / provoked / weak]
 - **Blacklist Scan Result:** [PASS / FAIL - list violations]
@@ -94,27 +117,23 @@
 
 ---
 
-## Hashtags
-
-Primary: #[tag1] #[tag2] #[tag3]
-Secondary: #[tag4] #[tag5] #[tag6]
-
----
-
 ## Performance Prediction
 
-**Expected engagement:** [High / Medium / Low]
-**Best posting time:** [morning / afternoon / evening]
+**Expected reach:** [X]-[Y] views or impressions based on [comparable post/source].
+**Expected engagement driver:** [quote / controversy / identity tension / practical utility / timeliness].
+**Distribution risk:** [low / medium / high] — [reason]
+**Best posting time:** [specific window / unknown because no historical data]
 **Target reach:** [followers / non-followers / both]
 
 ---
 
 ## Next Steps
 
-1. [ ] Create faceless reel from clip
-2. [ ] Write caption
-3. [ ] Schedule post
-4. [ ] Track performance
+1. Check vault/memory for overlap.
+2. Confirm source dates and URLs.
+3. Create the primary asset.
+4. Adapt into platform variants.
+5. Schedule and track performance.
 
 ---
 

@@ -115,6 +115,19 @@ For each unique story, calculate score (0-100):
 - Select top 5 stories
 - If fewer than 5 pass threshold, report what you have
 
+### Step 5.5: Vault Check
+- Before generating the trend report, check memory/trend-history.md and vault/briefs/ if available.
+- Compare each selected story against prior approved or shelved items by:
+  - Trend/topic
+  - Hook or claim
+  - Audience tension
+  - Competitor gap
+  - Source or speaker
+- If no overlap exists, mark Vault check as "no overlap".
+- If a similar angle exists but the new story adds a meaningfully current scenario, mark "needs differentiation" and state the difference.
+- If the story repeats an existing angle without new evidence, mark "similar angle exists" and recommend shelve or monitor.
+- If no prior memory/vault is available, mark "not checked — no prior vault available" rather than guessing.
+
 ### Step 6: Generate Trend Report
 
 Use template: templates/trend-report.md
@@ -131,6 +144,11 @@ For each story include:
 - Audience resonance: B2C/B2B reason to care
 - Mission-spine fit: strong/medium/weak with one-line reason
 - Blacklist flags: none or list violations
+- Effort estimate
+- Confidence level and reason
+- Vault check result
+- Fallback angle
+- AI Overview potential
 - Recommended next step
 
 ### Step 7: Save to Memory
@@ -159,5 +177,6 @@ For each story include:
 - [ ] Brand alignment score is at least 8/15 for advancing stories
 - [ ] Audience resonance check completed for B2C, B2B, or Both
 - [ ] Mission-spine fit is explicit and not forced
+- [ ] Vault check completed or explicitly marked as unavailable
 - [ ] Blacklist scan completed against config/brand-voice.yaml
 - [ ] No API keys, cookies, or private account data in report

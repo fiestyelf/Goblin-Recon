@@ -5,71 +5,62 @@
 
 ---
 
-## Summary
+## Decision
 
-- Competitors scanned: [count]
-- Changes detected: [count]
-- Threat level: [High / Medium / Low]
-- B2C positioning opportunities: [count]
-- B2B positioning opportunities: [count]
+**Recommended action:** [respond / monitor / ignore / shelve].
+**Priority competitor:** [name]
+**Effort:** [X] hours to produce response content or update positioning.
+**Confidence:** [High / Medium / Low] — [one-line reason based on source quality, recency, and pattern strength].
+**Vault check:** [no overlap / similar response exists: link or filename / needs differentiation].
+**Fallback:** If rejected, monitor [specific signal] for [timeframe].
 
 ---
 
-## Competitor Profiles
+## Executive Summary
+
+- Competitors scanned: [count]
+- Changes detected: [count]
+- Overall threat level: [High / Medium / Low]
+- B2C positioning opportunities: [count]
+- B2B positioning opportunities: [count]
+- Strongest ownable angle: [one-line GenX advantage]
+
+---
+
+## Priority Competitor Profiles
 
 ### [COMPETITOR 1]
 
 **Website:** [URL]
 **Last scanned:** [date]
+**Threat level:** [High / Medium / Low]
+**Recommended response:** [one action]
 
-#### Pricing
-| Plan | Price | Features |
-|------|-------|----------|
-| [Plan 1] | [price]/month | [key features] |
-| [Plan 2] | [price]/month | [key features] |
-| [Plan 3] | [price]/month | [key features] |
+#### What Changed
+| Area | Change | Evidence |
+|------|--------|----------|
+| Pricing | [what changed / none] | [URL and date] |
+| Features | [what changed / none] | [URL and date] |
+| Marketing | [what changed / none] | [URL and date] |
+| Social | [what changed / none] | [URL and date] |
 
-**Change since last scan:** [None / Increased / Decreased]
-**Details:** [What changed]
-
-#### Features
-- [Feature 1]: [description]
-- [Feature 2]: [description]
-- [Feature 3]: [description]
-
-**New since last scan:** [List any new features]
-
-#### Marketing
-- **Current messaging:** "[key tagline or value prop]"
+#### Current Positioning
+- **Messaging:** "[key tagline or value prop]"
 - **Recent campaigns:** [list any]
 - **Positioning:** [How they describe themselves]
 - **Blacklist signals:** [none / hype / woo / corporate filler / empty generic]
 
-**Change since last scan:** [None / Describe shift]
-
-#### Brand Gap Analysis
-- **B2C gap:** [Where they lack science+soul, truly-seen transformation, depth plus play]
-- **B2B gap:** [Where they sell advice/opinions instead of implementation/results]
-- **GenX advantage:** [How GenX should position against this]
-
-#### Competitor Gap Mapping
+#### Brand Gap Mapping
 - **What they overuse:** [generic promise / advice frame / hustle / woo / corporate filler]
 - **What they avoid:** [specific emotional truth / operational proof / hard tradeoff / implementation detail]
+- **B2C gap:** [Where they lack science+soul, truly-seen transformation, depth plus play]
+- **B2B gap:** [Where they sell advice/opinions instead of implementation/results]
 - **What GenX can own:** [one clear angle that follows brand-rules.md]
 
 #### Ownable Angle Extraction
 - **B2C ownable angle:** [specific science+soul/truly-seen angle]
 - **B2B ownable angle:** [specific implementation/results angle]
 - **Proof needed before publishing:** [source/client evidence required]
-
-#### Social Media
-- **Recent activity:** [summary of what they're posting]
-- **Engagement level:** [High / Medium / Low]
-- **Viral content:** [Any notable posts]
-
-#### Product Updates
-- [Update 1]: [description]
-- [Update 2]: [description]
 
 ---
 
@@ -85,29 +76,18 @@
 
 ---
 
-## Changes Since Last Scan
-
-| Competitor | Change Type | Details |
-|------------|-------------|---------|
-| [Name] | Pricing | [what changed] |
-| [Name] | Feature | [what changed] |
-| [Name] | Marketing | [what changed] |
-
----
-
-## Competitive Landscape
+## Landscape Read
 
 **Market leader:** [Who and why]
 **Rising competitor:** [Who and why]
-**Overall threat level:** [High / Medium / Low]
+**Main pattern:** [what competitors are repeating]
+**Main opening:** [what none of them are saying or proving]
 
-### Threat Assessment
-
-| Competitor | Threat Level | Reason |
-|------------|--------------|--------|
-| [Name] | [H/M/L] | [why] |
-| [Name] | [H/M/L] | [why] |
-| [Name] | [H/M/L] | [why] |
+| Competitor | Threat Level | Reason | Response |
+|------------|--------------|--------|----------|
+| [Name] | [H/M/L] | [why] | [respond / monitor / ignore] |
+| [Name] | [H/M/L] | [why] | [respond / monitor / ignore] |
+| [Name] | [H/M/L] | [why] | [respond / monitor / ignore] |
 
 ---
 
@@ -117,26 +97,23 @@
 - [Gap 1]: [description]
 - [Gap 2]: [description]
 
-### Underserved Segments
-- [Segment 1]: [description]
-- [Segment 2]: [description]
-
-### Pricing Opportunities
-- [Opportunity 1]: [description]
-- [Opportunity 2]: [description]
-
 ### Ownable Positioning Opportunities
 - **B2C:** [How to own science+soul, truly seen, no woo/no hype]
 - **B2B:** [How to own delivery of results, operators not advisors]
 - **Proof needed:** [Dr. title, Wikipedia/media, track record, testimonials, operator evidence]
+
+### Content Angles
+- **Immediate angle:** [publishable angle tied to this scan]
+- **Contrarian angle:** [safe, evidence-backed disagreement]
+- **Proof angle:** [case, result, or system evidence needed]
 
 ---
 
 ## Recommended Response
 
 ### Immediate Actions
-1. [Action 1]: [description]
-2. [Action 2]: [description]
+1. [Action 1]: [description and effort]
+2. [Action 2]: [description and effort]
 
 ### Strategic Moves
 1. [Move 1]: [description]

@@ -17,6 +17,8 @@ Run the full pipeline: Layer 1 → Layer 2 → Layer 3 → Human Gate
 
 ## Optional Helpers
 - MCP Memory: store approved/shelved examples after human decision
+- Ghost Browser: help inspect approved public social or JavaScript-heavy pages when normal extraction fails
+- Firecrawl: help extract approved public web pages after the API key is configured through environment variables
 - config/content-tracker.yaml: create Notion/Sheets tracking entries after approval when enabled
 - GPT Researcher, TrendRadar, Scrapling, and FunASR remain optional helpers only; they do not replace the core pipeline
 
@@ -70,6 +72,22 @@ Before running the layers, calibrate the scan against the brand rules:
 
 **Output:** 3-5 sources per story with transcripts
 
+### Step 3.1: Vault Dedup Check
+```
+1. Before running Moment Finder, check memory/trend-history.md and vault/briefs/ for similar:
+   a. Trend/topic
+   b. Hook or claim
+   c. Audience tension
+   d. Competitor gap
+   e. Source or speaker
+2. If no overlap exists: mark Vault check as "no overlap" and continue
+3. If overlap exists but the angle is meaningfully different: mark "needs differentiation" and state the difference
+4. If overlap exists and the angle is not meaningfully different: shelve before clip extraction
+5. Record the dedup decision in the final brief
+```
+
+**Output:** Dedup decision for each story/source before clip extraction
+
 ### Step 4: Run Layer 3 — Moment Finder
 ```
 1. For each source with transcript:
@@ -79,6 +97,7 @@ Before running the layers, calibrate the scan against the brand rules:
    d. Generate clip briefs
 2. Collect all clip briefs
 3. Rank by score (highest first)
+4. Each clip brief must include Decision, Effort, Confidence, Vault check, Fallback, AI Overview potential, and Platform Variants
 ```
 
 **Output:** 2-3 clip briefs per source with timestamps
@@ -108,6 +127,14 @@ Only briefs that pass the brand gate reach the Human Gate.
 ```
 CLIP BRIEF: "[headline]"
 
+DECISION:
+Action: [approve / modify / shelve]
+Effort: [X] hours
+Confidence: [High / Medium / Low] — [reason]
+Vault check: [no overlap / similar exists / needs differentiation]
+Fallback: [alternative angle if rejected]
+AI Overview potential: [Strong / Medium / Weak] — [reason]
+
 Trend Score: [X]/100 | Source: [video title]
 URL: youtube.com/watch?v=XXX&t=[START] → t=[END]
 Duration: [X] seconds
@@ -125,6 +152,7 @@ CAPTION:
 "[suggested caption]"
 
 FORMAT: [faceless reel type]
+PLATFORM VARIANTS: [Instagram / LinkedIn / YouTube Shorts]
 #[tag1] #[tag2] #[tag3]
 
 Reply: approve / shelve / modify
@@ -212,12 +240,14 @@ NEXT STEPS:
 - [ ] All layers executed in order
 - [ ] All stories have sources (or noted as "no sources found")
 - [ ] All sources have transcripts (or noted as "no transcript")
+- [ ] Vault dedup completed before Moment Finder
 - [ ] All clips are 15-60 seconds
 - [ ] All clips have working URLs
 - [ ] Brand calibration completed before Layer 1
 - [ ] Brand gate completed before human gate
 - [ ] Brand Angle and brand alignment score included for every presented clip
 - [ ] First-touch feeling included for every presented clip
+- [ ] Effort, confidence, vault check, fallback, AI Overview potential, and platform variants included for every presented clip
 - [ ] Blacklist scan completed for every presented clip
 - [ ] Human gate presented for every clip
 - [ ] User responses handled correctly

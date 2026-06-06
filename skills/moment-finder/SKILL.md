@@ -149,6 +149,14 @@ For each clip:
 ```
 CLIP BRIEF: "[headline]"
 
+DECISION:
+Action: [approve / modify / shelve]
+Effort: [X] hours to cut, caption, format, and schedule
+Confidence: [High / Medium / Low] — [reason]
+Vault check: [no overlap / similar clip exists / needs differentiation / not checked]
+Fallback: [alternate timestamp, angle, or source if rejected]
+AI Overview potential: [Strong / Medium / Weak] — [reason]
+
 Source: [video title] | Channel: [name]
 URL: youtube.com/watch?v=XXX&t=[START] → t=[END]
 Duration: [X] seconds
@@ -161,16 +169,26 @@ Operator Framing: [strong/medium/weak]
 Blacklist Flags: [none/list]
 
 THE MOMENT:
-"[exact transcript of the clip]"
+"[short transcript excerpt needed for approval; avoid storing long raw transcripts by default]"
 
-THE HOOK (first 3 seconds):
+FIRST 3 SECONDS:
 "[what the speaker says in the first 3 seconds]"
 
-WHY POST:
-[1-2 sentences: why this will get engagement]
+NATURAL CUT:
+[yes / no] — [sentence begins and ends cleanly]
 
-SUGGESTED CAPTION:
+WHY POST:
+[1-2 sentences: why this deserves production now; name current scenario, audience tension, or competitor gap]
+
+PLATFORM VARIANTS:
+- Instagram Reel: [format, hook treatment, caption direction]
+- LinkedIn: [format, operator/proof angle, caption direction]
+- YouTube Shorts: [format, retention/title note, caption direction]
+
+SUGGESTED COPY:
 "[hook-based caption for social media]"
+On-screen text: "[short overlay line]"
+Suggested rewrite: [on-brand rewrite if source language risks hype, woo, or filler]
 
 FORMAT: [faceless reel type]
 - Text overlay with key quote
@@ -198,6 +216,8 @@ Before finalizing, verify:
 - [ ] URL with timestamp works
 - [ ] Hook is compelling (first 3 seconds)
 - [ ] Caption is scroll-stopping
+- [ ] Decision, effort, confidence, vault check, fallback, and AI Overview potential are included
+- [ ] Platform variants are included for Instagram, LinkedIn, and YouTube Shorts
 - [ ] Brand Angle is identified
 - [ ] Brand alignment is at least 8/15
 - [ ] Truly-seen signal, emotional signature, and operator framing are documented
@@ -206,7 +226,7 @@ Before finalizing, verify:
 
 ## Output
 - 2-3 clip briefs per source video
-- Each brief includes: timestamps, transcript, hook, caption, format suggestion
+- Each brief includes: decision, timestamps, transcript excerpt, hook, platform variants, caption, format suggestion, AI Overview potential, and fallback angle
 - All clips scored and ranked
 
 ## Error Handling
