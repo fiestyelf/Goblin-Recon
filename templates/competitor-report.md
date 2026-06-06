@@ -10,6 +10,8 @@
 - Competitors scanned: [count]
 - Changes detected: [count]
 - Threat level: [High / Medium / Low]
+- B2C positioning opportunities: [count]
+- B2B positioning opportunities: [count]
 
 ---
 
@@ -41,8 +43,24 @@
 - **Current messaging:** "[key tagline or value prop]"
 - **Recent campaigns:** [list any]
 - **Positioning:** [How they describe themselves]
+- **Blacklist signals:** [none / hype / woo / corporate filler / empty generic]
 
 **Change since last scan:** [None / Describe shift]
+
+#### Brand Gap Analysis
+- **B2C gap:** [Where they lack science+soul, truly-seen transformation, depth plus play]
+- **B2B gap:** [Where they sell advice/opinions instead of implementation/results]
+- **GenX advantage:** [How GenX should position against this]
+
+#### Competitor Gap Mapping
+- **What they overuse:** [generic promise / advice frame / hustle / woo / corporate filler]
+- **What they avoid:** [specific emotional truth / operational proof / hard tradeoff / implementation detail]
+- **What GenX can own:** [one clear angle that follows brand-rules.md]
+
+#### Ownable Angle Extraction
+- **B2C ownable angle:** [specific science+soul/truly-seen angle]
+- **B2B ownable angle:** [specific implementation/results angle]
+- **Proof needed before publishing:** [source/client evidence required]
 
 #### Social Media
 - **Recent activity:** [summary of what they're posting]
@@ -107,6 +125,11 @@
 - [Opportunity 1]: [description]
 - [Opportunity 2]: [description]
 
+### Ownable Positioning Opportunities
+- **B2C:** [How to own science+soul, truly seen, no woo/no hype]
+- **B2B:** [How to own delivery of results, operators not advisors]
+- **Proof needed:** [Dr. title, Wikipedia/media, track record, testimonials, operator evidence]
+
 ---
 
 ## Recommended Response
@@ -118,6 +141,11 @@
 ### Strategic Moves
 1. [Move 1]: [description]
 2. [Move 2]: [description]
+
+### Brand-Safe Response Copy
+- **B2C angle:** [on-brand response with no blacklist terms]
+- **B2B angle:** [on-brand response with no blacklist terms]
+- **Do not say:** [blacklisted or off-brand competitor-style language to avoid]
 
 ### Monitor Next
 - [What to watch for in next scan]

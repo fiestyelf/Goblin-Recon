@@ -13,7 +13,14 @@ Monitor competitor pricing, features, and marketing activity.
 - web_extract
 - web_search
 - config/competitors.yaml
+- config/brand-voice.yaml
+- memory/brand-rules.md
 - memory/competitor-snapshots.md
+
+## Optional Helpers
+- MCP Fetch: cleaner extraction from approved public competitor pages
+- Scrapling: optional fallback for public JavaScript-heavy pages only when normal extraction fails
+- MCP Memory: compare current competitor positioning with past snapshots and GenX response patterns
 
 ## Execution Flow
 
@@ -27,6 +34,8 @@ Monitor competitor pricing, features, and marketing activity.
 ### Step 1: Read Configuration
 ```
 Load config/competitors.yaml for competitor list
+Load config/brand-voice.yaml for GenX positioning and blacklist
+Load memory/brand-rules.md for B2C/B2B brand architecture
 Load memory/competitor-snapshots.md for previous data
 ```
 
@@ -81,6 +90,11 @@ If competitors.yaml is empty, report:
    - Funding news
 ```
 
+**Optional Extraction Fallback:**
+- If web_extract cannot read an approved public page, try MCP Fetch.
+- If the page is public but JavaScript-heavy, Scrapling may be used only if approved.
+- Do not bypass paywalls, login gates, captchas, robots.txt, rate limits, or platform restrictions.
+
 ### Step 3: Change Detection
 
 For each competitor, compare current data to previous snapshot:
@@ -120,6 +134,8 @@ MARKETING:
 - Current messaging: "[key tagline/value prop]"
 - Recent campaigns: [list any]
 - Change since last scan: [none/describe]
+- Brand Gap: [where competitor fails GenX positioning]
+- Blacklist Signals: [hype/woo/corporate filler/none]
 
 SOCIAL:
 - Recent posts: [summary]
@@ -150,6 +166,21 @@ OPPORTUNITIES:
 - Gap in market: [description]
 - Underserved segment: [description]
 - Pricing opportunity: [description]
+
+BRAND GAP ANALYSIS:
+- B2C gap: [where competitor lacks science+soul/truly-seen positioning]
+- B2B gap: [where competitor sells advice/opinions instead of implementation/results]
+- GenX response: [recommended positioning move using brand rules]
+
+COMPETITOR GAP MAPPING:
+- What they overuse: [generic promise, advice frame, hustle, woo, corporate filler]
+- What they avoid: [specific emotional truth, operational proof, hard tradeoff, implementation detail]
+- What GenX can own: [one clear angle that follows brand-rules.md]
+
+OWNABLE ANGLE EXTRACTION:
+- B2C ownable angle: [specific science+soul/truly-seen angle]
+- B2B ownable angle: [specific implementation/results angle]
+- Proof needed before publishing: [source/client evidence required]
 ```
 
 ### Step 6: Save Snapshot
@@ -174,5 +205,10 @@ OPPORTUNITIES:
 - [ ] Pricing data is current
 - [ ] Changes are clearly flagged
 - [ ] Recommendations are actionable
+- [ ] Brand Gap Analysis included
+- [ ] Competitor Gap Mapping included
+- [ ] Ownable Angle Extraction included with proof requirement
+- [ ] GenX response uses B2C/B2B ownable positioning
+- [ ] Recommended copy avoids blacklisted language
 - [ ] Snapshot saved for future comparison
 - [ ] No restricted access, private data, or misleading claims included

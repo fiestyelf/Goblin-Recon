@@ -2,6 +2,10 @@
 
 **Generated:** [timestamp]
 **Trend Score:** [X]/100
+**Brand Angle:** [B2C / B2B / Both]
+**Brand Alignment:** [X]/15
+**Audience Resonance:** [B2C/B2B reason to care]
+**Mission-Spine Fit:** [strong / medium / weak]
 **Status:** [Approved / Pending / Shelved]
 
 ---
@@ -23,13 +27,35 @@
 
 **Format:** [Faceless reel / Carousel / Story / Post]
 **Platform:** [Instagram / TikTok / YouTube Shorts / LinkedIn]
-**Target audience:** [AI enthusiasts / Founders / General tech]
+**Target audience:** [B2C ideal customer / B2B SME owner / Speaking buyer / AI founders]
 
 **Angle:**
 [How to approach this content — what makes it interesting for GenX Academy's audience]
 
 **Hook:**
 [Opening line that stops the scroll]
+
+**Brand Narrative Thread:**
+[Which brand rule/story this connects to: X factor, science+soul, truly seen, results not advice, operators not advisors, scarcity story, etc.]
+
+---
+
+## Brand Gate
+
+- **Voice Category:** [alive / awakening / limitless / provocative / structural]
+- **First-Touch Feeling:** [recognized / challenged / relieved / provoked / weak]
+- **Blacklist Scan Result:** [PASS / FAIL - list violations]
+- **Nuance Words Used:** [none / limitless / alive / awakening / transform]
+- **Nuance Proof:** [specific before/after, real client language, or concrete transformation if nuance words are used]
+
+### Voice Rules Checklist
+- [ ] B2C content is science+soul, truly seen, depth plus play, no woo
+- [ ] B2B content is results-not-advice, implementation-focused, rigorous, no advice-merchant tone
+- [ ] GenX-written copy avoids all blacklist terms from config/brand-voice.yaml
+- [ ] No open founder decision is guessed
+- [ ] English-only outward brand content
+- [ ] First-touch feeling is specific, not generic
+- [ ] Mission-spine fit is clear and not forced
 
 ---
 
@@ -63,6 +89,8 @@
 
 ### Caption Copy
 "[Full caption for the post]"
+
+**Caption Brand Check:** [PASS / needs rewrite / shelve]
 
 ---
 

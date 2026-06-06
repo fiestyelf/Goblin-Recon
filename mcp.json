@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Optional knowledge graph memory for approved examples, recurring patterns, and brand-gate decisions."
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "description": "Optional public web extraction helper. Use only for allowed public pages."
+    }
+  },
+  "optionalServers": {
+    "scrapling": {
+      "install": "pip install \"scrapling[ai]\"",
+      "description": "Use only when normal public extraction fails on JavaScript-heavy pages. Do not bypass paywalls, captchas, login gates, robots.txt, rate limits, or platform restrictions."
+    },
+    "gpt_researcher": {
+      "description": "Optional deep-research helper for Source Hunter. Use as a sub-agent only; do not replace Goblin Recon scoring or brand gate."
+    },
+    "trendradar": {
+      "description": "Optional reference/input source for Trend Radar. Adapt useful signals into Layer 1; do not replace the existing skill."
+    },
+    "notion_or_sheets": {
+      "description": "Optional approved-content tracker. Enable only after workspace approval and secret setup."
+    }
+  }
+}

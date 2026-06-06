@@ -1,0 +1,77 @@
+# Goblin Recon approved-content tracker configuration.
+# Integrations stay disabled until workspace/admin approval is complete.
+
+tracking:
+  enabled: false
+  approval_required: true
+  default_provider: notion
+  fallback_provider: google_sheets
+  create_entry_when: "human_gate_approved"
+  do_not_track:
+    - full_raw_transcripts
+    - api_keys
+    - cookies
+    - private_personal_data
+    - login_only_source_data
+
+providers:
+  notion:
+    enabled: false
+    env_vars:
+      - NOTION_API_KEY
+      - NOTION_DATABASE_ID
+    recommended_scope: "Single approved Goblin Recon content database"
+    avoid: "Workspace-wide admin access or private unrelated pages"
+
+  google_sheets:
+    enabled: false
+    env_vars:
+      - GOOGLE_SHEETS_CREDENTIALS_JSON
+      - GOOGLE_SHEETS_SPREADSHEET_ID
+    recommended_scope: "Single approved spreadsheet with read/write access"
+    avoid: "Drive-wide access or personal account automation"
+
+statuses:
+  - pending_review
+  - approved
+  - in_production
+  - scheduled
+  - posted
+  - shelved
+
+required_fields:
+  - clip_id
+  - date_approved
+  - status
+  - brand_angle
+  - brand_alignment_score
+  - trend_headline
+  - source_title
+  - source_channel_or_account
+  - source_url
+  - start_timestamp
+  - end_timestamp
+  - duration_seconds
+  - moment_summary
+  - why_post
+  - suggested_caption
+  - blacklist_flags
+  - human_decision
+
+optional_fields:
+  - assigned_to
+  - due_date
+  - platform
+  - asset_link
+  - scheduled_date
+  - posted_url
+  - performance_notes
+  - shelve_reason
+
+workflow:
+  pending_review: "Clip is ready for human decision."
+  approved: "Human approved the clip; create a tracker entry if tracking is enabled."
+  in_production: "Clip is being edited, captioned, or packaged."
+  scheduled: "Clip has a planned publish date/time."
+  posted: "Clip is live; add posted_url and performance_notes when available."
+  shelved: "Clip was rejected, paused, stale, off-brand, or legally unclear."

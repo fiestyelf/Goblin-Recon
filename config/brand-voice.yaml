@@ -1,0 +1,193 @@
+# GenX brand voice configuration for Goblin Recon.
+
+brand_architecture:
+  separate_front_doors: true
+  language: english_only
+  b2c_current_name: "Dr. Sara Hegy / B2C brand"
+  b2b_name: "GenX Academy"
+  open_decisions_must_not_be_guessed: true
+
+positioning:
+  b2c: "Real science and real soul. Transformation that makes people feel truly seen. No woo, no hype."
+  b2b: "Consulting is the delivery of results: practical implementation, not opinions. Operators, not advisors."
+
+voice:
+  b2c:
+    allowed_traits:
+      - alive
+      - awakening
+      - limitless
+      - soulful-but-grounded
+      - warm
+      - playful
+      - emotionally true
+      - truly seen
+    never:
+      - woo
+      - above-the-clouds
+      - too soft
+      - too nice
+      - too pleasing
+      - solemn
+      - reverent
+      - self-serious
+    rule: "Depth plus play, never depth plus preciousness."
+  b2b:
+    allowed_traits:
+      - rigorous
+      - no-BS
+      - science-backed
+      - human-centric
+      - powerful
+      - structural
+      - provocative
+      - grounded
+    never:
+      - advice-merchant
+      - desperate-salesy
+      - unsoulful
+      - generic
+      - hustle-bro
+    rule: "Keep the provocative edge; it qualifies the right client."
+
+brand_gate:
+  min_brand_score: 8
+  max_brand_score: 15
+  blacklist_auto_shelve: true
+  quoted_source_exception: true
+  require_brand_angle: true
+  allowed_brand_angles:
+    - B2C
+    - B2B
+    - Both
+  nuance_words:
+    - limitless
+    - alive
+    - awakening
+    - transform
+  nuance_rule: "Allowed only with specific before/after proof, client language, or concrete transformation."
+
+blacklist:
+  hype_hustle_fake_urgency:
+    - game-changer
+    - disrupt
+    - crush it
+    - 10x
+    - level up
+    - beast mode
+    - grind
+    - rise and grind
+    - hustle
+    - no excuses
+    - last chance
+    - act now
+    - don't miss out
+    - secret formula
+    - hack
+    - life hack
+    - growth hack
+    - the one weird trick
+    - blueprint
+    - cheat code
+    - ninja
+    - rockstar
+    - guru
+    - escape the 9-to-5
+    - get rich
+    - overnight success
+    - explode your
+    - skyrocket
+    - supercharge
+    - turbocharge
+    - unlock the secrets
+  corporate_consultant_filler:
+    - synergy
+    - leverage
+    - circle back
+    - move the needle
+    - low-hanging fruit
+    - deep dive
+    - drill down
+    - bandwidth
+    - touch base
+    - value-add
+    - best-in-class
+    - world-class
+    - cutting-edge
+    - state-of-the-art
+    - paradigm shift
+    - holistic solution
+    - thought leader
+    - seamless
+    - robust
+    - scalable
+    - mission-critical
+    - actionable insights
+    - take it to the next level
+    - win-win
+  woo_spiritual_bypass:
+    - high-vibe
+    - raise your vibration
+    - manifest
+    - the universe has your back
+    - divine timing
+    - sacred container
+    - hold space
+    - align with your truth
+    - your highest self
+    - light worker
+    - abundance mindset
+    - awaken your inner goddess
+    - soul tribe
+    - trust the process
+    - good vibes only
+    - love and light
+  empty_pleasing_generic:
+    - empower
+    - empowerment
+    - unlock your potential
+    - be your best self
+    - transform your life
+    - passionate about
+    - journey
+    - top-notch
+    - amazing
+    - incredible
+    - revolutionary
+    - ultimate
+    - no-brainer
+    - results-driven
+    - dynamic
+    - take the leap
+    - invest in yourself
+
+platforms:
+  b2c:
+    - LinkedIn
+    - Instagram
+    - Substack
+    - podcasts
+  b2b:
+    - LinkedIn for credibility
+    - warm intros
+    - referrals
+    - board rooms
+    - investor circles
+    - conferences
+
+visual_identity:
+  b2b:
+    colors: "Deep/forest green base with restrained gold accent."
+    style: "Grounded, intelligent, premium, proof-forward, zero decoration."
+  b2c:
+    colors: "Terracotta, clay, cream, sand, golden warmth, warm charcoal, espresso."
+    style: "Cinematic, warm, film-grain, lamplit, editorial, typography-led."
+  never:
+    - pinks
+    - blues
+    - clinical brightness
+    - bright corporate blue
+    - bright red
+    - stock-photo cheesiness
+    - hustle-bro thumbnail energy
+    - generic coaching funnel

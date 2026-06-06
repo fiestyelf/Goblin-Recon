@@ -13,6 +13,14 @@
 - **Start time:** [MM:SS]
 - **End time:** [MM:SS]
 - **Score:** [X]/100
+- **Brand Angle:** [B2C / B2B / Both]
+- **Brand Alignment:** [X]/15
+- **Voice Category:** [alive / awakening / limitless / provocative / structural]
+- **Truly-Seen Signal:** [strong / medium / weak]
+- **Emotional Signature:** [recognized / challenged / relieved / provoked / other]
+- **Operator Framing:** [strong / medium / weak]
+- **First-Touch Feeling:** [recognized / challenged / relieved / provoked / weak]
+- **Blacklist Flags:** [none / list violations]
 
 ---
 
@@ -36,13 +44,29 @@
 - **Emotion:** [X]/20 — [brief assessment]
 - **Clarity:** [X]/20 — [brief assessment]
 - **Controversy:** [X]/15 — [brief assessment]
-- **Visual potential:** [X]/15 — [brief assessment]
+- **Visual potential:** [X]/10 — [brief assessment]
+- **Brand alignment:** [X]/15 — [brief assessment]
+
+---
+
+## Brand Gate
+
+- **Brand angle reasoning:** [why this is B2C/B2B/Both]
+- **Truly-seen reasoning:** [what private frustration, identity tension, or emotional truth this names]
+- **Operator framing reasoning:** [what behavior, system, delivery, or decision-making change this points to]
+- **Blacklist scan result:** [PASS / FAIL - list violations]
+- **Transcript blacklist note:** [none / quoted source only / needs caution]
+- **Nuance words used in GenX copy:** [none / list]
+- **Nuance proof:** [specific before/after or real language if used]
+- **Decision:** [Pass to human gate / Auto-shelve]
 
 ---
 
 ## Suggested Caption
 
 "[Hook-based caption for social media — should be provocative and curiosity-driven]"
+
+**Suggested Rewrite:** [If original language risks hype, woo, corporate filler, or empty transformation language, provide an on-brand rewrite]
 
 ---
 
@@ -60,6 +84,8 @@
 - Bold, readable text (white on dark)
 - Text appears synced with speech
 - Optional: speaker name/channel watermark
+- B2B style: deep/forest green, restrained gold, proof-forward, zero decoration
+- B2C style: warm earth tones, editorial, cinematic, emotionally intimate
 
 ---
 
@@ -72,6 +98,8 @@
 ## Status
 
 **Current:** Pending approval
+
+**Tracker status after approval:** [approved / in_production / scheduled / posted]
 
 **Options:**
 - `approve` → Save to vault/briefs/ for content creation

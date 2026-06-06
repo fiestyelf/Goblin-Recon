@@ -12,6 +12,13 @@ Run the full pipeline: Layer 1 → Layer 2 → Layer 3 → Human Gate
 - Loads and chains: trend-radar → source-hunter → moment-finder
 - All config files
 - All templates
+- memory/brand-rules.md
+- config/brand-voice.yaml
+
+## Optional Helpers
+- MCP Memory: store approved/shelved examples after human decision
+- config/content-tracker.yaml: create Notion/Sheets tracking entries after approval when enabled
+- GPT Researcher, TrendRadar, Scrapling, and FunASR remain optional helpers only; they do not replace the core pipeline
 
 ## Execution Flow
 
@@ -27,10 +34,19 @@ Run the full pipeline: Layer 1 → Layer 2 → Layer 3 → Human Gate
 ### Step 1: Initialize
 ```
 1. Load all configuration files
-2. Verify scripts are available
-3. Prepare memory/trend-history.md for dedup
-4. Report: "Starting full scan..."
+2. Load memory/brand-rules.md and config/brand-voice.yaml
+3. Load config/content-tracker.yaml if present
+4. Verify scripts are available
+5. Prepare memory/trend-history.md for dedup
+6. Report: "Starting full scan..."
 ```
+
+### Step 1.5: Brand Calibration
+Before running the layers, calibrate the scan against the brand rules:
+- B2C filter: successful-on-paper, lost spark, wants real science plus real soul, no woo or preciousness.
+- B2B filter: burnt-out SME operator, wants implementation/results, no advice-merchant or consultant theater.
+- Voice filter: direct, precise, grounded, emotionally true; no blacklisted phrases in GenX-written copy.
+- Open decisions: do not guess B2C brand name, Sara visibility level, or domain mapping.
 
 ### Step 2: Run Layer 1 — Trend Radar
 ```
@@ -67,7 +83,25 @@ Run the full pipeline: Layer 1 → Layer 2 → Layer 3 → Human Gate
 
 **Output:** 2-3 clip briefs per source with timestamps
 
-### Step 5: Human Gate — Present Results
+### Step 5: Brand Gate
+
+Before human approval, filter every trend, source, and clip brief:
+
+```
+For each clip brief:
+  1. Confirm Brand Angle: B2C, B2B, or Both
+  2. Confirm brand alignment >= 8/15
+  3. Scan GenX-written hook, caption, explanation, and next steps against config/brand-voice.yaml blacklist
+  4. If transcript contains blacklisted words, flag as quoted source material and do not reuse in GenX copy
+  5. Check B2C: science+soul, truly seen, depth plus play, no woo
+  6. Check B2B: results not advice, implementation, proof, no advice-merchant tone
+  7. Check first-touch feeling: recognized, challenged, relieved, provoked, or weak/generic
+  8. If any check fails: auto-shelve and record reason
+```
+
+Only briefs that pass the brand gate reach the Human Gate.
+
+### Step 6: Human Gate — Present Results
 
 **Format: One message per clip brief**
 
@@ -77,6 +111,9 @@ CLIP BRIEF: "[headline]"
 Trend Score: [X]/100 | Source: [video title]
 URL: youtube.com/watch?v=XXX&t=[START] → t=[END]
 Duration: [X] seconds
+Brand Angle: [B2C/B2B/Both] | Brand Alignment: [X]/15
+First-Touch Feeling: [recognized/challenged/relieved/provoked/weak]
+Blacklist Flags: [none/list]
 
 THE MOMENT:
 "[transcript of the clip]"
@@ -98,19 +135,22 @@ Reply: approve / shelve / modify
 - `shelve` → Skip, record in trend-history for dedup
 - `modify [instructions]` → Revise and re-propose
 
-### Step 6: Handle User Responses
+### Step 7: Handle User Responses
 
 **For each "approve":**
 ```
 1. Save clip brief to vault/briefs/[date]-[headline].md
 2. Record in memory/trend-history.md
-3. Report: "Approved and saved"
+3. If config/content-tracker.yaml tracking.enabled is true, create/update the Notion or Sheets tracker entry using approved integration only
+4. If MCP Memory is enabled, store a short approved-example summary without full raw transcript
+5. Report: "Approved and saved"
 ```
 
 **For each "shelve":**
 ```
 1. Record in memory/trend-history.md with reason
-2. Report: "Shelved"
+2. If MCP Memory is enabled, store a short shelved-example summary and reason without full raw transcript
+3. Report: "Shelved"
 ```
 
 **For each "modify [instructions]":**
@@ -120,7 +160,7 @@ Reply: approve / shelve / modify
 3. Wait for new response
 ```
 
-### Step 7: Summary Report
+### Step 8: Summary Report
 
 After all clips processed:
 
@@ -133,6 +173,10 @@ TODAY'S RESULTS:
 - Clips extracted: [count]
 - Approved: [count]
 - Shelved: [count]
+- B2C opportunities: [count]
+- B2B opportunities: [count]
+- Brand-gate shelved: [count]
+- Tracker entries created: [count, if enabled]
 
 APPROVED CLIPS:
 1. [headline] — [duration] seconds
@@ -144,9 +188,9 @@ NEXT STEPS:
 - Run next scan in [X] hours/days
 ```
 
-### Step 8: Save Memory
+### Step 9: Save Memory
 - Update memory/trend-history.md with all today's data
-- Format: date, story, source, clip, status (approved/shelved)
+- Format: date, story, source, clip, brand angle, brand score, status (approved/shelved)
 - Used for dedup in future runs
 
 ## Output
@@ -170,8 +214,14 @@ NEXT STEPS:
 - [ ] All sources have transcripts (or noted as "no transcript")
 - [ ] All clips are 15-60 seconds
 - [ ] All clips have working URLs
+- [ ] Brand calibration completed before Layer 1
+- [ ] Brand gate completed before human gate
+- [ ] Brand Angle and brand alignment score included for every presented clip
+- [ ] First-touch feeling included for every presented clip
+- [ ] Blacklist scan completed for every presented clip
 - [ ] Human gate presented for every clip
 - [ ] User responses handled correctly
 - [ ] Memory updated with all data
+- [ ] Content tracker updated only if enabled and approved
 - [ ] No secrets, cookies, or API keys included in outputs
 - [ ] No restricted or private sources used without approval

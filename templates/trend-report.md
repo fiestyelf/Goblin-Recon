@@ -10,6 +10,9 @@
 - Stories scanned: [count]
 - Stories passing threshold (60/100): [count]
 - Top story: [headline] (score: [X]/100)
+- B2C opportunities: [count]
+- B2B opportunities: [count]
+- Brand-gate shelved: [count]
 
 ---
 
@@ -31,7 +34,16 @@
 - Cross-source: [X]/15
 - Controversy: [X]/15
 - Visual potential: [X]/15
-- GenX relevance: [X]/15
+- GenX relevance: [X]/10
+- Brand alignment: [X]/15
+
+**Brand Fit:**
+- Brand Angle: [B2C / B2B / Both]
+- Voice Category: [alive / awakening / limitless / provocative / structural]
+- Audience resonance: [B2C/B2B reason to care]
+- Mission-spine fit: [strong / medium / weak] — [one-line reason]
+- Blacklist Flags: [none / list violations]
+- Brand reasoning: [why this fits or risks the GenX brand]
 
 **Visual potential:**
 [Assessment of whether this can be made into a faceless reel]
@@ -70,7 +82,20 @@
 Stories that didn't pass threshold (below 60/100):
 
 ### [HEADLINE] — Score: [X]/100
-**Reason:** [Why it was shelved — low velocity, old news, low relevance, etc.]
+**Reason:** [Why it was shelved — low velocity, old news, low relevance, brand alignment below 8/15, blacklist violation, etc.]
+**Brand Angle:** [B2C / B2B / Both / None]
+**Audience Resonance:** [strong / medium / weak / none]
+**Mission-Spine Fit:** [strong / medium / weak / none]
+**Blacklist Flags:** [none / list violations]
+
+---
+
+## Brand-Aligned Opportunities
+
+Stories with strongest fit to GenX positioning:
+
+1. **[Headline]** — [B2C/B2B/Both], Brand Alignment [X]/15, recommended use: [clip/content/competitor response]
+2. **[Headline]** — [B2C/B2B/Both], Brand Alignment [X]/15, recommended use: [clip/content/competitor response]
 
 ---
 
@@ -78,7 +103,8 @@ Stories that didn't pass threshold (below 60/100):
 
 1. **Run Source Hunter** on top 3 stories to find YouTube/IG sources
 2. **Run Moment Finder** on best sources to extract clips
-3. **Present clip briefs** for approval
+3. **Run Brand Gate** before human approval
+4. **Present brand-approved clip briefs** for approval
 
 ---
 

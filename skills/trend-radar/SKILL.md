@@ -15,6 +15,13 @@ Find today's top 5 trending AI stories from multiple sources.
 - browser (for Reddit, Product Hunt)
 - config/sources.yaml
 - config/scoring.yaml
+- config/brand-voice.yaml
+- memory/brand-rules.md
+
+## Optional Helpers
+- MCP Memory: store approved/shelved trend patterns after human review
+- MCP Fetch: cleaner extraction from approved public pages
+- TrendRadar-style inputs: RSS feeds, keyword filters, and multi-platform alerts as extra signals only
 
 ## Execution Flow
 
@@ -28,6 +35,8 @@ Find today's top 5 trending AI stories from multiple sources.
 ```
 Load config/sources.yaml for source list
 Load config/scoring.yaml for scoring weights
+Load config/brand-voice.yaml for brand gate and blacklist
+Load memory/brand-rules.md for B2C/B2B positioning
 ```
 
 ### Step 2: Scan Sources (Parallel)
@@ -59,6 +68,11 @@ Load config/scoring.yaml for scoring weights
 - Filter: AI-related stories
 - Collect: URL, title, score, comments
 
+**Optional RSS / Alert Inputs:**
+- If configured, read approved RSS feeds or TrendRadar-style alert outputs as another public signal source.
+- Treat these as leads, not truth. Every item still needs URL, publication date, and normal Goblin Recon scoring.
+- Do not let external trend tools replace this skill's brand gate or scoring logic.
+
 ### Step 3: Deduplicate Stories
 - Group stories that cover the same topic
 - A story is "same" if 2+ sources report it
@@ -75,9 +89,26 @@ For each unique story, calculate score (0-100):
 | Cross-source | 15 | 1 source = 5, 2 sources = 10, 3+ = 15 |
 | Controversy | 15 | Polarized comments, opposing takes |
 | Visual potential | 15 | Can this be a faceless reel? |
-| GenX relevance | 15 | Would AI founders care? |
+| GenX relevance | 10 | Would GenX B2C/B2B audiences care? |
+| Brand alignment | 15 | Fits B2C science+soul or B2B results-not-advice positioning; no hype/woo/corporate filler |
 
 **Threshold:** 60/100 to advance. Below = auto-shelve.
+
+**Brand gate:**
+- Assign Brand Angle: B2C, B2B, or Both.
+- Score brand_alignment out of 15.
+- If brand_alignment < 8/15, shelve even if engagement is high.
+- If headline or GenX-written summary uses blacklisted language from config/brand-voice.yaml, rewrite it before reporting or shelve if it cannot be made on-brand.
+- Do not guess open founder decisions; flag them.
+
+**Audience resonance check:**
+- B2C: Does this speak to the successful-on-paper person who has lost spark, not beginners seeking generic motivation?
+- B2B: Does this speak to burnt-out SME operators who need implementation and results, not abstract thought leadership?
+- If neither audience has a clear reason to care, shelve even if the trend is viral.
+
+**Mission-spine check:**
+- Ask: does this trend connect to finding the unknown factor, removing what is blocking performance, or making a person/business work again?
+- If the connection requires hype, jargon, or forced metaphors, shelve or mark as weak fit.
 
 ### Step 5: Rank and Select
 - Sort stories by score (highest first)
@@ -95,6 +126,11 @@ For each story include:
 - Publication dates
 - Why it's trending
 - Visual potential assessment
+- Brand Angle: B2C, B2B, or Both
+- Brand alignment score and reasoning
+- Audience resonance: B2C/B2B reason to care
+- Mission-spine fit: strong/medium/weak with one-line reason
+- Blacklist flags: none or list violations
 - Recommended next step
 
 ### Step 7: Save to Memory
@@ -119,4 +155,9 @@ For each story include:
 - [ ] No story older than 72 hours
 - [ ] No fabricated sources
 - [ ] Scores calculated correctly
+- [ ] Brand Angle included for every story
+- [ ] Brand alignment score is at least 8/15 for advancing stories
+- [ ] Audience resonance check completed for B2C, B2B, or Both
+- [ ] Mission-spine fit is explicit and not forced
+- [ ] Blacklist scan completed against config/brand-voice.yaml
 - [ ] No API keys, cookies, or private account data in report

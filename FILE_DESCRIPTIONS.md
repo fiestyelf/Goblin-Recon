@@ -1,8 +1,6 @@
-# Goblin Recon File Descriptions
+# Goblin Recon — File Descriptions
 
-This document gives a one-line purpose for each committed file and folder in Goblin Recon.
-
-Important GitHub note: the text shown beside files in the GitHub file browser is usually the **latest commit message**, not a custom file description. This file is the actual clean reference for what each file does.
+One-line purpose for every tracked file and folder in this repo.
 
 ---
 
@@ -10,136 +8,122 @@ Important GitHub note: the text shown beside files in the GitHub file browser is
 
 | File | Job |
 |---|---|
-| `README.md` | Main project overview. Explains what Goblin Recon is, how the pipeline works, setup basics, commands, security references, troubleshooting, and repository map. |
-| `INSTRUCTIONS.md` | Simple step-by-step guide for marketing team members. Explains setup, commands, what to trigger when, business security rules, weekly workflow, FAQ, and safe usage. |
-| `AGENTS.md` | Main Hermes agent rulebook. Defines Goblin Recon identity, behavior, source verification rules, clip rules, security guardrails, and supported commands. |
-| `HERMES_APPROVALS.md` | Teaches users what Hermes tool permissions to approve or deny when starting and running Goblin Recon. |
+| `AGENTS.md` | Agent rulebook — identity, behavior, source verification, brand rules, security guardrails. |
+| `GETTING_STARTED.md` | Quickstart for new users who already have Hermes. |
+| `mcp.json` | Optional MCP helper server config. Disabled until approved. |
 
----
-
-## Distribution and Rollout Docs
+## Core Docs
 
 | File | Job |
 |---|---|
-| `PRE_LAUNCH_CHECKLIST.md` | Final business rollout checklist covering repository safety, API approval, source approval, legal review, data retention, and team training. |
-
----
+| `README.md` | Project overview. One-liner setup, commands, and pointers to detailed guides. |
+| `FILE_DESCRIPTIONS.md` | This file — one-line purpose for every file and folder. |
+| `INSTRUCTIONS.md` | Step-by-step setup and daily workflow guide for the GenX Academy marketing team. |
 
 ## Security, Legal, and API Docs
 
 | File | Job |
 |---|---|
-| `SECURITY.md` | Security policy for internal company use. Covers secret handling, public-source rules, account safety, retention, and incident response. |
-| `API_KEYS.md` | Explains safe API key storage, key scopes, rotation, leak response, and approved methods such as `.env`, Hermes secrets, and company secret managers. |
-| `SOCIAL_API_SETUP.md` | Detailed guide for adding approved social media API keys and enabling YouTube, Reddit, X/Twitter, Instagram/Meta, LinkedIn, or Discord integrations safely. |
-| `LEGAL_GUARDRAILS.md` | Platform and publishing rules. Covers copyright, competitor research, source attribution, private sources, paywalls, and when to shelve. |
+| `SECURITY.md` | Security policy — secrets, public-source rules, retention, incident response. |
+| `API_KEYS.md` | Safe API key storage, rotation, and leak response. |
+| `SOCIAL_API_SETUP.md` | Guide for adding approved social API keys (YouTube, Reddit, X/Twitter, etc.). |
+| `LEGAL_GUARDRAILS.md` | Platform, copyright, competitor research, and publishing rules. |
+| `HERMES_APPROVALS.md` | Which Hermes tool permissions to approve or deny. |
 
----
-
-## Repository Safety Files
-
-| File | Job |
-|---|---|
-| `.gitignore` | Blocks local secrets, virtual environments, cache files, logs, and vault outputs from being committed. |
-| `.env.example` | Safe template showing environment variable names for future approved API keys. Users copy this to `.env` locally. Actual `.env` files must never be committed. |
-
----
-
-## Python Project and Setup Files
+## Repository Safety
 
 | File | Job |
 |---|---|
-| `requirements.txt` | Pinned Python dependency list for simple setup. Currently includes `youtube-transcript-api==1.2.4`. |
-| `pyproject.toml` | Python project metadata and dependency declaration for `uv`. Keeps setup modern and repeatable. |
+| `.gitignore` | Blocks secrets, environments, caches, logs, docs/, and vault outputs from being committed. |
+| `.env.example` | Safe template showing environment variable names for optional API keys. |
 
----
+## Python Project and Setup
+
+| File | Job |
+|---|---|
+| `requirements.txt` | Pinned Python dependencies. |
+| `pyproject.toml` | Python project metadata for `uv`. |
 
 ## Config Files
 
 | File | Job |
 |---|---|
-| `config/sources.yaml` | Defines trend sources: X/Twitter queries, monitored accounts, Reddit subreddits, tech news sites, and Product Hunt topics. Used by Trend Radar. |
-| `config/scoring.yaml` | Defines all scoring weights and thresholds for Trend Radar, Source Hunter, Moment Finder, and clip length rules. |
-| `config/content-sources.yaml` | Defines YouTube channels, Instagram accounts, hashtags, and topic query patterns used by Source Hunter. |
-| `config/competitors.yaml` | Empty competitor template. Later, approved competitors can be added here for Competitor Scout. |
-| `config/security.yaml` | Machine-readable security policy: public-only sources, API key rules, rate limits, human review requirements, and retention defaults. |
-| `config/integrations.yaml` | Optional integration registry. Lists required environment variables and keeps all social/API integrations disabled until approved. |
+| `config/sources.yaml` | Trend source definitions — X queries, Reddit subreddits, news sites, Product Hunt topics. Used by Trend Radar. |
+| `config/scoring.yaml` | Scoring weights and thresholds for all three layers and the brand gate. |
+| `config/brand-voice.yaml` | Brand voice rules, blacklist, brand gate thresholds, visual rules. |
+| `config/content-sources.yaml` | YouTube channels, Instagram accounts, hashtags, and topic patterns for Source Hunter. |
+| `config/competitors.yaml` | Empty template for competitor tracking. |
+| `config/security.yaml` | Machine-readable security defaults — public-only sources, rate limits, human review. |
+| `config/integrations.yaml` | Registry of optional integrations (all disabled by default). |
+| `config/content-tracker.yaml` | Optional Notion/Sheets content tracker config. Disabled by default. |
 
----
-
-## Skill Files
-
-| File | Job |
-|---|---|
-| `skills/orchestrator/SKILL.md` | Main pipeline driver. Runs Trend Radar, Source Hunter, Moment Finder, and the human approval gate when the user says `run full scan`. |
-| `skills/trend-radar/SKILL.md` | Layer 1 research skill. Finds and scores trending AI stories from public sources. |
-| `skills/source-hunter/SKILL.md` | Layer 2 research skill. Finds YouTube and Instagram source material for a trend or known topic. |
-| `skills/moment-finder/SKILL.md` | Layer 3 extraction skill. Finds quotable 15-60 second clip moments from transcripts and creates clip briefs. |
-| `skills/competitor-scout/SKILL.md` | Standalone competitor/campaign research skill. Tracks public pricing, features, messaging, and market activity. |
-
----
-
-## Script Files
+## Skills
 
 | File | Job |
 |---|---|
-| `scripts/setup.sh` | One-command local setup script. Creates `.venv` and installs approved Python dependencies. |
-| `scripts/check_secrets.py` | Local secret scanner. Checks for accidental API keys, tokens, webhooks, or credentials before sharing or pushing. |
-| `scripts/get_youtube_transcript.py` | Pulls public YouTube captions/transcripts with timestamps. Used by Moment Finder for clip research. |
-| `scripts/extract_clip.py` | Validates video URLs and clip boundaries, then returns clean timestamped clip metadata. |
-| `scripts/score_engagement.py` | Calculates engagement velocity and returns a normalized score for trend/source scoring. |
+| `skills/orchestrator/SKILL.md` | Pipeline driver — runs Trend Radar → Source Hunter → Moment Finder → Human Gate. |
+| `skills/trend-radar/SKILL.md` | Layer 1 — finds and scores trending AI stories. |
+| `skills/source-hunter/SKILL.md` | Layer 2 — finds YouTube/Instagram sources for a trend or topic. |
+| `skills/moment-finder/SKILL.md` | Layer 3 — extracts 15-60s clip moments from transcripts. |
+| `skills/competitor-scout/SKILL.md` | Standalone competitor/campaign research — pricing, features, messaging. |
 
----
-
-## Template Files
+## Scripts
 
 | File | Job |
 |---|---|
-| `templates/trend-report.md` | Standard output format for daily AI trend reports. |
-| `templates/clip-brief.md` | Standard output format for clip briefs with timestamps, transcript excerpt, hook, caption, format, hashtags, and approval status. |
-| `templates/content-brief.md` | Standard output format for broader content planning based on a trend, source material, angle, hook, platform, and next steps. |
-| `templates/competitor-report.md` | Standard output format for competitor intelligence reports covering pricing, features, marketing, social activity, and recommended response. |
+| `scripts/setup.sh` | One-command local setup. Creates `.venv` and installs dependencies. |
+| `scripts/check_secrets.py` | Scans the repo for accidental API keys, tokens, or webhooks. |
+| `scripts/get_youtube_transcript.py` | Pulls public YouTube captions/transcripts with timestamps. |
+| `scripts/extract_clip.py` | Validates video URLs and clip boundaries, returns clip metadata. |
+| `scripts/score_engagement.py` | Calculates engagement velocity scores for trends/sources. |
 
----
+## Templates
+
+| File | Job |
+|---|---|
+| `templates/trend-report.md` | Output format for daily trend reports. |
+| `templates/clip-brief.md` | Output format for 15-60s clip briefs with timestamps, hooks, captions. |
+| `templates/content-brief.md` | Output format for broader content planning. |
+| `templates/competitor-report.md` | Output format for competitor intelligence reports. |
 
 ## Memory Files
 
 | File | Job |
 |---|---|
-| `memory/trend-history.md` | Stores previous trend scan results for deduplication and future review. Starts empty with an example format. |
-| `memory/competitor-snapshots.md` | Stores competitor snapshots over time so future scans can detect changes. Starts empty with an example format. |
-| `memory/content-performance.md` | Stores notes on how approved content performed after posting. Used later to improve scoring decisions. |
-
----
+| `memory/trend-history.md` | Stores past trends for deduplication. Starts empty with example format. |
+| `memory/brand-rules.md` | Operational brand memory — condensed from local-only source material. All skills load this for brand gate checks. |
+| `memory/competitor-snapshots.md` | Stores competitor snapshots for change detection. Starts empty with example format. |
+| `memory/content-performance.md` | Stores content performance data for future scoring improvements. Starts empty. |
 
 ## Vault Folders
 
 | Path | Job |
 |---|---|
-| `vault/intake/.gitkeep` | Keeps the raw intake folder in Git. Actual raw intake files are local outputs and are ignored. |
-| `vault/briefs/.gitkeep` | Keeps the approved briefs folder in Git. Actual approved briefs are local outputs and are ignored unless intentionally approved. |
-| `vault/reports/.gitkeep` | Keeps the approved reports folder in Git. Actual competitor reports are local outputs and are ignored unless intentionally approved. |
+| `vault/intake/.gitkeep` | Keeps the intake folder in Git. Actual raw intake files are local-only and ignored. |
+| `vault/briefs/.gitkeep` | Keeps the briefs folder in Git. Actual briefs are local outputs and ignored. |
+| `vault/reports/.gitkeep` | Keeps the reports folder in Git. Actual reports are local outputs and ignored. |
 
----
-
-## Test Files
+## Tests
 
 | File | Job |
 |---|---|
-| `tests/test_scripts.py` | Offline unit tests for clip extraction, transcript input validation, and engagement scoring safety behavior. |
+| `tests/test_scripts.py` | Unit tests for clip extraction, transcript validation, and scoring. |
 
 ---
 
-## What Should Not Appear in GitHub
+## Files Not in GitHub
 
-These may exist locally, but they should not be committed:
+These exist locally but are ignored by `.gitignore`:
 
-| Local Path | Why Not Committed |
+| Path | Why |
 |---|---|
-| `.venv/` | Local Python environment. Recreated by `scripts/setup.sh`. |
-| `.env` | Local secrets file. Must stay private. |
-| `__pycache__/` | Python cache output. Not useful for source control. |
-| `vault/intake/*` | May contain raw research output or sensitive notes. |
-| `vault/briefs/*` | May contain unpublished content briefs. |
-| `vault/reports/*` | May contain internal competitor intelligence. |
-| `*.log` | May contain local runtime details or sensitive data. |
+| `.venv/` | Local Python environment — recreated by `scripts/setup.sh`. |
+| `.env` | Local secrets — must stay private. |
+| `__pycache__/` | Python cache — not useful in source control. |
+| `docs/` | Internal brand and planning documents — local-only. |
+| `PRE_LAUNCH_CHECKLIST.md` | Internal rollout checklist — local-only. |
+| `/.codacy/` | CI config — removed from published repo. |
+| `vault/intake/*` | May contain sensitive research notes. |
+| `vault/briefs/*` | May contain unpublished content. |
+| `vault/reports/*` | May contain internal competitor intel. |
+| `*.log` | May contain runtime details. |

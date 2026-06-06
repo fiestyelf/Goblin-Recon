@@ -60,3 +60,47 @@ integrations:
       - DISCORD_WEBHOOK_URL
     recommended_scope: "Single-channel incoming webhook"
     avoid: "Admin bot permissions, server-wide permissions"
+
+  notion_content_tracker:
+    enabled: false
+    approval_required: true
+    purpose: "Create and update approved clip production records in a single Notion database."
+    env_vars:
+      - NOTION_API_KEY
+      - NOTION_DATABASE_ID
+    recommended_scope: "Single approved Goblin Recon content database"
+    avoid: "Workspace-wide access, private unrelated pages, personal account automation"
+
+  google_sheets_content_tracker:
+    enabled: false
+    approval_required: true
+    purpose: "Create and update approved clip production records in a single Google Sheet."
+    env_vars:
+      - GOOGLE_SHEETS_CREDENTIALS_JSON
+      - GOOGLE_SHEETS_SPREADSHEET_ID
+    recommended_scope: "Single approved spreadsheet with read/write access"
+    avoid: "Drive-wide access, personal account automation, unrelated files"
+
+  mcp_memory:
+    enabled: false
+    approval_required: true
+    purpose: "Store approved examples, shelved examples, and recurring brand-gate decisions in optional MCP memory."
+    env_vars: []
+    recommended_scope: "Goblin Recon project memory only"
+    avoid: "Secrets, full raw transcripts, private personal data"
+
+  mcp_fetch:
+    enabled: false
+    approval_required: true
+    purpose: "Extract readable text from approved public URLs."
+    env_vars: []
+    recommended_scope: "Public pages only"
+    avoid: "Paywalls, captchas, login gates, robots.txt violations, rate-limit bypasses"
+
+  scrapling_public_extract:
+    enabled: false
+    approval_required: true
+    purpose: "Extract public JavaScript-heavy pages when normal extraction fails."
+    env_vars: []
+    recommended_scope: "Public pages only, respectful rate limits"
+    avoid: "Anti-access bypasses, login-only pages, personal accounts, restricted platform surfaces"

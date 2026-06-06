@@ -13,7 +13,14 @@ Find YouTube videos and Instagram content discussing each trending story from La
 - web_search
 - config/content-sources.yaml
 - config/scoring.yaml
+- config/brand-voice.yaml
+- memory/brand-rules.md
 - scripts/get_youtube_transcript.py
+
+## Optional Helpers
+- MCP Fetch: extract approved public source pages when standard web_extract is weak
+- GPT Researcher: optional deep-research helper only when sources are thin or the topic is complex
+- MCP Memory: compare candidate sources with previously approved/shelved source patterns
 
 ## Execution Flow
 
@@ -28,6 +35,8 @@ Find YouTube videos and Instagram content discussing each trending story from La
 ```
 Load config/content-sources.yaml for channels and accounts
 Load config/scoring.yaml for scoring weights
+Load config/brand-voice.yaml for creator/source voice fit
+Load memory/brand-rules.md for B2C/B2B brand positioning
 ```
 
 ### Step 2: For Each Trending Story
@@ -55,6 +64,19 @@ For each story from Layer 1:
   4. Result: top 3-5 reels
 ```
 
+**Optional Deep Research Helper:**
+```
+Use GPT Researcher only if:
+  - normal search finds fewer than 2 credible sources, or
+  - the topic is high-value but technically complex, or
+  - source credibility is unclear.
+
+Rules:
+  - Treat GPT Researcher output as leads, not final evidence.
+  - Verify every source URL and publication date yourself.
+  - Do not replace Source Hunter scoring or brand_voice_fit.
+```
+
 ### Step 3: Score Each Source
 
 For each video/reel, calculate score (0-100):
@@ -65,9 +87,25 @@ For each video/reel, calculate score (0-100):
 | Recency | 20 | Last 7 days = 20, 14 days = 15, 30 days = 10 |
 | Credibility | 20 | Channel size + authority + consistency |
 | Clip potential | 15 | Does it have quotable moments? |
-| Engagement ratio | 15 | Views / hours since publish |
+| Engagement ratio | 10 | Views / hours since publish |
+| Brand voice fit | 15 | Creator/source tone aligns with GenX; penalize hype, fake urgency, woo, and advice-merchant tone |
 
 **Threshold:** 65/100 to advance. Below = skip.
+
+**Brand source filter:**
+- Prefer creators with earned authority, clarity, substance, and non-hype delivery.
+- Penalize manufactured urgency, empty promises, hustle-bro tone, woo, and generic advice content.
+- Flag sources that are useful for market context but off-brand for direct repurposing.
+- If brand_voice_fit < 8/15, skip unless the source is needed only as supporting evidence.
+
+**Competitor overlap check:**
+- Check whether the source angle is already heavily owned by competitors from config/competitors.yaml or known competitor positioning.
+- If competitors are already using the same angle, either find a more ownable source moment or mark the source as context-only.
+- Prefer sources that allow GenX to say something competitors are missing.
+
+**Voice calibration anchors:**
+- Prefer grounded proof, lived experience, operator detail, precise language, and emotionally true observations.
+- Penalize generic motivation, guru certainty, corporate filler, empty transformation language, and advice without implementation.
 
 ### Step 4: Select Top Sources
 - Must score > 65/100
@@ -93,12 +131,20 @@ SOURCES FOUND:
 1. [YouTube] "[video title]"
    Channel: [name] | Views: [count] | Posted: [date]
    Score: [score]/100
+   Brand Voice Fit: [score]/15 | Brand Angle: [B2C/B2B/Both]
+   Competitor Overlap: [low/medium/high]
+   Voice Calibration: [strong/medium/weak]
+   Blacklist Flags: [none/list]
    URL: [link]
    Transcript: [available/not available]
 
 2. [Instagram] "[reel caption]"
    Account: [name] | Likes: [count] | Posted: [date]
    Score: [score]/100
+   Brand Voice Fit: [score]/15 | Brand Angle: [B2C/B2B/Both]
+   Competitor Overlap: [low/medium/high]
+   Voice Calibration: [strong/medium/weak]
+   Blacklist Flags: [none/list]
    URL: [link]
    Transcript: [available/not available]
 
@@ -131,4 +177,9 @@ SUMMARY:
 - [ ] Transcripts pulled for YouTube videos
 - [ ] No sources older than 30 days
 - [ ] Scores calculated correctly
+- [ ] Brand Voice Fit scored for every source
+- [ ] Competitor overlap checked before advancing a source
+- [ ] Voice calibration anchors checked for every source
+- [ ] Off-brand hype/woo/advice-merchant sources are skipped or clearly flagged
+- [ ] Blacklist scan completed for source titles/captions
 - [ ] No personal account cookies, tokens, or private data used

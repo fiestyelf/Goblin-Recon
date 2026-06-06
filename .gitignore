@@ -1,4 +1,5 @@
 .venv/
+uv.lock
 __pycache__/
 *.py[cod]
 .DS_Store
@@ -20,6 +21,13 @@ vault/reports/*
 !vault/intake/.gitkeep
 !vault/briefs/.gitkeep
 !vault/reports/.gitkeep
+
+# Internal brand and planning docs — not for public repo
+docs/
+PRE_LAUNCH_CHECKLIST.md
+
+# CI/config files not needed in published repo
+/.codacy/
 
 # Runtime logs
 *.log

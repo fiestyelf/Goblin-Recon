@@ -21,8 +21,11 @@ trend_radar:
       max: 15
       hint: "Can this be made into a compelling faceless reel?"
     - key: genx_relevance
+      max: 10
+      hint: "Would GenX B2C/B2B audiences care about this?"
+    - key: brand_alignment
       max: 15
-      hint: "Would AI founders and enthusiasts care about this?"
+      hint: "Fits B2C science+soul or B2B results-not-advice positioning; no hype/woo/corporate filler"
 
 # Source Hunter (Layer 2)
 source_hunter:
@@ -41,8 +44,11 @@ source_hunter:
       max: 15
       hint: "Does it have quotable moments?"
     - key: engagement_ratio
-      max: 15
+      max: 10
       hint: "Views per hour since publish"
+    - key: brand_voice_fit
+      max: 15
+      hint: "Creator tone aligns with GenX voice; penalize hype, fake urgency, woo, advice-merchant tone"
 
 # Moment Finder (Layer 3)
 moment_finder:
@@ -61,8 +67,24 @@ moment_finder:
       max: 15
       hint: "Does it challenge conventional thinking?"
     - key: visual_potential
-      max: 15
+      max: 10
       hint: "Can it be made into a faceless reel with text overlay?"
+    - key: brand_alignment
+      max: 15
+      hint: "Moment expresses B2C science+soul/truly-seen or B2B implementation/results-not-advice"
+
+# Brand Gate
+brand_gate:
+  min_brand_score: 8  # out of 15
+  blacklist_auto_shelve: true
+  require_brand_angle: true
+  allowed_brand_angles:
+    - B2C
+    - B2B
+    - Both
+  source_files:
+    - memory/brand-rules.md
+    - config/brand-voice.yaml
 
 # Clip Rules
 clip_rules:

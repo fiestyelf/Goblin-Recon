@@ -147,6 +147,56 @@ You should see something like:
 
 ---
 
+## Using Hermes Desktop With Goblin Recon
+
+Hermes Agent v0.16.0 adds a native Desktop app. Use the CLI when you want speed, but use Hermes Desktop for day-to-day team operations because it gives you a visual workspace for profiles, memory, skills, schedules, tools, and gateways.
+
+### Recommended Desktop Setup
+
+1. Open Hermes Desktop.
+2. Choose local mode if Hermes is installed on this machine, or remote mode if your team runs Hermes on a server.
+3. Select the `goblin-recon` profile.
+4. Open the project folder: `goblin-recon/`.
+5. Verify the active profile can read `AGENTS.md`, `memory/brand-rules.md`, and `config/brand-voice.yaml`.
+
+### Desktop Screens To Use
+
+| Desktop screen | Use it for |
+|---|---|
+| Chat | Run `run full scan`, approve/shelve/modify briefs, ask follow-up questions |
+| Sessions | Search old scans, recover prior decisions, compare recurring trends |
+| Skills | Confirm `trend-radar`, `source-hunter`, `moment-finder`, `competitor-scout`, and `orchestrator` are available |
+| Memory | Review or edit `brand-rules.md`, `trend-history.md`, `competitor-snapshots.md`, and `content-performance.md` |
+| Tools | Enable only approved toolsets: web, browser, file, terminal, memory, session_search, skills |
+| Schedules | Create daily trend scans and weekly competitor scans without writing cron commands |
+| Gateway | Connect approved Discord, Slack, Email, or other delivery targets |
+| Soul | Review the active profile persona; project behavior still comes from `AGENTS.md` |
+| Models | Pick the approved model and switch only with team approval |
+
+### Recommended Desktop Schedules
+
+Create these from the Schedules screen after the manual flow works:
+
+| Schedule | Prompt | Delivery |
+|---|---|---|
+| Daily 8:00 | `find trending AI stories and apply the GenX brand gate` | Chat or approved Discord channel |
+| Monday 9:00 | `run competitor scan and include brand gap analysis` | Chat or approved Discord channel |
+| Friday 15:00 | `summarize this week's approved, shelved, and brand-gate rejected content` | Chat |
+
+### Desktop Brand Workflow
+
+1. Run a scan from Chat.
+2. Let the agent apply the brand gate before human approval.
+3. Review only briefs with Brand Alignment >= 8/15 and no unresolved blacklist flags.
+4. Use `approve`, `shelve`, or `modify [instructions]`.
+5. Record live content results in `memory/content-performance.md` so future scoring improves.
+
+### Important Desktop Safety Rule
+
+Do not paste API keys into Desktop chat. Use Hermes profile secrets, the Desktop provider settings, or the local `.env` method approved by your admin.
+
+---
+
 ## Security Rules for Business Use
 
 These rules protect company accounts, API keys, and unpublished content.
@@ -213,6 +263,7 @@ Use this table when you are not sure which command to run.
 | Source material for a known topic | `find sources for [topic]` | Finds YouTube and Instagram content about that topic |
 | Best short clip from a known video | `find the moment in [video URL]` | Finds 15-60 second quotable moments from a video |
 | Competitor/campaign research | `run competitor scan` | Checks competitor pricing, features, messaging, and public activity |
+| Brand validation | `run brand check on [content]` | Checks content against GenX brand rules and blacklist |
 
 Simple rule:
 
