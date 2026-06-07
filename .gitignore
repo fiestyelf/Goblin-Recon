@@ -25,6 +25,7 @@ vault/reports/*
 
 # Internal brand and planning docs — not for public repo
 docs/
+personal-dumpground/
 PRE_LAUNCH_CHECKLIST.md
 VSCODE_CHANGES.md
 *_SCRATCH.md

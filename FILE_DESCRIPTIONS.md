@@ -124,7 +124,10 @@ These exist locally but are ignored by `.gitignore`:
 | `.env` | Local secrets — must stay private. |
 | `__pycache__/` | Python cache — not useful in source control. |
 | `docs/` | Internal brand and planning documents — local-only. |
+| `personal-dumpground/` | Local-only personal notes, session logs, upgrade ideas, and scratch plans. |
 | `PRE_LAUNCH_CHECKLIST.md` | Internal rollout checklist — local-only. |
+| `VSCODE_CHANGES.md` | Scratch/update notes — local-only if recreated. |
+| `*_SCRATCH.md` / `*_LOCAL.md` | Personal scratch files — local-only. |
 | `/.codacy/` | CI config — removed from published repo. |
 | `vault/intake/*` | May contain sensitive research notes. |
 | `vault/briefs/*` | May contain unpublished content. |

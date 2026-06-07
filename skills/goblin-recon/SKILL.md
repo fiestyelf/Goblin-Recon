@@ -79,18 +79,18 @@ The Goblin Recon project lives wherever you clone it. The structure:
 goblin-recon/
 ├── SOUL.md          ← your identity file (copy to profile)
 ├── AGENTS.md        ← agent constitution
-├── SESSION_LOG.md   ← changelog
 ├── config/          ← sources, scoring, brand-voice, security
 ├── memory/          ← brand-rules, trend/competitor history
 ├── scripts/         ← Python utilities (transcript, clip, scoring)
 ├── templates/       ← output templates
+├── personal-dumpground/ ← local-only notes, ignored by Git
 └── mcp.json         ← MCP server config (all optional)
 ```
 
 Key files:
 - `SOUL.md` — pre-made identity file. Copy to `~/.hermes/profiles/goblin-recon/SOUL.md`
 - `AGENTS.md` — the agent's constitution (personality, rules, scoring, output format, trend priority)
-- `SESSION_LOG.md` — every session's changes tracked here
+- `personal-dumpground/SESSION_LOG.md` — optional local-only session notes, not shipped with the company repo
 - `config/sources.yaml` — source priority: Instagram → TikTok → X → Reddit → News
 - `config/content-sources.yaml` — YouTube channels, IG accounts, TikTok creators
 - `config/scoring.yaml` — scoring dimensions (social_velocity, scroll_stop, etc.)
@@ -381,7 +381,7 @@ First test run (June 6, 2026): 5 stories found, 43-second clip extracted, full p
 
 ## Session Discipline
 
-Every session, update `SESSION_LOG.md` in the project root. Format:
+For personal/current/future change notes, update `personal-dumpground/SESSION_LOG.md`. That folder is local-only and ignored by Git. Format:
 ```
 ## Session N — [Date]
 ### Changes Made

@@ -51,7 +51,7 @@ sep
 
 MISSING=0
 for f in \
-    "AGENTS.md" "SOUL.md" "INSTRUCTIONS.md" "README.md" "SESSION_LOG.md" \
+    "AGENTS.md" "SOUL.md" "INSTRUCTIONS.md" "README.md" \
     "scripts/extract_clip.py" "scripts/score_engagement.py" \
     "scripts/get_youtube_transcript.py" "scripts/check_secrets.py" \
     "templates/social-pulse-report.md" "templates/clip-mine-brief.md" \
@@ -88,15 +88,15 @@ else
 fi
 
 sep
-echo "📝 SESSION_LOG"
+echo "📝 Local Dumpground"
 sep
 
-LAST_LOG=$(grep -c "## Session" "$ROOT/SESSION_LOG.md" 2>/dev/null || echo "0")
-if [ "$LAST_LOG" -gt 0 ]; then
-    echo "  $LAST_LOG sessions logged"
-    green "SESSION_LOG has entries"
+if [ -d "$ROOT/personal-dumpground" ]; then
+    echo "  personal-dumpground/ exists locally and is ignored by Git"
+    green "Personal/change notes are separated"
 else
-    red "SESSION_LOG is empty or missing"
+    echo "  Optional: create personal-dumpground/ for local-only notes"
+    green "No required personal files in release tree"
 fi
 
 sep
