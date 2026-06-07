@@ -6,13 +6,15 @@ AI-powered content research agent for GenX Academy. Two pipelines: Social Pulse 
 
 ---
 
-## One-Line Setup
+## One-Command Setup
 
 ```bash
-bash scripts/setup.sh                    # install dependencies
-hermes profile create goblin-recon       # create Hermes profile
-hermes -p goblin-recon                   # launch
+cd goblin-recon
+bash scripts/setup.sh
+hermes -p goblin-recon
 ```
+
+The setup script installs the Goblin Recon Hermes profile, SOUL.md, bundled skills, profile defaults, Python virtual environment, and dependencies. If no model provider is configured yet, setup will warn and continue so you can configure one later.
 
 Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
 

@@ -17,21 +17,20 @@ Run all setup commands from the project root. Replace the path with wherever you
 cd "/path/to/goblin-recon"
 ```
 
-## 2. Install Local Python Dependencies
+## 2. Run One-Command Setup
 
 ```bash
 bash scripts/setup.sh
 ```
 
-This creates `.venv/` and installs the approved Python dependency used by the transcript tools.
+This sets up the full local workspace:
 
-## 3. Create A Fresh Hermes Profile
-
-```bash
-hermes profile create goblin-recon
-```
-
-Do not clone another profile unless your admin explicitly tells you to. This agent is designed to work from the files in this folder.
+- Creates or updates the `goblin-recon` Hermes profile.
+- Installs `SOUL.md` into the profile.
+- Installs bundled Goblin Recon skills.
+- Sets safe profile defaults such as skill auto-load and terminal timeout.
+- Creates `.venv/` and installs Python dependencies for transcript and scoring tools.
+- Verifies the expected profile files, skills, and scripts are present.
 
 Hermes profiles are stored outside the repo at:
 
@@ -39,7 +38,13 @@ Hermes profiles are stored outside the repo at:
 ~/.hermes/profiles/goblin-recon/
 ```
 
-## 4. Choose A Model Provider
+If setup warns that profile creation failed, run this manually and then rerun setup:
+
+```bash
+hermes profile create goblin-recon
+```
+
+## 3. Choose A Model Provider
 
 Pick whichever provider/model your company has approved. Every provider below offers options — stronger models improve brand judgment and source verification, lighter models work for bulk scanning. You decide what fits each task.
 
@@ -66,7 +71,7 @@ hermes -p goblin-recon secrets set OPENAI_API_KEY
 
 Never paste API keys into chat.
 
-## 4.5 Optional MCP Servers
+## 4. Optional MCP Servers
 
 MCP servers are optional plugins that give Hermes/Goblin Recon extra abilities. They should not replace the existing skills. Use them as helpers only when they improve output without making the workflow harder.
 

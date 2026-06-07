@@ -42,7 +42,9 @@ One-line purpose for every tracked file and folder in this repo.
 | File | Job |
 |---|---|
 | `requirements.txt` | Pinned Python dependencies. |
+| `requirements-dev.txt` | Pinned developer/test dependencies for local release checks. |
 | `pyproject.toml` | Python project metadata for `uv`. |
+| `scripts/setup.sh` | One-command setup for Hermes profile, SOUL.md, skills, profile defaults, Python venv, and dependencies. |
 
 ## Config Files
 
@@ -66,12 +68,13 @@ One-line purpose for every tracked file and folder in this repo.
 | `skills/source-hunter/SKILL.md` | Layer 2 — finds YouTube/Instagram sources for a trend or topic. |
 | `skills/moment-finder/SKILL.md` | Layer 3 — extracts 15-60s clip moments from transcripts. |
 | `skills/competitor-scout/SKILL.md` | Standalone competitor/campaign research — pricing, features, messaging. |
+| `skills/goblin-recon/SKILL.md` | Operational skill — setup, commands, pipeline workflow, scoring, and release pitfalls. |
 
 ## Scripts
 
 | File | Job |
 |---|---|
-| `scripts/setup.sh` | One-command local setup. Creates `.venv` and installs dependencies. |
+| `scripts/setup.sh` | One-command local setup. Creates/updates the Hermes profile, installs project skills, and prepares Python tooling. |
 | `scripts/check_secrets.py` | Scans the repo for accidental API keys, tokens, or webhooks. |
 | `scripts/get_youtube_transcript.py` | Pulls public YouTube captions/transcripts with timestamps. |
 | `scripts/extract_clip.py` | Validates video URLs and clip boundaries, returns clip metadata. |
@@ -82,7 +85,7 @@ One-line purpose for every tracked file and folder in this repo.
 | File | Job |
 |---|---|
 | `templates/trend-report.md` | Output format for daily trend reports. |
-| `templates/clip-brief.md` | Output format for 15-60s clip briefs with timestamps, hooks, captions. |
+| `templates/clip-mine-brief.md` | Primary output format for Clip Mine editor-ready briefs. |
 | `templates/content-brief.md` | Output format for broader content planning. |
 | `templates/competitor-report.md` | Output format for competitor intelligence reports. |
 

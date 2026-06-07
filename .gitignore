@@ -1,6 +1,7 @@
 .venv/
 uv.lock
 __pycache__/
+.pytest_cache/
 *.py[cod]
 .DS_Store
 
@@ -25,6 +26,9 @@ vault/reports/*
 # Internal brand and planning docs — not for public repo
 docs/
 PRE_LAUNCH_CHECKLIST.md
+VSCODE_CHANGES.md
+*_SCRATCH.md
+*_LOCAL.md
 
 # CI/config files not needed in published repo
 /.codacy/

@@ -5,7 +5,7 @@
 ---
 
 ## Session 1 — June 6, 2026
-**Agent:** Hermes (Arjun's assistant)
+**Agent:** Hermes assistant
 **What we did:** Full end-to-end test of all 3 layers. Restructured trend pipeline.
 
 ### Changes Made
@@ -56,7 +56,7 @@ Instagram creator content (@therundownai, @rowancheung) produces **significantly
 ---
 
 ## Session 2 — June 6, 2026
-**Agent:** Hermes (Arjun's assistant)
+**Agent:** Hermes assistant
 **What we did:** Bifurcated Goblin Recon into two pipelines. Created SOUL.md and specialized profile.
 
 ### Changes Made
@@ -111,7 +111,7 @@ Auto-load: ✅ goblin-recon skill on startup
 ---
 
 ## Session 3 — June 6, 2026
-**Agent:** Hermes (Arjun's assistant)
+**Agent:** Hermes assistant
 **What we did:** Pre-push audit. Fixed scoring inconsistency, updated layer skills for two pipelines, refreshed user-facing docs.
 
 ### Changes Made
@@ -139,21 +139,112 @@ Auto-load: ✅ goblin-recon skill on startup
 
 ---
 
-## Template for Future Sessions
-
-```
-## Session N — [Date]
-**Agent:** [Who ran it]
-**What we did:** [Brief summary]
+## Session 2 — June 7, 2026
+**Agent:** Hermes assistant
+**What we did:** Created pre-made SOUL.md for goblin-recon profile. Updated skill docs.
 
 ### Changes Made
 | File | Change | Reason |
 |------|--------|--------|
+| `SOUL.md` | ✅ Created comprehensive identity file (197 lines) | New users get full GenX brand context without configuration |
+| `.hermes/profiles/goblin-recon/SOUL.md` | ✅ Copied to profile | Agent now loads GenX identity on start |
+| `genx-marketing/goblin-recon/SKILL.md` | 🔄 Updated profile setup section | Points to project-root SOUL.md instead of example |
 
-### Test Results
-| Test | Result |
-|------|--------|
+### Key Decisions
+- **Blacklist: referenced, not inline.** SOUL.md has the spirit (with examples) but `brand-voice.yaml` is the authoritative dictionary. Revisit if token budget becomes an issue.
+- **Maintenance section included.** SOUL.md has explicit "what to edit when" guide.
+- **Setup instructions in the file.** New users can copy-paste setup commands from SOUL.md itself.
 
 ### Open Items
-- [ ] ...
+- [ ] Test with a clean goblin-recon profile to verify onboarding flow
+- [ ] If new users need the blacklist baked in (not referenced), can inline it later
+
+---
+
+## Session 3 — June 7, 2026
+**Agent:** Hermes assistant
+**What we did:** Removed machine-specific paths for portable company use. SOUL.md and SKILL.md are now portable — any user can clone the repo and run setup without editing paths.
+
+### Changes Made
+| File | Change | Reason |
+|------|--------|--------|
+| `SOUL.md` | Replaced local Desktop paths with relative/project-root references in Setup Instructions | New users clone anywhere — setup must work from project root |
+| `SOUL.md` | Added `hermes profile create goblin-recon` step (Step 0) | New users need to create the profile before copying SOUL.md |
+| `SOUL.md` | Changed "canonical version" note to say "project root" instead of a local Desktop path | Company-facing, no personal paths |
+| `goblin-recon` SKILL.md | Replaced `## Project Location` block — removed local absolute path, added portable directory tree | Any clone location works |
+| `goblin-recon` SKILL.md | Profile Setup step 1: `cp SOUL.md ~/.hermes/...` (relative) instead of an absolute local path | Works from any project root |
+| `goblin-recon` SKILL.md | Script Usage: `cd goblin-recon` instead of a local absolute path | Portable |
+| `goblin-recon` SKILL.md | Pitfalls: Tests path changed to `cd goblin-recon` (relative) | Portable |
+| `.hermes/profiles/goblin-recon/SOUL.md` | Synced from project-root SOUL.md | Profile always matches canonical version |
+
+### Key Decision
+- **All paths are now relative to project root.** Users `cd` into wherever they cloned `goblin-recon/` and everything works. SOUL.md copy command runs from project root. Script commands run from project root. Tests run from project root.
+- **The only absolute path that stays is `~/.hermes/profiles/goblin-recon/`** — that's Hermes' profile location, which is consistent across all macOS Hermes installs.
+
+### Open Items
+- [ ] Test setup flow from a clean machine (clone repo → profile create → SOUL.md copy → skill auto-load → verify)
+- [ ] Update `references/soul-md-example.md` if it still has hardcoded paths
+
+---
+
+## Session 4 — June 7, 2026
+**Agent:** Hermes assistant
+**What we did:** Built one-command setup script. Added operational skill to project. Setup now handles full profile creation.
+
+### Changes Made
+| File | Change | Reason |
+|------|--------|--------|
+| `scripts/setup.sh` | ✅ Rewritten — full setup: profile, SOUL.md, skills, config, Python, verification | One command instead of 4+ manual steps |
+| `skills/goblin-recon/SKILL.md` | ✅ Added to project (copied from discord-bot profile) | Project needs to be self-contained for public use |
+| `skills/goblin-recon/SKILL.md` | Fixed hardcoded local path → relative | Portable for any user |
+| `skills/goblin-recon/SKILL.md` | Updated pitfall: "setup.sh Only Handles Python Deps" → "setup.sh Handles Full Setup" | Reflects new reality |
+
+### Setup Flow (New)
+```bash
+cd goblin-recon && bash scripts/setup.sh
 ```
+Does everything:
+1. Checks prerequisites (Hermes, Python, uv, any LLM provider)
+2. Creates `goblin-recon` profile
+3. Installs SOUL.md
+4. Installs skills (goblin-recon + 5 pipeline + 5 cherry-picked marketing)
+5. Configures auto-load and agent settings
+6. Sets up Python venv and dependencies
+7. Verifies installation
+
+### Key Decisions
+- **No model forced.** Uses whatever provider the user already has configured.
+- **Cherry-picked skills from default profile.** Copies 5 marketing skills if they exist in the user's Hermes install. Warns but continues if missing.
+- **Pipeline skills bundled.** orchestrator, trend-radar, source-hunter, moment-finder, competitor-scout ship with the project.
+
+### Open Items
+- [ ] Test on a clean machine (clone → setup.sh → verify)
+- [ ] Consider adding `hermes profile create` command if supported
+
+---
+
+## Session 5 — June 7, 2026
+**Agent:** Hermes assistant
+**What we did:** Prepared the repo for company-internal distribution. Cleaned personal references, aligned one-command setup docs, and removed scratch update notes.
+
+### Changes Made
+| File | Change | Reason |
+|------|--------|--------|
+| `scripts/setup.sh` | Added real Hermes profile creation attempt, safer config warnings, and project-root-relative final paths | Setup should explain failures instead of hiding them |
+| `README.md` / `GETTING_STARTED.md` / `INSTRUCTIONS.md` / `HERMES_APPROVALS.md` | Aligned first-time setup around `bash scripts/setup.sh` | Team members should follow one consistent onboarding flow |
+| `SOUL.md` / `skills/goblin-recon/SKILL.md` | Made model/provider guidance provider-neutral | Company users can use any approved model provider |
+| `skills/goblin-recon/SKILL.md` / `FILE_DESCRIPTIONS.md` | Pointed Clip Mine to `templates/clip-mine-brief.md` and marked legacy `clip-brief.md` as deprecated | Avoid deprecated template use |
+| `SESSION_LOG.md` | Removed personal-name and machine-path references | Safer company handoff |
+| `VSCODE_CHANGES.md` | Removed scratch update doc from tracked repo | Do not distribute personal/update scratch files |
+
+### Verification
+| Check | Result |
+|------|--------|
+| Secret scan | ✅ No obvious secrets found |
+| Unit tests | ✅ 43/43 pytest tests passed |
+| Diff whitespace check | ✅ No whitespace errors |
+| Pre-flight script | ✅ 5 checks passed, 0 failed |
+
+### Open Items
+- [ ] Run a clean-machine setup test: clone → `bash scripts/setup.sh` → `hermes -p goblin-recon`
+- [ ] Confirm which provider/model the team wants as the default recommendation

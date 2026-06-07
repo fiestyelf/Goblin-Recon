@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
 Goblin Recon — Clip Extractor
-Generates clip metadata from video timestamps.
+Generates YouTube clip metadata from video timestamps.
 
 Usage:
     python extract_clip.py <video_url> <start_sec> <end_sec>
 
 Output:
     JSON with clip metadata including:
-    - url_with_timestamp: Direct link to clip starting point
+    - url_with_timestamp: Direct YouTube link to clip starting point
     - duration: Clip length in seconds
     - start_time: Formatted start time
     - end_time: Formatted end time
@@ -60,7 +60,7 @@ def validate_url(video_url: str) -> None:
 
 
 def extract_clip_metadata(video_url: str, start_sec: int, end_sec: int) -> dict:
-    """Generate clip metadata from timestamps."""
+    """Generate YouTube clip metadata from timestamps."""
     try:
         validate_url(video_url)
         if start_sec < 0 or end_sec < 0:
@@ -74,15 +74,13 @@ def extract_clip_metadata(video_url: str, start_sec: int, end_sec: int) -> dict:
             raise ValueError(f"Clip duration must be 15-60 seconds, got {duration} seconds")
 
         video_id = extract_youtube_id(video_url)
+        if not video_id:
+            raise ValueError("video_url must be a supported YouTube URL")
     except Exception as exc:
         return {"error": str(exc)}
 
-    if video_id:
-        url_with_timestamp = f"https://youtube.com/watch?v={video_id}&t={start_sec}"
-        embed_url = f"https://youtube.com/embed/{video_id}?start={start_sec}&end={end_sec}"
-    else:
-        url_with_timestamp = f"{video_url}?t={start_sec}"
-        embed_url = None
+    url_with_timestamp = f"https://youtube.com/watch?v={video_id}&t={start_sec}"
+    embed_url = f"https://youtube.com/embed/{video_id}?start={start_sec}&end={end_sec}"
 
     return {
         "url_with_timestamp": url_with_timestamp,

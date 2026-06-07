@@ -76,13 +76,11 @@ Team members should run this once after cloning:
 ```bash
 cd goblin-recon
 bash scripts/setup.sh
-source .venv/bin/activate
 python3 scripts/check_secrets.py
-hermes profile create goblin-recon
 hermes -p goblin-recon
 ```
 
-If the Hermes profile already exists, skip:
+If setup warns that profile creation failed, run this manually and rerun setup:
 
 ```bash
 hermes profile create goblin-recon
@@ -112,7 +110,6 @@ After the first setup, most users only need:
 
 ```bash
 cd goblin-recon
-source .venv/bin/activate
 hermes -p goblin-recon
 ```
 

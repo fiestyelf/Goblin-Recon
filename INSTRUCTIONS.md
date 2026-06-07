@@ -96,16 +96,16 @@ cd goblin-recon
 
 *(Tip: Type `cd ` and then drag the goblin-recon folder into your terminal)*
 
-### Step 2: Install Dependencies
+### Step 2: Run Setup
 
 Run this command inside the goblin-recon folder:
 ```bash
 bash scripts/setup.sh
 ```
 
-This creates a virtual environment and installs the approved Python packages.
+This installs the Goblin Recon Hermes profile, SOUL.md, bundled skills, profile defaults, Python virtual environment, and approved Python packages.
 
-**Expected output:** Something like `Installed 7 packages in 7ms`
+If setup warns that no model provider is detected, continue the setup and ask your team lead which approved provider to configure.
 
 ### Step 2.5: Security Check Before Sharing
 
@@ -119,26 +119,17 @@ If it says `No obvious secrets found`, you are clear.
 
 If it reports a possible secret, stop and ask an admin before sharing anything.
 
-### Step 3: Create Your Hermes Profile
+### Step 3: Configure Your AI Provider If Needed
 
-Run this command:
+Use whichever provider/model your company has approved. Example for OpenAI:
 ```bash
-hermes profile create goblin-recon
+hermes -p goblin-recon config set model.provider openai
+hermes -p goblin-recon config set model.default gpt-4o
 ```
 
-This creates a dedicated workspace for Goblin Recon in Hermes.
+If your provider needs an API key, set it through Hermes secrets or your approved local secret method. Never paste keys into chat or commit them to this folder.
 
-### Step 4: Set Your AI Model
-
-Run these two commands:
-```bash
-hermes -p goblin-recon config set model.default deepseek-v4-flash
-hermes -p goblin-recon config set model.provider deepseek
-```
-
-*(Note: You can change to a different AI model later if you prefer. Ask your team lead for the preferred model.)*
-
-### Step 5: Launch Goblin Recon
+### Step 4: Launch Goblin Recon
 
 Run this command:
 ```bash
@@ -488,14 +479,14 @@ Every story and clip gets a score (0-100). Here's what they mean:
 ### Issue 1: "No module named 'youtube_transcript_api'"
 **Fix:** Run this inside the goblin-recon folder:
 ```bash
-source .venv/bin/activate
-uv pip install youtube-transcript-api
+bash scripts/setup.sh
 ```
 
 ### Issue 2: "Profile not found"
-**Fix:** Create the profile:
+**Fix:** Run setup again. If setup warns that the Hermes profile command failed, create the profile manually and rerun setup:
 ```bash
 hermes profile create goblin-recon
+bash scripts/setup.sh
 ```
 
 ### Issue 3: "No trending stories found"
