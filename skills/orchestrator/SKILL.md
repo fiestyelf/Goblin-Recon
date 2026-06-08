@@ -74,16 +74,18 @@ Before running the layers, calibrate the scan against the brand rules:
 
 ### Step 3.1: Vault Dedup Check
 ```
-1. Before running Moment Finder, check memory/trend-history.md and vault/briefs/ for similar:
+1. Before running Moment Finder, check vault/clips.db through scripts/clip_store.py for duplicate source URLs and overlapping timestamp windows.
+2. Use scripts/query_clips.py list --query "[topic or source]" when you need to retrieve similar prior clips by topic, source title, summary, why-post, or caption text.
+3. Also check memory/trend-history.md and vault/briefs/ for similar:
    a. Trend/topic
    b. Hook or claim
    c. Audience tension
    d. Competitor gap
    e. Source or speaker
-2. If no overlap exists: mark Vault check as "no overlap" and continue
-3. If overlap exists but the angle is meaningfully different: mark "needs differentiation" and state the difference
-4. If overlap exists and the angle is not meaningfully different: shelve before clip extraction
-5. Record the dedup decision in the final brief
+4. If no overlap exists: mark Vault check as "no overlap" and continue
+5. If overlap exists but the angle is meaningfully different: mark "needs differentiation" and state the difference
+6. If overlap exists and the angle is not meaningfully different: shelve before clip extraction
+7. Record the dedup decision in the final brief
 ```
 
 **Output:** Dedup decision for each story/source before clip extraction
@@ -168,17 +170,20 @@ Reply: approve / shelve / modify
 **For each "approve":**
 ```
 1. Save clip brief to vault/briefs/[date]-[headline].md
-2. Record in memory/trend-history.md
-3. If config/content-tracker.yaml tracking.enabled is true, create/update the Notion or Sheets tracker entry using approved integration only
-4. If MCP Memory is enabled, store a short approved-example summary without full raw transcript
-5. Report: "Approved and saved"
+2. Save structured clip metadata to vault/clips.db with scripts/clip_store.py using status=approved
+3. If the editor needs the brief later, regenerate it with scripts/query_clips.py brief [clip_id] --output vault/briefs/[clip_id].md
+4. Record in memory/trend-history.md
+5. If config/content-tracker.yaml tracking.enabled is true, create/update the Notion or Sheets tracker entry using approved integration only
+6. If MCP Memory is enabled, store a short approved-example summary without full raw transcript
+7. Report: "Approved and saved"
 ```
 
 **For each "shelve":**
 ```
-1. Record in memory/trend-history.md with reason
-2. If MCP Memory is enabled, store a short shelved-example summary and reason without full raw transcript
-3. Report: "Shelved"
+1. Save or update the clip in vault/clips.db with status=shelved when source URL and timestamps are known
+2. Record in memory/trend-history.md with reason
+3. If MCP Memory is enabled, store a short shelved-example summary and reason without full raw transcript
+4. Report: "Shelved"
 ```
 
 **For each "modify [instructions]":**

@@ -79,6 +79,8 @@ One-line purpose for every tracked file and folder in this repo.
 | `scripts/get_youtube_transcript.py` | Pulls public YouTube captions/transcripts with timestamps. |
 | `scripts/extract_clip.py` | Validates video URLs and clip boundaries, returns clip metadata. |
 | `scripts/score_engagement.py` | Calculates engagement velocity scores for trends/sources. |
+| `scripts/clip_store.py` | Stores approved/shelved Clip Mine records in local SQLite for cross-session lookup and dedup. |
+| `scripts/query_clips.py` | CLI for searching stored clips, updating statuses, and exporting clip briefs. |
 
 ## Templates
 
@@ -111,6 +113,8 @@ One-line purpose for every tracked file and folder in this repo.
 | File | Job |
 |---|---|
 | `tests/test_scripts.py` | Unit tests for clip extraction, transcript validation, and scoring. |
+| `tests/test_clip_store.py` | Unit tests for persistent clip storage, duplicate detection, and status updates. |
+| `tests/test_query_clips.py` | CLI tests for stored clip search and brief export. |
 
 ---
 

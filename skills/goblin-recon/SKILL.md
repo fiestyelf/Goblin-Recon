@@ -214,6 +214,21 @@ Calculates engagement velocity score (0–20). Output: JSON with `score`, `veloc
 - Platforms: twitter, reddit, youtube, instagram
 - Platform-specific benchmarks for viral thresholds
 
+### clip_store.py
+Stores Clip Mine candidates in `vault/clips.db` for cross-session lookup, full-text search, and duplicate checks.
+- Run with no args to initialize the database: `.venv/bin/python scripts/clip_store.py`
+- Use from agents/scripts to save approved or shelved clips with source URL, timestamps, status, scores, and summary fields
+- Do not store full raw transcripts, API keys, cookies, or login-only source data
+
+### query_clips.py
+Retrieves stored clips without manually opening SQLite.
+- Initialize: `.venv/bin/python scripts/query_clips.py init`
+- List approved clips: `.venv/bin/python scripts/query_clips.py list --status approved`
+- Search by topic/source/summary/caption: `.venv/bin/python scripts/query_clips.py list --query "AI agents"`
+- Show one record: `.venv/bin/python scripts/query_clips.py show [clip_id]`
+- Update workflow status: `.venv/bin/python scripts/query_clips.py update-status [clip_id] in_production --decision "editor picked it"`
+- Export a markdown brief: `.venv/bin/python scripts/query_clips.py brief [clip_id] --output vault/briefs/[clip_id].md`
+
 ### check_secrets.py
 Pre-commit security scan. Run before sharing or pushing:
 ```bash

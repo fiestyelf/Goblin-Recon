@@ -164,6 +164,15 @@ for skill in "${PIPELINE_SKILLS[@]}"; do
     fi
 done
 
+# Install project assets that skills call at runtime
+for asset_dir in scripts templates config memory; do
+    if [ -d "$PROJECT_DIR/$asset_dir" ]; then
+        mkdir -p "$PROFILE_DIR/$asset_dir"
+        cp -r "$PROJECT_DIR/$asset_dir"/* "$PROFILE_DIR/$asset_dir/"
+        echo -e "    ✅  $asset_dir installed"
+    fi
+done
+
 # Cherry-picked marketing skills (from default Hermes profile)
 CHERRY_PICKED=(competitor-profiling social-content copywriting content-strategy marketing-psychology)
 DEFAULT_SKILLS="$HERMES_HOME/skills/desktop"

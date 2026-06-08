@@ -153,6 +153,8 @@ When finding videos/clips for a trending story, search in this order:
 - FunASR is not enabled by default. Use YouTube captions first; consider speech recognition later only if captionless videos become a frequent blocker.
 
 ## Content Tracking
+- Local clip history is stored in `vault/clips.db` through `scripts/clip_store.py`. Use it for cross-session deduplication and clip lookup.
+- Use `scripts/query_clips.py list --status approved` to retrieve clips ready for editor handoff, and `scripts/query_clips.py brief [clip_id]` to regenerate an editor-ready brief from stored metadata.
 - Approved clips can be tracked in Notion or Google Sheets through `config/content-tracker.yaml` after explicit approval.
 - Create tracker entries only after the Human Gate approves a clip.
 - Never store full raw transcripts, API keys, cookies, private personal data, or login-only source data in trackers.

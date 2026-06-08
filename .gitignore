@@ -19,6 +19,7 @@ secrets.*
 vault/intake/*
 vault/briefs/*
 vault/reports/*
+vault/*.db
 !vault/intake/.gitkeep
 !vault/briefs/.gitkeep
 !vault/reports/.gitkeep
