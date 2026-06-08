@@ -34,6 +34,17 @@
 | **End time** | [MM:SS] |
 | **Duration** | [N] seconds |
 | **Direct link** | [URL with &t=XXX] |
+| **Embed preview** | [YouTube embed URL with start/end] |
+
+## Source Access
+
+| Field | Value |
+|-------|-------|
+| **Original source** | [Full YouTube URL] |
+| **Open at clip start** | [Clickable YouTube timestamp URL] |
+| **Preview window** | [Embed URL with start/end parameters] |
+| **Clip window** | [Start seconds] → [End seconds] |
+| **Rights note** | Use the link to inspect and cut the moment. Do not download or repost copyrighted source footage without human rights review. |
 
 ### THE MOMENT
 > "[Exact transcript quote. Word for word.]"

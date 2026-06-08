@@ -23,6 +23,7 @@ import sys
 import json
 import re
 from argparse import ArgumentParser
+from urllib.parse import parse_qs, urlparse
 from youtube_transcript_api import YouTubeTranscriptApi
 
 
@@ -33,18 +34,25 @@ def extract_video_id(url_or_id: str) -> str:
     """Extract video ID from YouTube URL or return as-is if already an ID."""
     if VIDEO_ID_RE.match(url_or_id):
         return url_or_id
-    
-    # Extract from various YouTube URL formats
-    patterns = [
-        r'(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/)([a-zA-Z0-9_-]{11})',
-        r'youtube\.com/v/([a-zA-Z0-9_-]{11})',
-    ]
-    
-    for pattern in patterns:
-        match = re.search(pattern, url_or_id)
-        if match:
-            return match.group(1)
-    
+
+    parsed = urlparse(url_or_id)
+    host = parsed.netloc.lower()
+    video_id = ""
+    if host == "youtu.be":
+        video_id = parsed.path.strip("/").split("/")[0]
+    elif host in {"youtube.com", "www.youtube.com", "m.youtube.com"}:
+        if parsed.path == "/watch":
+            video_id = parse_qs(parsed.query).get("v", [""])[0]
+        elif parsed.path.startswith("/embed/"):
+            video_id = parsed.path.split("/embed/", 1)[1].split("/", 1)[0]
+        elif parsed.path.startswith("/v/"):
+            video_id = parsed.path.split("/v/", 1)[1].split("/", 1)[0]
+        elif parsed.path.startswith("/shorts/"):
+            video_id = parsed.path.split("/shorts/", 1)[1].split("/", 1)[0]
+
+    if VIDEO_ID_RE.match(video_id):
+        return video_id
+
     raise ValueError("Input must be a valid YouTube URL or 11-character video ID")
 
 

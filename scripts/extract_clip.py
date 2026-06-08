@@ -48,6 +48,8 @@ def extract_youtube_id(video_url: str) -> str | None:
         video_id = parse_qs(parsed.query).get("v", [""])[0]
         if not video_id and parsed.path.startswith("/embed/"):
             video_id = parsed.path.split("/embed/", 1)[1].split("/", 1)[0]
+        if not video_id and parsed.path.startswith("/shorts/"):
+            video_id = parsed.path.split("/shorts/", 1)[1].split("/", 1)[0]
     if not VIDEO_ID_RE.match(video_id):
         raise ValueError("YouTube URL does not contain a valid video ID")
     return video_id

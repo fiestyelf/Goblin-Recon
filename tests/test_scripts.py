@@ -60,6 +60,15 @@ class TestExtractClipMetadata:
         assert "error" not in result
         assert result["duration"] == 30
 
+    def test_handles_youtube_shorts_url(self):
+        result = extract_clip_metadata(
+            "https://www.youtube.com/shorts/dQw4w9WgXcQ", 0, 30
+        )
+        assert "error" not in result
+        assert result["url_with_timestamp"] == (
+            "https://youtube.com/watch?v=dQw4w9WgXcQ&t=0"
+        )
+
 
 # ── get_youtube_transcript ────────────────────────────────────────────────────
 
@@ -72,7 +81,9 @@ class TestTranscriptInput:
             ("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "dQw4w9WgXcQ"),
             ("https://youtu.be/dQw4w9WgXcQ", "dQw4w9WgXcQ"),
             ("https://youtube.com/watch?v=dQw4w9WgXcQ&t=120", "dQw4w9WgXcQ"),
+            ("https://www.youtube.com/watch?si=abc&v=dQw4w9WgXcQ", "dQw4w9WgXcQ"),
             ("https://m.youtube.com/watch?v=dQw4w9WgXcQ", "dQw4w9WgXcQ"),
+            ("https://www.youtube.com/shorts/dQw4w9WgXcQ", "dQw4w9WgXcQ"),
         ],
     )
     def test_extracts_video_id(self, url, expected):
