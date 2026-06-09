@@ -2,7 +2,7 @@
 
 *You trigger. It hunts.*
 
-AI-powered content research agent for GenX Academy. Two pipelines: Social Pulse (ideas, blogs, carousels) and Clip Mine (podcast clips for faceless Instagram page).
+AI-powered content research agent for GenX Academy. Three core workflows: Social Pulse (ideas, blogs, carousels), Clip Mine (podcast clips for faceless Instagram page), and Clip Vault (persistent approved/shelved clip memory).
 
 ---
 
@@ -22,8 +22,11 @@ Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
 
 | Say this | It does |
 |---|---|
-| `run social pulse` | Pipeline A — ideas, blogs, carousels, content strategy |
-| `run clip mine` | Pipeline B — podcast clips for faceless IG page |
+| `run fast scan` | Low-stress daily scan using reliable sources first |
+| `run deep social scan` | Deeper Instagram/TikTok-first social trend scan |
+| `manual scan this [URL/screenshot/caption]` | Normalize and score human-provided social material |
+| `run social pulse` | Workflow — ideas, blogs, carousels, content strategy |
+| `run clip mine` | Workflow — podcast clips for faceless IG page |
 | `blog ideas` | Social Pulse filtered for long-form content |
 | `carousel ideas` | Social Pulse filtered for carousel topics |
 | `content strategy this week` | Social Pulse + editorial suggestions |
@@ -32,6 +35,30 @@ Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
 | `run full scan` | Social Pulse + Clip Mine in sequence |
 | `what clips are ready` | Approved clips awaiting editor handoff |
 | `run competitor scan` | Competitor Scout |
+
+## Architecture
+
+Goblin Recon uses a professional semi-autonomous agent structure:
+
+```text
+Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
+```
+
+Full architecture guide → [`ARCHITECTURE.md`](ARCHITECTURE.md)
+
+## Social Intake
+
+All social observations should be normalized before scoring:
+
+```bash
+.venv/bin/python scripts/social_intake.py --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
+```
+
+Store local social signals when useful:
+
+```bash
+.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store
+```
 
 ## File Guide
 

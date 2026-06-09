@@ -1,6 +1,6 @@
 ---
 name: goblin-recon
-description: Operate the Goblin Recon agent — GenX Academy's AI-powered content research pipeline. 3-layer architecture (Trend Radar → Source Hunter → Moment Finder) for finding trending AI stories, locating source videos, and extracting 15–60 second clip moments. Trend detection is Instagram-first, TikTok-second. Covers script usage, delegate_task patterns, brand gate application, profile setup (SOUL.md + auto-load + skills), and end-to-end testing workflow.
+description: Operate the Goblin Recon agent — GenX Academy's semi-autonomous content intelligence system. Uses a professional router/workflow architecture with Social Pulse, Clip Mine, and Clip Vault. Preserves the 3-layer clip chain (Trend Radar → Source Hunter → Moment Finder) for finding trending AI stories, locating source videos, and extracting 15-60 second clip moments. Covers scan modes, social extraction reliability, script usage, brand gate application, profile setup, and end-to-end testing workflow.
 category: genx-marketing
 ---
 
@@ -8,9 +8,30 @@ category: genx-marketing
 
 ## What It Is
 
-Goblin Recon is the intelligence division of the Goblin Bureau (GenX's AI agent suite). It runs **two separate pipelines**:
+Goblin Recon is the intelligence division of the Goblin Bureau (GenX's AI agent suite). It is a semi-autonomous content intelligence system with this professional operating pattern:
 
-### Pipeline A: Social Pulse
+```text
+Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
+```
+
+The agent does not scan every platform or invoke every tool by default. It routes the user's request into one primary workflow, uses the minimum reliable tools, presents decision-ready output, and stores useful memory.
+
+## Workflows
+
+Goblin Recon has three core workflows:
+
+```mermaid
+flowchart TD
+    A[User Command] --> B[Intent Router]
+    B --> C[Social Pulse]
+    B --> D[Clip Mine]
+    B --> E[Clip Vault]
+    C --> C1[Rank trend/content opportunities]
+    D --> D1[Create editor-ready clip briefs]
+    E --> E1[Retrieve clips and update statuses]
+```
+
+### Workflow 1: Social Pulse
 **Purpose:** Content ideas, blogs, carousels, content strategy inspiration.
 **Sources:** Instagram → TikTok → X → Reddit → Tech News
 **Output:** Trending topics, hook styles, reel formats, carousel angles, blog ideas.
@@ -19,6 +40,9 @@ Goblin Recon is the intelligence division of the Goblin Bureau (GenX's AI agent 
 Commands:
 | Command | What It Does |
 |---------|--------------|
+| `run fast scan` | Low-stress daily scan using reliable sources first |
+| `run deep social scan` | Deeper IG/TikTok-first social scan with fallback when blocked |
+| `manual scan this [URL/screenshot/caption]` | Normalize and score human-provided social material |
 | `run social pulse` | Full scan across IG/TikTok/X/Reddit/News for AI trends |
 | `what's trending on Instagram` | IG-only creator account scan |
 | `what's trending on TikTok` | TikTok-only trend scan |
@@ -26,7 +50,7 @@ Commands:
 | `carousel ideas` | Social Pulse filtered for carousel-worthy topics |
 | `content strategy this week` | Social Pulse + editorial calendar suggestions |
 
-### Pipeline B: Clip Mine
+### Workflow 2: Clip Mine
 **Purpose:** Direct video clips for the faceless Instagram page.
 **Sources:** YouTube podcasts → Interviews → Keynotes
 **Output:** Timestamped clips (15-60s), transcript quotes, engagement analytics, editor-ready briefs.
@@ -38,9 +62,27 @@ Commands:
 | `run clip mine` | Find best podcast clips from trending AI stories |
 | `find clips about [topic]` | Source Hunter + Moment Finder for specific topic |
 | `find the moment in [URL]` | Extract best clip from a specific video |
-| `what clips are ready` | Show all approved clips awaiting editor handoff |
 
-### Categorization (Both Pipelines)
+Clip Mine preserves the original core chain:
+
+```text
+Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Human Gate
+```
+
+### Workflow 3: Clip Vault
+**Purpose:** Persistent memory for approved, shelved, and production-status clips.
+**Storage:** `vault/clips.db`, `vault/briefs/`, `memory/trend-history.md`.
+**Output:** Ready clips, duplicate warnings, regenerated briefs, status updates.
+
+Commands:
+| Command | What It Does |
+|---------|--------------|
+| `what clips are ready` | Show approved clips awaiting editor handoff |
+| `search clips about [topic]` | Search stored clips by topic/source/summary/caption |
+| `show clip [clip_id]` | Show one stored clip record |
+| `update clip status` | Move a clip through approved/in_production/scheduled/posted/shelved |
+
+### Categorization (Core Workflows)
 Every item — Social Pulse idea or Clip Mine clip — is tagged by type:
 
 | Category | What It Means |
@@ -57,11 +99,84 @@ Every item — Social Pulse idea or Clip Mine clip — is tagged by type:
 | `what formats are working?` | Current winning reel formats from IG/TikTok |
 | `run competitor scan` | Competitor Scout |
 
+## Intent Router
+
+Before using tools, classify the user's request:
+
+| User Intent | Primary Workflow | Notes |
+|-------------|------------------|-------|
+| Find trends, ideas, hooks, or formats | Social Pulse | Ask or infer scan mode. |
+| Find video sources or timestamped moments | Clip Mine | Run vault dedup before Moment Finder. |
+| Retrieve approved/shelved clips | Clip Vault | Query `vault/clips.db` first. |
+| Analyze competitors | Competitor Scout | Keep separate from Social Pulse and Clip Mine. |
+| Validate copy/content against brand | Brand Gate | Can run standalone. |
+
+If a request mixes workflows, use the smallest useful sequence. Example: `run full scan` means Social Pulse first, then Clip Mine only for the strongest candidates.
+
+## Scan Modes
+
+### Fast Scan
+Use for daily low-stress discovery. Prefer reliable sources: YouTube, Reddit, Tech News, Product Hunt, and X/Twitter only when public access or approved API access is available. Do not depend on Instagram/TikTok extraction unless explicitly requested.
+
+### Deep Social Scan
+Use for weekly social-native discovery or important launches. Start with Instagram and TikTok public surfaces, then validate with X/Twitter, Reddit, and Tech News. If a platform blocks access, mark it blocked and move on.
+
+### Manual Assisted Scan
+Use when the human provides URLs, screenshots, captions, creator handles, or notes. Normalize the material into the social record schema, score it, and recommend whether it belongs in Social Pulse or Clip Mine.
+
+## Social Extraction Reliability Ladder
+
+Use this order when social data is needed:
+
+```text
+Approved API or reliable public feed -> Public browser extraction -> Manual assisted input
+```
+
+Every social signal should be normalized before scoring:
+
+```text
+platform:
+creator:
+url:
+published_date:
+views:
+likes:
+comments:
+caption:
+hook:
+format_type:
+topic:
+category:
+why_it_is_trending:
+can_genx_adapt_this:
+confidence:
+access_status:
+```
+
+Rules:
+- Never bypass login, paywall, captcha, robots.txt, rate limits, or platform restrictions.
+- Never use personal employee accounts for automation.
+- If public extraction fails, set `access_status: blocked` and switch to manual assisted input only if the missing data is essential.
+- Instagram and TikTok browser extraction are useful but fragile; do not build the whole workflow around them.
+
+All social observations must pass through `scripts/social_intake.py` before scoring. This creates a stable intake layer for approved API data, public browser observations, and manual assisted inputs.
+
+Examples:
+```bash
+.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json
+.venv/bin/python scripts/social_intake.py --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
+.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store
+```
+
+Default store: `vault/social-signals.jsonl` (ignored by Git).
+
 ## Trend Detection Priority (CRITICAL)
 
-**Instagram and TikTok first. Always.** These platforms show what's ACTUALLY engaging — not just what journalists think is important. News sites (TechCrunch, Verge, VentureBeat, Ars Technica) are for **validation** — URLs, dates, journalistic verification. They are NOT the primary trend signal.
+For full Social Pulse and Deep Social Scan, **Instagram and TikTok first.** These platforms show what's ACTUALLY engaging — not just what journalists think is important. News sites (TechCrunch, Verge, VentureBeat, Ars Technica) are for **validation** — URLs, dates, journalistic verification. They are NOT the primary trend signal in social-native scans.
 
-Priority order is absolute: **1. Instagram → 2. TikTok → 3. X/Twitter → 4. Reddit → 5. Tech News → 6. Product Hunt**
+Fast Scan is the exception: it intentionally uses reliable sources first and may skip Instagram/TikTok unless explicitly requested.
+
+Default social-native priority: **1. Instagram → 2. TikTok → 3. X/Twitter → 4. Reddit → 5. Tech News → 6. Product Hunt**
 
 Instagram creator accounts to scan:
 - @therundownai (491K) — carousel news digest
@@ -78,6 +193,7 @@ The Goblin Recon project lives wherever you clone it. The structure:
 ```
 goblin-recon/
 ├── SOUL.md          ← your identity file (copy to profile)
+├── ARCHITECTURE.md  ← router, workflows, scan modes, and tool policy
 ├── AGENTS.md        ← agent constitution
 ├── config/          ← sources, scoring, brand-voice, security
 ├── memory/          ← brand-rules, trend/competitor history
@@ -89,6 +205,7 @@ goblin-recon/
 
 Key files:
 - `SOUL.md` — pre-made identity file. Copy to `~/.hermes/profiles/goblin-recon/SOUL.md`
+- `ARCHITECTURE.md` — professional system map: router, workflows, scan modes, social extraction ladder, tool policy, memory policy
 - `AGENTS.md` — the agent's constitution (personality, rules, scoring, output format, trend priority)
 - `personal-dumpground/SESSION_LOG.md` — optional local-only session notes, not shipped with the company repo
 - `config/sources.yaml` — source priority: Instagram → TikTok → X → Reddit → News
@@ -98,7 +215,8 @@ Key files:
 - `config/security.yaml` — data collection policies, API key rules, rate limits
 - `memory/brand-rules.md` — operational brand memory for the agent
 - `scripts/` — Python utilities (transcript extraction, clip validation, engagement scoring)
-- `templates/` — output templates (trend-report, clip-brief, competitor-report, content-brief)
+- `scripts/check_brand.py` — pre-flight blacklist and nuance-word check for GenX-written copy
+- `templates/` — output templates (social-pulse-report, clip-mine-brief, competitor-report; trend-report/content-brief are deprecated references)
 - `mcp.json` — MCP server configuration (all optional, see pitfalls)
 
 ## Profile Setup (Hermes Desktop)
@@ -161,11 +279,11 @@ hermes config set terminal.timeout 300 -p goblin-recon
 
 Never paste or commit API keys. Store provider keys through Hermes secrets or another approved local secret method.
 
-## How to Run the Pipeline
+## How to Run Workflows
 
 ### Option A: Using delegate_task (Recommended for Speed)
 
-Run Layers 1 and 2 in parallel as subagents, then Layer 3 sequentially:
+Route first, then run only the needed workflow. For full Clip Mine, run Layers 1 and 2 in parallel as subagents, then Layer 3 sequentially:
 
 ```
 # Layer 1 (Trend Radar): delegate_task with toolsets=["web","browser"]
@@ -180,13 +298,14 @@ Run Layers 1 and 2 in parallel as subagents, then Layer 3 sequentially:
 
 # Layer 3 (Moment Finder): Run sequentially after picking best source
 # 1. Use get_youtube_transcript.py to pull transcript
-# 2. Analyze transcript for best 15-60s moment (prioritize scroll_stop, quotability)
-# 3. Validate with extract_clip.py
+# 2. Check vault/clips.db for duplicate source/time windows
+# 3. Analyze transcript for best 15-60s moment (prioritize scroll_stop, quotability)
+# 4. Validate with extract_clip.py
 ```
 
 ### Option B: Manual Sequential (for Debugging)
 
-Run each layer yourself using browser_navigate + browser_console for IG/TikTok scraping, then terminal for Python scripts.
+Run each layer yourself using browser tools for public social pages, then terminal for Python scripts. If IG/TikTok blocks access, mark the source blocked and switch to manual assisted input instead of trying to bypass restrictions.
 
 ## Script Usage
 
@@ -214,6 +333,14 @@ Calculates engagement velocity score (0–20). Output: JSON with `score`, `veloc
 - Platforms: twitter, reddit, youtube, instagram
 - Platform-specific benchmarks for viral thresholds
 
+### social_intake.py
+Normalizes social media observations before Trend Radar scoring.
+- Use for approved API records, public browser findings, and manual assisted input
+- Infer platform from URL when possible
+- Validate required fields: platform, URL, topic, access status
+- Store local social signals: `.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store`
+- Do not store secrets, cookies, login-only data, or private personal data
+
 ### clip_store.py
 Stores Clip Mine candidates in `vault/clips.db` for cross-session lookup, full-text search, and duplicate checks.
 - Run with no args to initialize the database: `.venv/bin/python scripts/clip_store.py`
@@ -235,16 +362,24 @@ Pre-commit security scan. Run before sharing or pushing:
 .venv/bin/python scripts/check_secrets.py
 ```
 
+### check_brand.py
+Pre-flight brand gate helper for generated captions, summaries, hooks, and outbound copy:
+```bash
+.venv/bin/python scripts/check_brand.py --text "Your caption or hook here"
+.venv/bin/python scripts/check_brand.py --file path/to/copy.md --json
+```
+A fail means rewrite or shelve before Human Gate.
+
 ## Clip Mine Scoring Criteria (7 Dimensions)
 
-Every clip is scored out of 110 points. The agent applies these when scanning transcripts:
+Every clip is scored out of 100 points. The agent applies these when scanning transcripts:
 
 ### 1. Scroll-Stop (15 pts) — THE MAIN TEST
 "Would someone stop scrolling for this?"
 - ✅ Concrete numbers, confrontational claims, revelations, emotional reactions
 - ❌ Generic observations, pleasant conversation, "interesting" facts
 
-### 2. Quotability (25 pts)
+### 2. Quotability (20 pts)
 "Would someone screenshot this and share it?"
 - ✅ Standalone soundbites, punchy phrasing, memorable analogies
 - ❌ Rambling, needs context, requires knowing the speaker
@@ -278,10 +413,10 @@ Every clip is scored out of 110 points. The agent applies these when scanning tr
 ### Score Thresholds
 | Score | Verdict |
 |-------|---------|
-| 85+ | 🔥 Killer clip. Ship immediately. |
-| 70-84 | ⚡ Strong. Worth producing. |
-| 55-69 | 📈 Decent. Produce if nothing better. |
-| Below 55 | 🗑️ Skip. Won't land. |
+| 85+ | Killer clip. Send to Human Gate. |
+| 70-84 | Strong. Worth producing. |
+| 60-69 | Decent. Produce only if nothing better passes. |
+| Below 60 | Skip. Won't land. |
 
 ### What the Agent Hunts For
 When scanning a transcript, these patterns win:
@@ -350,10 +485,10 @@ Full process reference: `references/clip-mine-process.md`
 ## Output Format
 
 Every report MUST lead with `## Decision` — recommended action in the first 3 seconds. Follow templates:
-- Trend reports → `templates/trend-report.md`
+- Social Pulse and trend reports → `templates/social-pulse-report.md`
 - Clip briefs → `templates/clip-mine-brief.md`
 - Competitor reports → `templates/competitor-report.md`
-- Content briefs → `templates/content-brief.md`
+- Content briefs → use `templates/social-pulse-report.md` unless the user asks for a standalone planning brief
 
 ### Trend Report Must Include
 - What's working on Instagram (formats, hooks, creators)
@@ -415,6 +550,21 @@ The `get_youtube_transcript.py` script may return non-English captions. GenX bra
 ### Instagram Scraping Is Fragile
 Cookie walls and login gates block some accounts. Works for public profiles but unreliable at scale. The Meta API (disabled in config) would fix this. Until then, accept manual IG monitoring as fallback.
 
+### Do Not Guess URLs
+Do not invent article URLs from headlines or slugs. Extract real `href` values from category pages, search pages, feeds, sitemaps, or approved APIs. If a URL returns 404, retry once only by extracting the actual link from an index/search page, then move on.
+
+### Blocked Sources Get One Confirmation Attempt
+If a source returns a block page, captcha, DataDome/JS challenge, login wall, or rate-limit response, confirm once, set `access_status: blocked`, and move on. Do not spend repeated calls trying alternate scraping patterns.
+
+### The Verge Needs Broad Link Extraction
+The Verge article pages may not appear under narrow dated selectors. Use broad image-backed link extraction before declaring failure:
+
+```js
+Array.from(document.querySelectorAll('main > div > a[href]'))
+  .filter((a) => a.querySelector('img') && a.href.includes('theverge.com'))
+  .map((a) => ({ title: a.textContent.trim().slice(0, 70), url: a.href }))
+```
+
 ### MCPs Are Optional
 The entire pipeline runs on Hermes built-in tools (browser, web, terminal). The MCPs in `mcp.json` (memory, fetch, ghost-browser) are supplementary. The only one worth enabling early is `memory` for persisting brand-gate decisions. Ghost-browser is redundant with Hermes' built-in browser.
 
@@ -425,7 +575,7 @@ The entire pipeline runs on Hermes built-in tools (browser, web, terminal). The 
 Lex Fridman ID was truncated (fixed in Session 1). AI Exchange and AI Explained still have empty strings.
 
 ### delegate_task Subagents Don't Share Context
-Pass all necessary context explicitly — source URLs, search queries, story topics, IG creator handles.
+For news-site scanning, use direct browser/web extraction as the primary data collector. Reserve `delegate_task` for post-processing such as scoring, cross-referencing, and brand gate checks. If you do delegate, pass all necessary context explicitly: source URLs, search queries, story topics, IG creator handles, retry limits, and blocked-source rules.
 
 ### Tests Require PYTHONPATH
 ```bash

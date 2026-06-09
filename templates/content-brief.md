@@ -1,5 +1,8 @@
 # Content Brief: "[HEADLINE]"
 
+> Deprecated: prefer `templates/social-pulse-report.md` for Social Pulse content opportunities.
+> Use this file only when the user explicitly asks for a standalone planning brief.
+
 **Generated:** [timestamp]
 **Trend Score:** [X]/100
 **Brand Angle:** [B2C / B2B / Both]
@@ -15,7 +18,7 @@
 **Confidence:** [High / Medium / Low] — [one-line reason based on source quality, current scenario, brand fit, and production feasibility].
 **Vault check:** [no overlap / similar piece exists: link or filename / needs differentiation].
 **Fallback:** If rejected, use [alternative hook, format, or trend angle].
-**AI Overview potential:** [Strong / Medium / Weak] — [one-line reason].
+**AI search potential:** [Strong / Medium / Weak] — [one-line reason].
 
 ---
 
@@ -57,7 +60,7 @@
 | LinkedIn | [Text post / Clip / Document post] | [operator/proof angle] | [specific window or unknown] | [how to adapt] |
 | YouTube Shorts | [Short] | [search-friendly angle] | [specific window or unknown] | [how to adapt] |
 
-**AI Search note:** [What exact question this content could answer for AI search, if any.]
+**AI search potential:** [Strong / Medium / Weak] — [what exact question this content could answer for AI search, if any.]
 
 ---
 

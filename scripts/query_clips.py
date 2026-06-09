@@ -19,6 +19,7 @@ from clip_store import (
     get_clip,
     init_db,
     render_clip_brief,
+    update_brief_path,
     update_status,
 )
 
@@ -105,13 +106,16 @@ def export_brief(args: argparse.Namespace) -> int:
     if not clip:
         print(f"Clip not found: {args.clip_id}")
         return 1
-    brief = render_clip_brief(clip)
     if args.output:
         output = Path(args.output)
+        clip["brief_path"] = str(output)
+        brief = render_clip_brief(clip)
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(brief, encoding="utf-8")
+        update_brief_path(args.clip_id, str(output), db_path=_db_path(args.db))
         print(f"Brief written: {output}")
     else:
+        brief = render_clip_brief(clip)
         print(brief)
     return 0
 

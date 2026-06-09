@@ -85,8 +85,8 @@ For each video/reel, calculate score (0-100):
 
 | Dimension | Max | How to Score |
 |-----------|-----|--------------|
-| topic_match | 25 | Title + description match story keywords |
-| recency | 20 | Last 7 days=20, 14 days=15, 30 days=10 |
+| topic_match | 20 | Title + description match story keywords |
+| recency | 15 | Last 7 days=15, 14 days=10, 30 days=5 |
 | credibility | 20 | Channel size + authority + consistency |
 | clip_potential | 15 | Does it have quotable moments? Soundbites? |
 | engagement_ratio | 10 | Views per hour since publish |
@@ -111,7 +111,7 @@ For each video/reel, calculate score (0-100):
 - Penalize generic motivation, guru certainty, corporate filler, empty transformation language, and advice without implementation.
 
 ### Step 4: Select Top Sources
-- Must score > 65/100
+- Must score >= 65/100
 - At least 1 YouTube + 1 Instagram per story (when available)
 - Maximum 5 sources per story
 
@@ -119,8 +119,9 @@ For each video/reel, calculate score (0-100):
 ```
 For each selected YouTube video:
   1. Run: python scripts/get_youtube_transcript.py <video_id>
-  2. Save transcript to memory
-  3. If transcript unavailable, flag as "no transcript"
+  2. Use transcript locally to identify candidate moments
+  3. Store only source URL, timestamps, and short excerpts by default
+  4. If transcript unavailable, flag as "no transcript"
 ```
 
 ### Step 6: Generate Source Report
@@ -139,7 +140,7 @@ SOURCES FOUND:
    Voice Calibration: [strong/medium/weak]
    Blacklist Flags: [none/list]
    URL: [link]
-   Transcript: [available/not available]
+   Transcript excerpt: [short excerpt available/not available]
 
 2. [Instagram] "[reel caption]"
    Account: [name] | Likes: [count] | Posted: [date]
@@ -154,18 +155,18 @@ SOURCES FOUND:
 SUMMARY:
 - YouTube sources: [count]
 - Instagram sources: [count]
-- Transcripts available: [count]
+- Transcript excerpts available: [count]
 ```
 
 ### Step 7: Chain to Layer 3
 - Pass selected sources to moment-finder
-- Include transcripts for videos that have them
+- Include source URL, candidate timestamps, and short transcript excerpts for videos that have them
 - Note videos without transcripts (skip in Layer 3)
 
 ## Output
 - Source list per story with URLs, channel names, and engagement data
-- Transcripts for YouTube videos
-- Clear indication of which sources have transcripts
+- Short transcript excerpts for YouTube videos when needed for moment selection
+- Clear indication of which sources have transcript access
 
 ## Error Handling
 - If YouTube search returns no results, note "No YouTube sources found"
@@ -177,7 +178,7 @@ SUMMARY:
 - [ ] Sources are public or approved
 - [ ] All sources have URLs
 - [ ] All sources have publication dates
-- [ ] Transcripts pulled for YouTube videos
+- [ ] Transcript access checked for YouTube videos; only short excerpts retained by default
 - [ ] No sources older than 30 days
 - [ ] Scores calculated correctly
 - [ ] Brand Voice Fit scored for every source

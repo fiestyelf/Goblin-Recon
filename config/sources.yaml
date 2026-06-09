@@ -1,10 +1,83 @@
 # Goblin Recon — Source Configuration
 # Where the trend radar looks for stories
 #
-# PRIORITY ORDER: Instagram → TikTok → X/Twitter → Reddit → Tech News
+# SOCIAL-NATIVE PRIORITY ORDER: Instagram → TikTok → X/Twitter → Reddit → Tech News
 # Social platforms drive engagement. News sites provide validation.
 
+scan_modes:
+  fast_scan:
+    purpose: "Low-stress daily discovery using reliable sources first."
+    use_when: "Daily check-ins, quick trend candidates, low manual overhead."
+    primary_sources: [youtube, reddit, tech_news, product_hunt]
+    optional_sources: [x_twitter, hacker_news]
+    avoid_by_default: [instagram, tiktok]
+    output: "5-10 ranked trend/content candidates with confidence and next action."
+
+  deep_social_scan:
+    purpose: "Social-native discovery for hooks, formats, and viral signals."
+    use_when: "Weekly research, important launches, or explicit social trend requests."
+    primary_sources: [instagram, tiktok]
+    validation_sources: [x_twitter, reddit, tech_news]
+    blocked_source_behavior: "Mark access_status=blocked and continue; do not bypass restrictions."
+    output: "Ranked social signals with hooks, format types, metrics, confidence, and adaptation notes."
+
+  manual_assisted_scan:
+    purpose: "Turn human-provided URLs, screenshots, captions, handles, or notes into scored signals."
+    use_when: "Public platforms block extraction or the user already found promising material."
+    accepted_inputs: [url, screenshot, caption, creator_handle, user_notes]
+    output: "Normalized social record plus recommendation: use in Social Pulse, move to Clip Mine, or shelve."
+
+normalized_social_record:
+  fields:
+    - platform
+    - creator
+    - url
+    - published_date
+    - views
+    - likes
+    - comments
+    - caption
+    - hook
+    - format_type
+    - topic
+    - category
+    - why_it_is_trending
+    - can_genx_adapt_this
+    - confidence
+    - access_status
+
+social_extraction_policy:
+  reliability_ladder:
+    - approved_api_or_reliable_public_feed
+    - public_browser_extraction
+    - manual_assisted_input
+  stop_conditions:
+    - login_required
+    - paywall
+    - captcha
+    - robots_txt_denial
+    - rate_limit_block
+    - platform_access_denied
+  blocked_behavior: "Set access_status=blocked and switch to manual assisted input only if the missing data is essential."
+
 sources:
+
+  # ── FAST SCAN: YOUTUBE (Reliable Public Video/News Leads) ──
+  youtube:
+    priority: fast_scan_primary
+    reason: "Reliable public source for AI news explainers, podcasts, interviews, and clip leads."
+    search_queries:
+      - "AI news today"
+      - "AI agents podcast"
+      - "OpenAI latest interview"
+      - "Anthropic Claude update"
+      - "AI startup interview"
+    preferred_source_types:
+      - podcast
+      - interview
+      - keynote
+      - explainer
+    extract: ["title", "channel", "url", "published_date", "views", "duration"]
 
   # ── LAYER 1A: INSTAGRAM (Primary Trend Detection) ──
   instagram:
@@ -153,3 +226,18 @@ sources:
       - artificial-intelligence
       - agents
     timeframe: last_24_hours
+
+  # ── FAST SCAN: HACKER NEWS (Developer/Builder Signal) ──
+  hacker_news:
+    priority: fast_scan_optional
+    reason: "Public builder sentiment and early technical discussion. Treat as validation, not primary social velocity."
+    urls:
+      - https://news.ycombinator.com/
+      - https://hn.algolia.com/?q=AI
+    search_terms:
+      - AI
+      - LLM
+      - agents
+      - OpenAI
+      - Anthropic
+    extract: ["title", "url", "points", "comments", "published_date"]

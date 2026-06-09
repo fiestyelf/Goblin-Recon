@@ -57,6 +57,15 @@ required_fields:
   - suggested_caption
   - blacklist_flags
   - human_decision
+  - effort
+  - confidence
+  - vault_check
+  - fallback_angle
+  - ai_search_potential
+  - brief_path
+  - tracker_provider
+  - tracker_entry_id
+  - tracker_entry_url
 
 optional_fields:
   - assigned_to

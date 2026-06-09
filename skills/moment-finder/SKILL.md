@@ -111,7 +111,7 @@ For each hot zone found:
    | Dimension | Max | What to look for |
    |-----------|-----|------------------|
    | scroll_stop | 15 | THE test. Would someone stop scrolling for this? First 3 seconds must hook. |
-   | quotability | 25 | Would someone quote/screenshot/share this? Standalone soundbite? |
+   | quotability | 20 | Would someone quote/screenshot/share this? Standalone soundbite? |
    | emotion | 15 | Does it trigger fear, awe, anger, excitement, or curiosity? |
    | clarity | 15 | Is the point clear without context? No jargon, no setup needed. |
    | controversy | 10 | Does it challenge conventional thinking? Will people comment? |
@@ -172,7 +172,7 @@ Effort: [X] hours to cut, caption, format, and schedule
 Confidence: [High / Medium / Low] — [reason]
 Vault check: [no overlap / similar clip exists / needs differentiation / not checked]
 Fallback: [alternate timestamp, angle, or source if rejected]
-AI Overview potential: [Strong / Medium / Weak] — [reason]
+AI search potential: [Strong / Medium / Weak] — [reason]
 
 Source: [video title] | Channel: [name]
 URL: youtube.com/watch?v=XXX&t=[START] → t=[END]
@@ -217,7 +217,7 @@ HASHTAGS:
 
 SCORE: [X]/100
 - Scroll-stop: [X]/15
-- Quotability: [X]/25
+- Quotability: [X]/20
 - Emotion: [X]/15
 - Clarity: [X]/15
 - Controversy: [X]/10
@@ -234,7 +234,7 @@ Before finalizing, verify:
 - [ ] URL with timestamp works
 - [ ] Hook is compelling (first 3 seconds)
 - [ ] Caption is scroll-stopping
-- [ ] Decision, effort, confidence, vault check, fallback, and AI Overview potential are included
+- [ ] Decision, effort, confidence, vault check, fallback, and AI search potential are included
 - [ ] Platform variants are included for Instagram, LinkedIn, and YouTube Shorts
 - [ ] Brand Angle is identified
 - [ ] Brand alignment is at least 8/15
@@ -244,7 +244,7 @@ Before finalizing, verify:
 
 ## Output
 - 2-3 clip briefs per source video
-- Each brief includes: decision, timestamps, transcript excerpt, hook, platform variants, caption, format suggestion, AI Overview potential, and fallback angle
+- Each brief includes: decision, timestamps, transcript excerpt, hook, platform variants, caption, format suggestion, AI search potential, and fallback angle
 - All clips scored and ranked
 
 ## Error Handling

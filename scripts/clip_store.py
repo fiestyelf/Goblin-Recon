@@ -63,6 +63,11 @@ CREATE TABLE IF NOT EXISTS clips (
     suggested_caption TEXT,
     blacklist_flags TEXT,
     human_decision TEXT,
+    effort TEXT,
+    confidence TEXT,
+    vault_check TEXT,
+    fallback_angle TEXT,
+    ai_search_potential TEXT,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
 );
@@ -85,6 +90,18 @@ CREATE VIRTUAL TABLE IF NOT EXISTS clips_fts USING fts5(
     source_url
 );
 """
+
+OPTIONAL_COLUMNS = {
+    "effort": "TEXT",
+    "confidence": "TEXT",
+    "vault_check": "TEXT",
+    "fallback_angle": "TEXT",
+    "ai_search_potential": "TEXT",
+    "brief_path": "TEXT",
+    "tracker_provider": "TEXT",
+    "tracker_entry_id": "TEXT",
+    "tracker_entry_url": "TEXT",
+}
 
 
 def utc_now() -> str:
@@ -126,8 +143,16 @@ def connect(db_path: str | Path = DEFAULT_DB_PATH) -> sqlite3.Connection:
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
+    _ensure_optional_columns(conn)
     _ensure_fts(conn)
     return conn
+
+
+def _ensure_optional_columns(conn: sqlite3.Connection) -> None:
+    existing = {row[1] for row in conn.execute("PRAGMA table_info(clips)")}
+    for column, column_type in OPTIONAL_COLUMNS.items():
+        if column not in existing:
+            conn.execute(f"ALTER TABLE clips ADD COLUMN {column} {column_type}")
 
 
 def _ensure_fts(conn: sqlite3.Connection) -> bool:
@@ -275,6 +300,15 @@ def save_clip(clip: dict, db_path: str | Path = DEFAULT_DB_PATH) -> str:
         "suggested_caption": clip.get("suggested_caption"),
         "blacklist_flags": _json_or_text(clip.get("blacklist_flags")),
         "human_decision": clip.get("human_decision"),
+        "effort": clip.get("effort"),
+        "confidence": clip.get("confidence"),
+        "vault_check": clip.get("vault_check"),
+        "fallback_angle": clip.get("fallback_angle"),
+        "ai_search_potential": clip.get("ai_search_potential"),
+        "brief_path": clip.get("brief_path"),
+        "tracker_provider": clip.get("tracker_provider"),
+        "tracker_entry_id": clip.get("tracker_entry_id"),
+        "tracker_entry_url": clip.get("tracker_entry_url"),
         "created_at": clip.get("created_at") or now,
         "updated_at": now,
     }
@@ -361,6 +395,24 @@ def update_status(
             WHERE clip_id = ?
             """,
             (status, human_decision, utc_now(), clip_id),
+        )
+    return result.rowcount > 0
+
+
+def update_brief_path(
+    clip_id: str,
+    brief_path: str,
+    db_path: str | Path = DEFAULT_DB_PATH,
+) -> bool:
+    """Persist the latest regenerated brief path for a stored clip."""
+    with connect(db_path) as conn:
+        result = conn.execute(
+            """
+            UPDATE clips
+            SET brief_path = ?, updated_at = ?
+            WHERE clip_id = ?
+            """,
+            (brief_path, utc_now(), clip_id),
         )
     return result.rowcount > 0
 
@@ -453,6 +505,12 @@ def render_clip_brief(clip: dict) -> str:
 
 **Action:** {status.upper()}
 **Category:** {_value(clip, "trend_headline")}
+**Effort:** {_value(clip, "effort")}
+**Confidence:** {_value(clip, "confidence")}
+**Vault check:** {_value(clip, "vault_check")}
+**Fallback angle:** {_value(clip, "fallback_angle")}
+**AI search potential:** {_value(clip, "ai_search_potential")}
+**Brief path:** {_value(clip, "brief_path")}
 
 ## Video Metadata
 
@@ -461,6 +519,8 @@ def render_clip_brief(clip: dict) -> str:
 | **Video** | {source_title} — {channel} |
 | **Channel** | {channel} |
 | **Source URL** | {source_url} |
+| **Tracker provider** | {_value(clip, "tracker_provider")} |
+| **Tracker entry** | {_value(clip, "tracker_entry_url", _value(clip, "tracker_entry_id"))} |
 
 ## The Clip
 

@@ -110,7 +110,7 @@ Default retention:
 3. Competitor snapshots: 365 days.
 4. Local logs: delete when no longer needed.
 
-Do not store full raw transcripts unless necessary. Store short excerpts and source URLs instead.
+Do not store full raw transcripts by default. Store source URLs, timestamps, and short excerpts instead. Any exception requires explicit human approval and a documented retention reason.
 
 ---
 

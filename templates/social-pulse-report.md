@@ -6,11 +6,21 @@
 
 ---
 
-## DECISION: [Top recommendation in one line]
+## Decision
+
+**Recommended action:** [advance / monitor / shelve] [top recommendation in one line].
+**Effort:** [X] minutes or hours.
+**Confidence:** [High / Medium / Low] — [one-line reason based on recency, velocity, source quality, and brand fit].
+**Vault check:** [no overlap / similar angle exists / needs differentiation / not checked].
+**Fallback angle:** If rejected, pursue [alternative story, hook, or format].
+**AI search potential:** [Strong / Medium / Weak] — [one-line reason].
+**Scan health:** [N]/[N] source tiers returned usable data. [News-tier-only / social-confirmed / manual-assisted].
 
 ---
 
 ## What's Popping on Instagram
+
+Include this section only when Instagram returns usable public/API/manual data. If unavailable, write one line: `Instagram unavailable: [blocked / no public signal / not requested].`
 
 | Creator | Followers | Trending Post | Views | Format | Hook Style | Category |
 |---------|-----------|--------------|-------|--------|------------|----------|
@@ -26,6 +36,8 @@
 
 ## What's Accelerating on TikTok
 
+Include this section only when TikTok returns usable public/API/manual data. If unavailable, write one line: `TikTok unavailable: [blocked / no public signal / not requested].`
+
 | Hashtag | Trending Sound | Topic | Views | Format | Category |
 |---------|---------------|-------|-------|--------|----------|
 | #ainews | [Sound name] | [Topic] | 2.4M | Shocking stat reveal | Controversial |
@@ -39,9 +51,48 @@
 
 ## Cross-Platform Validation
 
+Only mark `Confirmed` when 2+ independent sources support the same story. If social platforms are unavailable, state that validation is news-only or manual-assisted.
+
 | Story | IG Signal | TikTok Signal | X Signal | News Confirm | Status |
 |-------|-----------|---------------|----------|--------------|--------|
-| [Story] | 1.2M views | 2.4M views | Trending | TechCrunch URL | ✅ Confirmed |
+| [Story] | 1.2M views | 2.4M views | Trending | TechCrunch URL | Confirmed |
+
+---
+
+## Priority Opportunities
+
+### 1. [Headline] — [score]/100
+
+**Category:** [Latest AI News | Controversial/Polarizing | Upgrade/Democratization | Analytical/Deep-dive]
+**Decision:** [advance / monitor / shelve]
+**Brand angle:** [B2C / B2B / Both]
+**Effort:** [X] minutes or hours
+**Confidence:** [High / Medium / Low] — [reason]
+**Vault check:** [result]
+**Fallback angle:** [specific alternative]
+**AI search potential:** [Strong / Medium / Weak] — [reason]
+
+**Sources:**
+- [Source]: [URL] (published: [date]) — [what it proves]
+
+**Why now:** [1-2 sentences explaining what changed and why attention is rising.]
+
+**Hook/format:** [what hook is converting and what format to adapt.]
+
+**Score breakdown:**
+- Social velocity: [X]/25
+- Recency: [X]/15
+- Cross-source: [X]/15
+- Controversy: [X]/10
+- Format stealability: [X]/10
+- GenX relevance: [X]/10
+- Brand alignment: [X]/15
+
+**Brand gate:**
+- Audience resonance: [specific B2C/B2B reason to care]
+- Mission-spine fit: [strong / medium / weak] — [reason]
+- Blacklist flags: [none / list violations]
+- Verdict: [pass / modify / shelve]
 
 ---
 
@@ -93,4 +144,4 @@
 
 ---
 
-*Scored: [score]/100 | Category: [category] | Verdict: 🔥/⚡/📈*
+*Scored: [score]/100 | Category: [category] | Verdict: [advance / monitor / shelve]*

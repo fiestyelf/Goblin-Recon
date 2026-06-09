@@ -1,5 +1,8 @@
 # Trend Report — [DATE]
 
+> Deprecated: use `templates/social-pulse-report.md` for all Social Pulse and trend outputs.
+> This file remains only as a compatibility reference.
+
 **Generated:** [timestamp]
 **Source:** Goblin Recon Trend Radar
 
@@ -12,7 +15,7 @@
 **Confidence:** [High / Medium / Low] — [one-line reason based on recency, velocity, source count, and brand fit].
 **Vault check:** [no overlap / similar angle exists: link or filename / needs differentiation].
 **Fallback:** If rejected, pursue [alternative story or angle].
-**AI Overview potential:** [Strong / Medium / Weak] — [one-line reason this could or could not be cited by AI search].
+**AI search potential:** [Strong / Medium / Weak] — [one-line reason this could or could not be cited by AI search].
 
 ---
 
@@ -49,11 +52,11 @@
 [1-2 sentences connecting the trend to B2C/B2B pain, not generic relevance.]
 
 **Score Breakdown:**
-- Recency: [X]/20
-- Velocity: [X]/20
+- Social velocity: [X]/25
+- Recency: [X]/15
 - Cross-source: [X]/15
-- Controversy: [X]/15
-- Visual potential: [X]/15
+- Controversy: [X]/10
+- Format stealability: [X]/10
 - GenX relevance: [X]/10
 - Brand alignment: [X]/15
 
@@ -67,7 +70,7 @@
 
 **Production potential:**
 - Visual potential: [faceless reel / talking-head reaction / carousel / post / weak]
-- AI Overview potential: [Strong / Medium / Weak] — [reason]
+- AI search potential: [Strong / Medium / Weak] — [reason]
 - Vault check: [no overlap / similar exists / needs differentiation]
 
 ---

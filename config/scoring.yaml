@@ -16,10 +16,10 @@ trend_radar:
       max: 15
       hint: "1 source = 5, 2 sources = 10, 3+ sources = 15. IG + X = confirmed."
     - key: controversy
-      max: 15
+      max: 10
       hint: "Polarized comments, opposing takes, heated debate. Look for comment sections on fire."
     - key: format_stealability
-      max: 15
+      max: 10
       hint: "Can the reel format be adapted for GenX content? Is the hook style replicable? Does the structure work for faceless?"
     - key: genx_relevance
       max: 10
@@ -42,11 +42,11 @@ source_hunter:
   threshold: 65
   dimensions:
     - key: topic_match
-      max: 25
-      hint: "Title + description match story keywords. Lowered from 30 to make room for format quality."
-    - key: recency
       max: 20
-      hint: "How old? Last 7 days = 20, 14 days = 15, 30 days = 10"
+      hint: "Title + description match story keywords."
+    - key: recency
+      max: 15
+      hint: "How old? Last 7 days = 15, 14 days = 10, 30 days = 5"
     - key: credibility
       max: 20
       hint: "Channel size + authority + consistency. Verified badge counts."
@@ -76,7 +76,7 @@ moment_finder:
       max: 15
       hint: "THE test. Would someone stop scrolling for this? Visual + audio + hook combined. This is the #1 dimension for social content."
     - key: quotability
-      max: 25
+      max: 20
       hint: "Would someone quote this in a meeting? Would it work as a text overlay?"
     - key: emotion
       max: 15

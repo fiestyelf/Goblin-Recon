@@ -6,9 +6,15 @@
 
 ---
 
-## DECISION → APPROVE / SHELVE
+## Decision
 
+**Recommended action:** [approve / modify / shelve] [one-line reason].
 **Category:** [Latest AI News | Controversial/Polarizing | Upgrade/Democratization | Analytical/Deep-dive]
+**Effort:** [X] minutes from source review to finished edit.
+**Confidence:** [High / Medium / Low] — [one-line reason based on source quality, clip strength, and brand fit].
+**Vault check:** [no overlap / similar clip exists / needs differentiation / not checked].
+**Fallback angle:** If rejected, use [alternative timestamp, hook, or source].
+**AI search potential:** [Strong / Medium / Weak] — [one-line reason].
 
 ---
 
@@ -71,13 +77,13 @@
 | Dimension | Score | Notes |
 |-----------|-------|-------|
 | Scroll-stop | [N]/15 | Would someone stop scrolling? |
-| Quotability | [N]/25 | Would someone quote this? |
+| Quotability | [N]/20 | Would someone quote this? |
 | Emotion | [N]/15 | Fear, awe, anger, excitement |
 | Clarity | [N]/15 | Clear without context? |
 | Controversy | [N]/10 | Challenges conventional thinking? |
 | Visual potential | [N]/10 | Works with text overlay? |
 | Brand alignment | [N]/15 | B2C or B2B angle? |
-| **Total** | **[N]/105** | |
+| **Total** | **[N]/100** | |
 
 ---
 
@@ -144,4 +150,4 @@ If this clip is rejected, here are alternatives from the same video:
 
 ---
 
-*Scored: [N]/105 | Category: [category] | Verdict: PASS/SHELVE*
+*Scored: [N]/100 | Category: [category] | Verdict: PASS/SHELVE*

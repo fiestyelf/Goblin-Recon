@@ -20,6 +20,7 @@ vault/intake/*
 vault/briefs/*
 vault/reports/*
 vault/*.db
+vault/*.jsonl
 !vault/intake/.gitkeep
 !vault/briefs/.gitkeep
 !vault/reports/.gitkeep
@@ -38,3 +39,7 @@ VSCODE_CHANGES.md
 # Runtime logs
 *.log
 logs/
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

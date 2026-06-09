@@ -69,6 +69,11 @@ Load memory/brand-rules.md for B2C/B2B positioning
 - Filter: min_upvotes from config
 - Collect: URL, title, subreddit, score, comment count, timestamp
 
+**YouTube (Fast Scan / Clip Leads):**
+- Search approved AI news, podcast, interview, keynote, and explainer queries from config
+- Prefer public videos with clear publication dates and accessible captions/transcripts
+- Collect: URL, title, channel, publication date, views, duration
+
 **Tech News Sites:**
 - web_extract each site URL from config
 - Scan headlines for AI-related stories
@@ -82,7 +87,7 @@ Load memory/brand-rules.md for B2C/B2B positioning
 **Hacker News:**
 - web_extract front page
 - Filter: AI-related stories
-- Collect: URL, title, score, comments
+- Collect: URL, title, score, comments, publication date or visible age
 
 **Optional RSS / Alert Inputs:**
 - If configured, read approved RSS feeds or TrendRadar-style alert outputs as another public signal source.
@@ -103,8 +108,8 @@ For each unique story, calculate score (0-100):
 | social_velocity | 25 | IG views/hr or TikTok plays/hr. PRIMARY signal for trend detection |
 | recency | 15 | 24h=15, 48h=12, 72h=8, older=0 |
 | cross_source | 15 | 1 source=5, 2 sources=10, 3+ sources=15. IG+X=confirmed |
-| controversy | 15 | Polarized comments, heated debate, opposing takes |
-| format_stealability | 15 | Can the reel format be adapted for GenX? |
+| controversy | 10 | Polarized comments, heated debate, opposing takes |
+| format_stealability | 10 | Can the reel format be adapted for GenX? |
 | genx_relevance | 10 | Would GenX B2C or B2B audiences care? |
 | brand_alignment | 15 | Fits B2C science+soul or B2B results-not-advice; no hype/woo/corporate filler |
 
@@ -146,7 +151,7 @@ For each unique story, calculate score (0-100):
 
 ### Step 6: Generate Trend Report
 
-Use template: templates/trend-report.md
+Use template: templates/social-pulse-report.md
 
 For each story include:
 - Headline
@@ -164,7 +169,7 @@ For each story include:
 - Confidence level and reason
 - Vault check result
 - Fallback angle
-- AI Overview potential
+- AI search potential
 - Recommended next step
 
 ### Step 7: Save to Memory
