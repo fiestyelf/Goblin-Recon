@@ -35,7 +35,7 @@ Before generating brand-facing email copy, ask the Output Direction pre-check if
 
 1. Who is this for? B2C, B2B, or Both?
 2. Where does it go? Email/outbound, client work, internal use, or other?
-3. What tone should it carry? Professional, casual, edgy, warm, wry, bold, or platform-native?
+3. What tone should it carry? Professional, casual, edgy, warm, wry, reflective, analytical/data-driven, bold, or platform-native?
 
 If the user skips direction, default to B2B / email-outbound / professional and state that default before generating.
 

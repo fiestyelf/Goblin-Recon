@@ -125,7 +125,7 @@ Before creating brand-facing output, ask these questions in one short message:
 
 1. Who is this for? B2C, B2B, or Both?
 2. Where does it go? Faceless Instagram, personal brand, client work, internal use, email/outbound, or other?
-3. What tone should it carry? Professional, casual, edgy, warm, wry, bold, or platform-native?
+3. What tone should it carry? Professional, casual, edgy, warm, wry, reflective, analytical/data-driven, bold, or platform-native?
 
 Use the answer to set brand angle, destination, tone, format, scoring lens, and copy guardrails for the session. If the user skips the questions, default to Both / Faceless Instagram / professional and state that default before generating.
 
@@ -403,7 +403,7 @@ Pre-flight brand gate helper for generated captions, summaries, hooks, and outbo
 A fail means rewrite or shelve before Human Gate.
 
 ### caption-tone Skill
-Use `skills/caption-tone/SKILL.md` for caption and description tasks after Output Direction is clear. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.
+Use `skills/caption-tone/SKILL.md` for caption and description tasks after Output Direction is clear. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.
 
 ### email-hook Skill
 Use `skills/email-hook/SKILL.md` for outbound email subject lines, openers, and short email drafts. Ask Output Direction first, select the campaign type from `config/email-campaigns.yaml`, then run `.venv/bin/python -m goblin_recon.tools.email_gate` before delivering final email copy.

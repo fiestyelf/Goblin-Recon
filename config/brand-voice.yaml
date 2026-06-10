@@ -71,7 +71,7 @@ caption_tones:
   default_behavior:
     first_output: professional_genx
     ask_after_default: true
-    prompt: "Would you like a different version: casual, edgy, warm, wry, curious, bold, or more platform-native?"
+    prompt: "Would you like a different version: casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or more platform-native?"
     brand_gate_required: true
     skill_path: skills/caption-tone/SKILL.md
   tones:
@@ -95,6 +95,14 @@ caption_tones:
       voice: "Question-led, analytical, invites thoughtful replies."
       best_for: [upgrade_democratization, analytical_deep_dive, carousels]
       guardrails: [no_vague_questions, anchor_to_specific_evidence]
+    reflective:
+      voice: "Thoughtful, grounded, inward-looking, and emotionally precise without becoming precious."
+      best_for: [identity_content, transformation_with_proof, b2c_instagram, thought_leadership]
+      guardrails: [no_woo, no_navel_gazing, anchor_to_specific_proof]
+    analytical_data:
+      voice: "Evidence-led, numbers-first, clear about what the data proves and what it does not."
+      best_for: [analytical_deep_dive, b2b_linkedin, latest_ai_news, reports]
+      guardrails: [no_dry_recitation, include_human_stakes, no_cherry_picked_stats]
     bold:
       voice: "Provocative, takes a position, gives the audience something to react to."
       best_for: [controversial_polarizing, predictions, strong_opinions]
@@ -107,7 +115,7 @@ caption_tones:
     latest_ai_news: direct
     controversial_polarizing: bold
     upgrade_democratization: curious
-    analytical_deep_dive: curious
+    analytical_deep_dive: analytical_data
   platform_defaults:
     instagram_reels: professional_genx
     instagram_carousel: curious

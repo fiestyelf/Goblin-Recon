@@ -38,7 +38,7 @@ Load these config files before generating anything:
 2. `config/brand-voice.yaml` — Load `blacklist` section for terms to avoid in GenX-written copy
 
 **HARD RULE:** After Output Direction is clear, first output must use `professional_genx` tone unless the user explicitly requested another tone. After delivering, ask:
-"Would you like a different version: casual, edgy, warm, wry, curious, bold, or more platform-native?"
+"Would you like a different version: casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or more platform-native?"
 
 ### STEP 1: Analyze the Input
 
@@ -64,7 +64,7 @@ Determine which tone to use from `config/brand-voice.yaml`:
    - `latest_ai_news` → direct
    - `controversial_polarizing` → bold
    - `upgrade_democratization` → curious
-   - `analytical_deep_dive` → curious
+   - `analytical_deep_dive` → analytical_data
 3. If platform is specified → use `platform_defaults`:
    - `instagram_reels` → professional_genx
    - `instagram_carousel` → curious
@@ -168,7 +168,7 @@ Output in this exact format:
 
 ### STEP 3: End with
 
-"Would you like a different version: casual, edgy, warm, wry, curious, bold, or more platform-native?"
+"Would you like a different version: casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or more platform-native?"
 
 ---
 

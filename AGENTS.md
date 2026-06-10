@@ -199,7 +199,7 @@ access_status:
 13. Instagram/TikTok scraping: public profiles only. No login bypass. Respect rate limits. Stop if blocked.
 14. If a named topic returns zero relevant results after 3 different search queries across 2+ platforms, stop searching and ask the user for a URL or more context.
 15. After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Competitor report, or Clip Brief, save the full output to `vault/reports/YYYY-MM-DD-{type}.md` and tell the user the saved path.
-16. Before creating brand-facing output, ask for output direction: who it is for (B2C, B2B, or Both), where it goes (Faceless Instagram, personal brand, client work, internal use, email/outbound, or other), and the desired tone (professional, casual, edgy, warm, wry, bold, or platform-native). Store this answer for the session. If the user refuses or skips it, default to Both / Faceless Instagram / professional and state that default before generating.
+16. Before creating brand-facing output, ask for output direction: who it is for (B2C, B2B, or Both), where it goes (Faceless Instagram, personal brand, client work, internal use, email/outbound, or other), and the desired tone (professional, casual, edgy, warm, wry, reflective, analytical/data-driven, bold, or platform-native). Store this answer for the session. If the user refuses or skips it, default to Both / Faceless Instagram / professional and state that default before generating.
 
 ## Delegate Task Policy
 NEVER use delegate/subagent tasks for Fast Scan, Deep Social Scan, Signal Scan, single-source lookups, brand gate checks, or transcript extraction. Subagents do not reliably inherit Goblin Recon context and can waste tokens by brute-forcing browser navigation.
@@ -224,7 +224,7 @@ ONLY use delegate/subagent tasks after data is already collected, and only for p
 8. English-only for outward brand content. Do not produce Arabic or German brand-facing copy.
 9. Do not guess open founder decisions, including the B2C brand name, Sara visibility level, or domain mapping. Flag them as open decisions.
 10. Content that fails the brand gate should be shelved before human approval.
-11. For captions, default to professional GenX Academy copy, then ask whether the user wants another voice when the use case would benefit from a more casual, edgy, warm, wry, curious, bold, or platform-native version.
+11. For captions, default to professional GenX Academy copy, then ask whether the user wants another voice when the use case would benefit from a more casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or platform-native version.
 12. Keep `skills/caption-tone/SKILL.md` as the single reusable caption-writing skill. Use it for caption and description tasks, while still running GenX brand-gate checks on generated outward copy.
 13. Use `skills/email-hook/SKILL.md` for outbound email subject lines, openers, and short email drafts. Run `goblin_recon.tools.email_gate` before delivering final email copy.
 

@@ -146,7 +146,7 @@ Before producing brand-facing output, the router asks three questions in one sho
 
 1. Who is this for? B2C, B2B, or Both?
 2. Where does it go? Faceless Instagram, personal brand, client work, internal use, email/outbound, or other?
-3. What tone should it carry? Professional, casual, edgy, warm, wry, bold, or platform-native?
+3. What tone should it carry? Professional, casual, edgy, warm, wry, reflective, analytical/data-driven, bold, or platform-native?
 
 The answer controls brand angle, destination, tone, scoring lens, template choice, and copy guardrails. If the user skips direction, default to Both / Faceless Instagram / professional and state that default before generating.
 
