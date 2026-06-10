@@ -16,6 +16,10 @@ Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
 
 The agent does not scan every platform or invoke every tool by default. It routes the user's request into one primary workflow, uses the minimum reliable tools, presents decision-ready output, and stores useful memory.
 
+For a plain-language command list, use `COMMANDS.md` as the team-facing reference.
+
+When a user asks for progress or repeats a question, do not paste the same answer again. Start with what changed since the last answer, then state what is still true and the smallest useful next action.
+
 ## Workflows
 
 Goblin Recon has three core workflows:
@@ -344,7 +348,7 @@ Normalizes social media observations before Trend Radar scoring.
 ### clip_store.py
 Stores Clip Mine candidates in `vault/clips.db` for cross-session lookup, full-text search, and duplicate checks.
 - Run with no args to initialize the database: `.venv/bin/python scripts/clip_store.py`
-- Use from agents/scripts to save approved or shelved clips with source URL, timestamps, status, scores, and summary fields
+- Use from Hermes tool calls or local scripts to save approved or shelved clips with source URL, timestamps, status, scores, and summary fields
 - Do not store full raw transcripts, API keys, cookies, or login-only source data
 
 ### query_clips.py

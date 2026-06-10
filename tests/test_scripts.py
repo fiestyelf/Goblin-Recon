@@ -1,15 +1,9 @@
 """Unit tests for Goblin Recon scripts — pytest style."""
 
 import pytest
-from pathlib import Path
-import sys
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from extract_clip import extract_clip_metadata
-from get_youtube_transcript import extract_video_id
-from score_engagement import calculate_velocity
+from goblin_recon.tools.clip_extractor import extract_clip_metadata
+from goblin_recon.tools.youtube_tool import extract_video_id
+from goblin_recon.tools.scoring import calculate_velocity
 
 
 # ── extract_clip ──────────────────────────────────────────────────────────────

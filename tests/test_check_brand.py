@@ -1,11 +1,4 @@
-from pathlib import Path
-import sys
-
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from check_brand import check_text, load_brand_config
+from goblin_recon.tools.brand_gate import check_text, load_brand_config
 
 
 def test_loads_blacklist_and_nuance_words():

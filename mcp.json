@@ -14,9 +14,22 @@
       "command": "uvx",
       "args": ["ghost-browser-mcp"],
       "description": "Optional public social and JavaScript-heavy page helper. Uses local Chrome/Chromium when available. Do not bypass logins, paywalls, captchas, robots.txt, rate limits, or platform restrictions."
+    },
+    "youtube-transcript": {
+      "command": "npx",
+      "args": ["-y", "@kimtaeyoon83/mcp-server-youtube-transcript"],
+      "description": "Optional transcript helper. The Python package remains the primary transcript path."
     }
   },
   "optionalServers": {
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/brave-search-mcp-server"],
+      "env": {
+        "BRAVE_API_KEY": "$BRAVE_API_KEY"
+      },
+      "description": "Enable later after setting BRAVE_API_KEY locally. Useful for public discovery when fetch plus yt-dlp is not enough."
+    },
     "firecrawl": {
       "command": "npx",
       "args": ["-y", "firecrawl-mcp"],
@@ -24,6 +37,18 @@
         "FIRECRAWL_API_KEY": "$FIRECRAWL_API_KEY"
       },
       "description": "Enable after setting FIRECRAWL_API_KEY locally. Use for allowed public web extraction only. Never paste or commit the API key."
+    },
+    "tavily": {
+      "env": {
+        "TAVILY_API_KEY": "$TAVILY_API_KEY"
+      },
+      "description": "Future search MCP placeholder. Command is intentionally unset until the team chooses the approved Tavily MCP package."
+    },
+    "apify": {
+      "env": {
+        "APIFY_TOKEN": "$APIFY_TOKEN"
+      },
+      "description": "Future actor-based extraction MCP placeholder. Command is intentionally unset until the team approves Apify use and the exact server package."
     },
     "scrapling": {
       "install": "pip install \"scrapling[ai]\"",

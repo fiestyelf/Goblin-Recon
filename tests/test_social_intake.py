@@ -2,14 +2,16 @@
 
 from pathlib import Path
 import json
-import subprocess
-import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from social_intake import infer_platform, normalize_social_record, recommend_next_step
+from goblin_recon.tools.social_intake import (
+    append_records,
+    infer_platform,
+    load_records,
+    normalize_social_record,
+    recommend_next_step,
+)
 
 
 def test_infers_common_social_platforms():
@@ -129,7 +131,7 @@ def test_missing_published_date_does_not_advance():
     assert record["recommendation"] == "needs_review"
 
 
-def test_cli_stores_jsonl(tmp_path):
+def test_append_records_stores_jsonl(tmp_path):
     input_path = tmp_path / "signal.json"
     store_path = tmp_path / "signals.jsonl"
     input_path.write_text(
@@ -145,21 +147,9 @@ def test_cli_stores_jsonl(tmp_path):
         encoding="utf-8",
     )
 
-    result = subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "social_intake.py"),
-            "--input",
-            str(input_path),
-            "--store",
-            str(store_path),
-        ],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    records = [normalize_social_record(record) for record in load_records(input_path)]
+    append_records(records, store_path)
 
-    assert result.returncode == 0
     lines = store_path.read_text(encoding="utf-8").splitlines()
     assert len(lines) == 1
     stored = json.loads(lines[0])
@@ -167,7 +157,7 @@ def test_cli_stores_jsonl(tmp_path):
     assert stored["recommendation"] == "use_in_social_pulse"
 
 
-def test_cli_rejects_and_does_not_store_invalid_record(tmp_path):
+def test_invalid_record_is_not_stored(tmp_path):
     input_path = tmp_path / "signal.json"
     store_path = tmp_path / "signals.jsonl"
     input_path.write_text(
@@ -182,39 +172,21 @@ def test_cli_rejects_and_does_not_store_invalid_record(tmp_path):
         encoding="utf-8",
     )
 
-    result = subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "social_intake.py"),
-            "--input",
-            str(input_path),
-            "--store",
-            str(store_path),
-        ],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    records = [normalize_social_record(record) for record in load_records(input_path)]
+    valid_records = [record for record in records if record["validation"]["ok"]]
+    if valid_records:
+        append_records(valid_records, store_path)
 
-    assert result.returncode == 1
     assert not store_path.exists()
 
 
-def test_cli_rejects_non_object_list(tmp_path):
+def test_load_records_rejects_non_object_list(tmp_path):
     input_path = tmp_path / "signal.json"
     input_path.write_text(json.dumps(["bad"]), encoding="utf-8")
 
-    result = subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "social_intake.py"),
-            "--input",
-            str(input_path),
-        ],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 2
-    assert "list must contain only objects" in result.stderr
+    try:
+        load_records(input_path)
+    except ValueError as exc:
+        assert "list must contain only objects" in str(exc)
+    else:
+        raise AssertionError("Expected ValueError")

@@ -8,14 +8,8 @@ These test the contract between pipeline stages without hitting real APIs:
 Each test uses a fixed fixture (sample data) so results are deterministic.
 """
 
-from pathlib import Path
-import sys
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from extract_clip import extract_clip_metadata
-from score_engagement import calculate_velocity
+from goblin_recon.tools.clip_extractor import extract_clip_metadata
+from goblin_recon.tools.scoring import calculate_velocity
 
 
 # ── Static Test Inputs ─────────────────────────────────────────────────────────
@@ -66,8 +60,6 @@ class TestStageContract:
 
     def test_pipeline_empty_transcript_graceful_handling(self):
         """Empty transcript should not crash — produce a clear error or skip."""
-        from extract_clip import extract_clip_metadata
-
         # Empty content test: a real clip with nothing to extract
         result = extract_clip_metadata(
             "https://youtube.com/watch?v=dQw4w9WgXcQ", 0, 30

@@ -1,13 +1,6 @@
 """Tests for the persistent Clip Mine SQLite store."""
 
-from pathlib import Path
-import sys
-
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from clip_store import (
+from goblin_recon.tools.clip_store import (
     check_duplicate,
     find_clips,
     get_clip,

@@ -20,6 +20,8 @@ Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
 
 ## Commands
 
+Full command guide with plain-language descriptions → [`COMMANDS.md`](COMMANDS.md)
+
 | Say this | It does |
 |---|---|
 | `run fast scan` | Low-stress daily scan using reliable sources first |

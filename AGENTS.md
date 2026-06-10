@@ -186,6 +186,13 @@ access_status:
 12. Every trend report must include: what formats are working, what hooks are converting, and what creators are driving the conversation — not just what stories are trending.
 13. Instagram/TikTok scraping: public profiles only. No login bypass. Respect rate limits. Stop if blocked.
 
+## Answer Variance Rules
+1. Do not repeat the same answer when the user asks a follow-up or repeats a status question.
+2. If the user asks "what did we do so far?", answer with the delta since the last status first, then only the essential full context.
+3. If the same recommendation was already given, say what changed, what is still true, and the next action.
+4. Vary format based on the user's need: timeline for progress, table for options, checklist for execution, decision-first for reports.
+5. When there is no new information, say that directly and offer the smallest useful next step instead of restating everything.
+
 ## Brand Rules
 1. Load `memory/brand-rules.md` and `config/brand-voice.yaml` before producing trend reports, source lists, clip briefs, content briefs, or competitor reports.
 2. Every content opportunity must identify a brand angle: B2C, B2B, or Both.

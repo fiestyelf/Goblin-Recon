@@ -4,12 +4,11 @@ import pytest
 from pathlib import Path
 import sys
 import tempfile
-import os
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from check_secrets import scan, PATTERNS
+from check_secrets import main, scan, PATTERNS
 
 
 class TestPatterns:
@@ -80,6 +79,5 @@ class TestIntegration:
         assert isinstance(results, list)
 
     def test_main_returns_zero_on_clean(self):
-        from check_secrets import main
         result = main()
         assert result == 0, f"Expected exit code 0, got {result}. Findings: {scan()}"
