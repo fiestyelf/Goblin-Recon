@@ -154,8 +154,8 @@ if [ -f "$PROJECT_DIR/skills/goblin-recon/SKILL.md" ]; then
     echo -e "    ✅  goblin-recon skill installed"
 fi
 
-# Install pipeline skills
-PIPELINE_SKILLS=(orchestrator trend-radar source-hunter moment-finder competitor-scout)
+# Install pipeline and reusable project skills
+PIPELINE_SKILLS=(orchestrator trend-radar source-hunter moment-finder competitor-scout caption-tone)
 for skill in "${PIPELINE_SKILLS[@]}"; do
     if [ -d "$PROJECT_DIR/skills/$skill" ]; then
         mkdir -p "$SKILLS_DIR/genx-marketing/$skill"

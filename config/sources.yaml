@@ -27,6 +27,42 @@ scan_modes:
     accepted_inputs: [url, screenshot, caption, creator_handle, user_notes]
     output: "Normalized social record plus recommendation: use in Social Pulse, move to Clip Mine, or shelve."
 
+  signal_scan:
+    purpose: "First-mover discovery before mainstream news validates a story."
+    use_when: "The team needs early AI stories, developer signals, repo velocity, or paper/product leads."
+    time_gate_hours: 6
+    primary_sources: [x_twitter, hacker_news, github_trending, arxiv]
+    fallback_sources: [reddit, tech_news]
+    blocked_source_behavior: "Mark access_status=blocked and continue; do not bypass restrictions."
+    no_signal_behavior: "Return 'nothing worth posting right now' instead of forcing weak ideas."
+    output: "Early-signal candidates with source URLs, published dates, velocity notes, confidence, and next action."
+
+api_placeholders:
+  brave_search:
+    status: not_configured
+    env_var: BRAVE_SEARCH_API_KEY
+    purpose: "Optional web search acceleration. Do not require for local use."
+  google_custom_search:
+    status: not_configured
+    env_var: GOOGLE_CUSTOM_SEARCH_API_KEY
+    purpose: "Optional fallback search provider. Do not require for local use."
+  youtube_data_api:
+    status: not_configured
+    env_var: YOUTUBE_DATA_API_KEY
+    purpose: "Optional YouTube search and metadata fallback. Transcript extraction still uses public captions first."
+  reddit_api:
+    status: not_configured
+    env_var: REDDIT_CLIENT_ID
+    purpose: "Optional OAuth access when public Reddit is blocked."
+  instagram_graph_api:
+    status: not_configured
+    env_var: INSTAGRAM_GRAPH_API_TOKEN
+    purpose: "Optional approved API access. Never use personal login automation."
+  tiktok_research_api:
+    status: not_configured
+    env_var: TIKTOK_RESEARCH_API_KEY
+    purpose: "Optional approved research API access. Never bypass login walls."
+
 normalized_social_record:
   fields:
     - platform
@@ -241,3 +277,29 @@ sources:
       - OpenAI
       - Anthropic
     extract: ["title", "url", "points", "comments", "published_date"]
+
+  # ── SIGNAL SCAN: GITHUB TRENDING (Repository Velocity) ──
+  github_trending:
+    priority: signal_scan_primary
+    reason: "Repo velocity can reveal AI tools before they reach mainstream tech press."
+    urls:
+      - https://github.com/trending
+      - https://github.com/trending/python?since=daily
+      - https://github.com/trending/javascript?since=daily
+    filters:
+      languages: [python, javascript, typescript]
+      topics: [ai, llm, agents, machine-learning, generative-ai]
+      timeframe: daily
+    extract: ["repo", "url", "description", "stars_today", "language", "topics"]
+
+  # ── SIGNAL SCAN: ARXIV (Research-to-Product Leads) ──
+  arxiv:
+    priority: signal_scan_primary
+    reason: "Fresh papers can become product and content angles before news coverage catches up."
+    urls:
+      - https://arxiv.org/list/cs.AI/recent
+      - https://arxiv.org/list/cs.CL/recent
+      - https://arxiv.org/list/cs.LG/recent
+    categories: [cs.AI, cs.CL, cs.LG]
+    timeframe: last_24_hours
+    extract: ["title", "url", "authors", "abstract", "published_date", "category"]

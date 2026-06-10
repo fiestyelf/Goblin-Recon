@@ -266,6 +266,18 @@ def save_clip(clip: dict, db_path: str | Path = DEFAULT_DB_PATH) -> str:
     return str(record["clip_id"])
 
 
+def save_clip_kwargs(db_path: str | Path = DEFAULT_DB_PATH, **kwargs: object) -> str:
+    """Compatibility wrapper for callers that pass clip fields as keywords."""
+    return save_clip(dict(kwargs), db_path=db_path)
+
+
+def get_clip_count(db_path: str | Path = DEFAULT_DB_PATH) -> int:
+    """Return the number of stored clip records."""
+    with connect(db_path) as conn:
+        row = conn.execute("SELECT COUNT(*) FROM clips").fetchone()
+    return int(row[0]) if row else 0
+
+
 def get_clip(clip_id: str, db_path: str | Path = DEFAULT_DB_PATH) -> dict | None:
     with connect(db_path) as conn:
         row = conn.execute("SELECT * FROM clips WHERE clip_id = ?", (clip_id,)).fetchone()
@@ -457,6 +469,10 @@ def render_clip_brief(clip: dict) -> str:
 | **Source URL** | {source_url} |
 | **Tracker provider** | {_value(clip, "tracker_provider")} |
 | **Tracker entry** | {_value(clip, "tracker_entry_url", _value(clip, "tracker_entry_id"))} |
+
+## Background
+
+{source_title} is the source video for this Clip Mine record. {channel} is the speaker or publishing channel. The selected moment matters because it connects the source to this content angle: {_value(clip, "trend_headline")}.
 
 ## The Clip
 

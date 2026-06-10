@@ -2,6 +2,25 @@
 # Keep integrations disabled until company/admin approval is complete.
 
 integrations:
+  brave_search_api:
+    enabled: false
+    approval_required: true
+    purpose: "Speed up public web search for source discovery and verification."
+    env_vars:
+      - BRAVE_SEARCH_API_KEY
+    recommended_scope: "Read-only public web search"
+    avoid: "Storing search keys in chat, source files, or committed config"
+
+  google_custom_search_api:
+    enabled: false
+    approval_required: true
+    purpose: "Fallback public web search provider when Brave Search is not available."
+    env_vars:
+      - GOOGLE_CUSTOM_SEARCH_API_KEY
+      - GOOGLE_CUSTOM_SEARCH_ENGINE_ID
+    recommended_scope: "Read-only public web search"
+    avoid: "Storing search keys in chat, source files, or committed config"
+
   youtube_data_api:
     enabled: false
     approval_required: true
@@ -41,6 +60,15 @@ integrations:
       - META_ACCESS_TOKEN
     recommended_scope: "Approved read-only insights/public content permissions"
     avoid: "Personal account automation, scraping login-only Instagram pages"
+
+  tiktok_research_api:
+    enabled: false
+    approval_required: true
+    purpose: "Read approved TikTok research data when public tag pages are insufficient."
+    env_vars:
+      - TIKTOK_RESEARCH_API_KEY
+    recommended_scope: "Approved read-only research access"
+    avoid: "Login bypass, personal account automation, scraping restricted TikTok pages"
 
   linkedin_api:
     enabled: false

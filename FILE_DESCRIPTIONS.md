@@ -71,6 +71,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `skills/source-hunter/SKILL.md` | Layer 2 — finds YouTube/Instagram sources for a trend or topic. |
 | `skills/moment-finder/SKILL.md` | Layer 3 — extracts 15-60s clip moments from transcripts. |
 | `skills/competitor-scout/SKILL.md` | Standalone competitor/campaign research — pricing, features, messaging. |
+| `skills/caption-tone/SKILL.md` | Reusable caption/description skill with platform formats and tone variants. |
 | `skills/goblin-recon/SKILL.md` | Operational skill — setup, commands, pipeline workflow, scoring, and release pitfalls. |
 
 ## Scripts
@@ -82,7 +83,9 @@ One-line purpose for every tracked file and folder in this repo.
 | `goblin_recon.tools.brand_gate` | Checks GenX-written copy against the brand blacklist and nuance-word rules. |
 | `goblin_recon.tools.youtube_tool` | Pulls public YouTube captions/transcripts with timestamps. |
 | `goblin_recon.tools.clip_extractor` | Validates video URLs and clip boundaries, returns clip metadata. |
+| `goblin_recon.tools.extract_clip` | Compatibility entry point for clip URL extraction. |
 | `goblin_recon.tools.scoring` | Calculates engagement velocity scores for trends/sources. |
+| `goblin_recon.tools.score_engagement` | Compatibility entry point for engagement velocity scoring. |
 | `goblin_recon.tools.social_intake` | Normalizes approved API, public browser, or manual social observations into one schema before scoring. |
 | `goblin_recon.tools.clip_store` | Stores approved/shelved Clip Mine records in local SQLite for cross-session lookup and dedup. |
 | `scripts/query_clips.py` | CLI for searching stored clips, updating statuses, and exporting clip briefs. |

@@ -8,6 +8,7 @@ Use these phrases inside the Goblin Recon Hermes profile. Keep prompts simple an
 |---|---|---|
 | `run fast scan` | You want a quick daily check. | Reliable-source trend leads from YouTube, Reddit, tech news, Product Hunt, and public X when available. |
 | `run deep social scan` | You want a deeper weekly social scan. | Instagram/TikTok-first trend read with fallback to X, Reddit, and tech news if blocked. |
+| `run signal scan` | You want first-mover discovery before mainstream coverage. | Early signals from public X when available, Hacker News, GitHub Trending, ArXiv, and public Reddit fallback. |
 | `run full scan` | You want ideas and clips in one pass. | Social Pulse first, then Clip Mine for the strongest candidates only. |
 
 ## Social Pulse
@@ -34,6 +35,17 @@ Use these when you need source videos and editor-ready clips.
 | `find clips about [topic]` | You already know the topic. | Source Hunter plus Moment Finder for that topic. Example: `find clips about AI agents replacing SDRs`. |
 | `find the moment in [URL]` | You already have a video. | Best 15-60s segment from that source, if transcript/source access allows it. |
 
+### Best Ways to Request Clips
+
+| Tier | Say this | Speed | Example |
+|---|---|---|---|
+| 1 | `find the moment in [URL]` | Fastest | `find the moment in https://youtube.com/watch?v=...` |
+| 2 | `[event] from [creator/platform]` | Fast | `Find the Apple/Gemini moment from MKBHD's WWDC review` |
+| 3 | `[description] — I think it was [context]` | Medium | `Find the clip about AI agents buying things without permission. I think it was Google I/O.` |
+| 4 | `[vague topic name]` | Slow, may fail | `Find clips about the Gemini 2.5 controversy` |
+
+If Tier 4 returns no relevant results after 3 searches across 2+ platforms, the agent should stop and ask for a URL, screenshot, creator name, or more context.
+
 ## Clip Vault
 
 Use these when you need stored clips, duplicates, or status updates.
@@ -45,6 +57,15 @@ Use these when you need stored clips, duplicates, or status updates.
 | `show clip [clip_id]` | You need one stored record. | Full clip record and regenerated brief if possible. |
 | `update clip status` | A clip moved in production. | Status change to `approved`, `in_production`, `scheduled`, `posted`, or `shelved`. |
 
+### How to See Clips Yourself
+
+| Method | Command or action |
+|---|---|
+| Ask the agent | `show clip [clip_id]`, `search clips about [topic]`, or `what clips are ready` |
+| Terminal list | `.venv/bin/python scripts/query_clips.py list` |
+| Terminal brief | `.venv/bin/python scripts/query_clips.py brief [clip_id]` |
+| SQLite viewer | Open `vault/clips.db` in DB Browser for SQLite or another SQLite viewer |
+
 ## Manual Assisted Input
 
 Use these when public extraction is blocked or you have screenshots/captions from a human.
@@ -53,6 +74,19 @@ Use these when public extraction is blocked or you have screenshots/captions fro
 |---|---|---|
 | `manual scan this [URL/screenshot/caption]` | You provide the source material manually. | Normalized social signal, score, category, recommendation, and next action. |
 | `run brand check on [content]` | You want to check copy before posting. | Pass/shelve/modify recommendation with blacklist and nuance-word flags. |
+
+## Captions
+
+Use `skills/caption-tone/SKILL.md` for caption and description writing.
+
+| Say this | What you get |
+|---|---|
+| `write captions for this [brief/source]` | Professional GenX Academy captions first, with platform variants when useful. |
+| `make this more casual` | A looser social-native version, still checked against brand rules. |
+| `make this edgier` | A sharper version for controversial or opinion-led posts. |
+| `make this warmer` | A more human version for B2C or reflective posts. |
+
+Default behavior: produce normal professional GenX copy first, then ask if the user wants a different tone or voice for the use case.
 
 ## Competitors
 
@@ -77,6 +111,7 @@ Run these from the project folder when needed.
 | Terminal command | Use it for |
 |---|---|
 | `.venv/bin/python -m pytest` | Run the test suite. |
+| `.venv/bin/python -m pip install -e .` | Install the package in editable mode so imports work without setting `PYTHONPATH`. |
 | `python3 scripts/check_secrets.py` | Check for accidental API keys before sharing or committing. |
 | `.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store` | Normalize and store a manual social signal. |
 | `.venv/bin/python scripts/query_clips.py list --status approved` | List approved clips from the local vault. |

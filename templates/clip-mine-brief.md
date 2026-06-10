@@ -32,6 +32,10 @@
 | **Like ratio** | [Likes/views %] |
 | **Source URL** | [Full YouTube URL] |
 
+## Background
+
+[2-3 sentences. Explain what the source is, who is speaking, and why this moment matters now. The reviewer should understand what they are checking before seeing the quote.]
+
 ## The Clip
 
 | Field | Value |

@@ -67,6 +67,57 @@ brand_gate:
     - transform
   nuance_rule: "Allowed only with specific before/after proof, client language, or concrete transformation."
 
+caption_tones:
+  default_behavior:
+    first_output: professional_genx
+    ask_after_default: true
+    prompt: "Would you like a different version: casual, edgy, warm, wry, curious, bold, or more platform-native?"
+    brand_gate_required: true
+    skill_path: skills/caption-tone/SKILL.md
+  tones:
+    professional_genx:
+      voice: "Clear, grounded, operator-led, polished without sounding corporate."
+      best_for: [default, b2b_linkedin, first_draft, source_briefs]
+      guardrails: [no_hype, no_generic_advice, no_blacklist_terms]
+    direct:
+      voice: "Facts first, minimal adjectives, decision-ready."
+      best_for: [latest_ai_news, b2b_linkedin, newsjacking]
+      guardrails: [avoid_cold_or_flat, include_clear_stakes]
+    wry:
+      voice: "Knowing, dry, lightly sardonic, never mean."
+      best_for: [controversial_polarizing, platform_commentary]
+      guardrails: [no_jokes_at_people, no_punching_down]
+    warm:
+      voice: "Human, emotionally true, grounded, not precious."
+      best_for: [b2c_instagram, identity_content, transformation_with_proof]
+      guardrails: [no_woo, no_soft_generic_comfort]
+    curious:
+      voice: "Question-led, analytical, invites thoughtful replies."
+      best_for: [upgrade_democratization, analytical_deep_dive, carousels]
+      guardrails: [no_vague_questions, anchor_to_specific_evidence]
+    bold:
+      voice: "Provocative, takes a position, gives the audience something to react to."
+      best_for: [controversial_polarizing, predictions, strong_opinions]
+      guardrails: [no_false_certainty, no_clickbait, support_claims_with_sources]
+    casual_edgy:
+      voice: "Looser, sharper, social-native, still intelligent."
+      best_for: [instagram_reels, tiktok, threads, experimental_posts]
+      guardrails: [no_cringe_slang, no_hustle_bro, no_blacklist_terms]
+  default_by_category:
+    latest_ai_news: direct
+    controversial_polarizing: bold
+    upgrade_democratization: curious
+    analytical_deep_dive: curious
+  platform_defaults:
+    instagram_reels: professional_genx
+    instagram_carousel: curious
+    tiktok: casual_edgy
+    threads: wry
+    facebook: warm
+    facebook_group: warm
+    youtube_shorts: direct
+    linkedin: professional_genx
+
 blacklist:
   hype_hustle_fake_urgency:
     - game-changer

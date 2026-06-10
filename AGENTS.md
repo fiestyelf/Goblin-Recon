@@ -124,6 +124,9 @@ Use for weekly social-native discovery or important launches. Start with Instagr
 ### Manual Assisted Scan
 Use when the human provides URLs, screenshots, captions, creator handles, or notes. Normalize the material into the social record schema, score it, and recommend whether it belongs in Social Pulse or Clip Mine.
 
+### Signal Scan
+Use for first-mover discovery when mainstream news is too slow. Scan public early-signal surfaces in this order: X/Twitter when approved/public, Hacker News, GitHub Trending, ArXiv, then Reddit only if public access works. Time gate: last 6 hours. If nothing clears the velocity threshold, return "nothing worth posting right now" instead of forcing weak ideas.
+
 ## Social Extraction Reliability Ladder
 
 When social data is needed, use this order:
@@ -185,6 +188,13 @@ access_status:
 11. Every clip brief must include platform variants for Instagram, LinkedIn, and YouTube Shorts.
 12. Every trend report must include: what formats are working, what hooks are converting, and what creators are driving the conversation — not just what stories are trending.
 13. Instagram/TikTok scraping: public profiles only. No login bypass. Respect rate limits. Stop if blocked.
+14. If a named topic returns zero relevant results after 3 different search queries across 2+ platforms, stop searching and ask the user for a URL or more context.
+15. After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Competitor report, or Clip Brief, save the full output to `vault/reports/YYYY-MM-DD-{type}.md` and tell the user the saved path.
+
+## Delegate Task Policy
+NEVER use delegate/subagent tasks for Fast Scan, Deep Social Scan, Signal Scan, single-source lookups, brand gate checks, or transcript extraction. Subagents do not reliably inherit Goblin Recon context and can waste tokens by brute-forcing browser navigation.
+
+ONLY use delegate/subagent tasks after data is already collected, and only for post-processing such as scoring, cross-referencing, report formatting, or counter-review. Pass source URLs, query limits, blocked-source rules, brand rules, and expected output fields explicitly.
 
 ## Answer Variance Rules
 1. Do not repeat the same answer when the user asks a follow-up or repeats a status question.
@@ -204,6 +214,8 @@ access_status:
 8. English-only for outward brand content. Do not produce Arabic or German brand-facing copy.
 9. Do not guess open founder decisions, including the B2C brand name, Sara visibility level, or domain mapping. Flag them as open decisions.
 10. Content that fails the brand gate should be shelved before human approval.
+11. For captions, default to professional GenX Academy copy, then ask whether the user wants another voice when the use case would benefit from a more casual, edgy, warm, wry, curious, bold, or platform-native version.
+12. Keep `skills/caption-tone/SKILL.md` as the single reusable caption-writing skill. Use it for caption and description tasks, while still running GenX brand-gate checks on generated outward copy.
 
 ## Security and Compliance Guardrails
 1. Use public sources only unless the company has explicitly approved the integration.
@@ -241,6 +253,14 @@ access_status:
 - Do not guess article URLs. Extract real `href` values from source pages, search results, feeds, or approved APIs.
 - If a URL returns 404, retry once only by extracting the real link from an index/category/search page. Do not keep trying guessed slugs.
 - If a source returns a block page, captcha, DataDome/JS challenge, login wall, or rate-limit response, stop after one confirmation attempt, set `access_status: blocked`, and move on.
+- If a named story cannot be found after 3 distinct queries across 2+ platforms, stop and ask for a source URL, screenshot, creator name, or extra context.
+
+## Known Platform Limitations
+- YouTube may show a cookie consent wall. Dismiss it with the visible consent/reject option if available, then retry the original URL or query once.
+- Reddit often returns a JS challenge without approved API access. Mark `access_status: blocked` and prioritize Hacker News plus tech news validation.
+- Instagram public profiles may still show login walls. Do not bypass. Ask for manual assisted input if IG format data is essential.
+- TikTok tag pages may expose tag volume but hide individual videos behind login. Use visible metadata only, then request manual assisted input if needed.
+- Avoid opening 3+ browser tabs simultaneously during scans. Reserve browser use for sources that need visual inspection.
 
 ## Source Hunting Priority
 When finding videos/clips for a trending story, search in this order:
@@ -254,6 +274,7 @@ When finding videos/clips for a trending story, search in this order:
 - Must have natural sentence beginning and end
 - No mid-sentence cuts
 - Must pass "scroll-stop test" — would someone stop scrolling for this?
+- Every clip brief must include a `## Background` section before the clip moment with 2-3 sentences explaining what the source is, who is speaking, and why the moment matters.
 
 ## Optional Integrations
 - MCP servers are helpers, not replacements for the Goblin Recon skills.
@@ -278,6 +299,7 @@ When finding videos/clips for a trending story, search in this order:
 ### Scan Modes
 - "run fast scan" -> Low-stress daily Social Pulse using reliable sources first
 - "run deep social scan" -> Instagram/TikTok-first Social Pulse with fallback when blocked
+- "run signal scan" -> First-mover scan across X/public early signals, Hacker News, GitHub Trending, ArXiv, and public Reddit when available
 - "manual scan this [URL/screenshot/caption]" -> Normalize and score human-provided social material
 
 ### Social Pulse (Ideas, Blogs, Carousels, Strategy)

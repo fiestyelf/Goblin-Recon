@@ -147,7 +147,7 @@ Recommended statuses:
 ## What This Folder Provides
 
 - `AGENTS.md` - Main agent rules.
-- `skills/` - Trend Radar, Source Hunter, Moment Finder, Competitor Scout, and Orchestrator.
+- `skills/` - Trend Radar, Source Hunter, Moment Finder, Competitor Scout, Caption Tone, and Orchestrator.
 - `config/` - Sources, scoring, security, brand voice, and integrations.
 - `memory/` - Brand rules and ongoing memory files.
 - `templates/` - Output formats for reports and briefs.

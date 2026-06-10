@@ -46,6 +46,7 @@ Commands:
 |---------|--------------|
 | `run fast scan` | Low-stress daily scan using reliable sources first |
 | `run deep social scan` | Deeper IG/TikTok-first social scan with fallback when blocked |
+| `run signal scan` | First-mover scan across public early-signal sources |
 | `manual scan this [URL/screenshot/caption]` | Normalize and score human-provided social material |
 | `run social pulse` | Full scan across IG/TikTok/X/Reddit/News for AI trends |
 | `what's trending on Instagram` | IG-only creator account scan |
@@ -127,6 +128,9 @@ Use for weekly social-native discovery or important launches. Start with Instagr
 
 ### Manual Assisted Scan
 Use when the human provides URLs, screenshots, captions, creator handles, or notes. Normalize the material into the social record schema, score it, and recommend whether it belongs in Social Pulse or Clip Mine.
+
+### Signal Scan
+Use for first-mover discovery when mainstream news is too slow. Scan public early-signal surfaces in this order: X/Twitter when approved/public, Hacker News, GitHub Trending, ArXiv, then Reddit only if public access works. Time gate: last 6 hours. If nothing clears the velocity threshold, return "nothing worth posting right now" instead of forcing weak ideas.
 
 ## Social Extraction Reliability Ladder
 
@@ -285,20 +289,26 @@ hermes config set terminal.timeout 300 -p goblin-recon
 
 Never paste or commit API keys. Store provider keys through Hermes secrets or another approved local secret method.
 
+## Delegate Task Policy
+
+NEVER use delegate_task/subagents for Fast Scan, Deep Social Scan, Signal Scan, single-source lookups, brand gate checks, or transcript extraction. Subagents do not reliably inherit Goblin Recon context and can waste tokens by brute-forcing browser navigation.
+
+ONLY use delegate_task after data is already collected, and only for post-processing such as scoring, cross-referencing, report formatting, or counter-review. If you delegate, pass source URLs, query limits, blocked-source rules, brand rules, and expected output fields explicitly.
+
 ## How to Run Workflows
 
-### Option A: Using delegate_task (Recommended for Speed)
+### Option A: Manual Sequential (Default)
 
-Route first, then run only the needed workflow. For full Clip Mine, run Layers 1 and 2 in parallel as subagents, then Layer 3 sequentially:
+Route first, then run only the needed workflow with direct tool use. For full Clip Mine, collect Layer 1 and Layer 2 data yourself, then run Layer 3 sequentially:
 
 ```
-# Layer 1 (Trend Radar): delegate_task with toolsets=["web","browser"]
+# Layer 1 (Trend Radar): direct browser/web/API extraction
 # PRIORITY: Scan Instagram creator accounts FIRST (@therundownai, @rowancheung)
 # Then TikTok hashtags, then X/Twitter, then tech news
 # Return top 5-8 stories with: headline, IG views/engagement, format type, hook style
 # Include both trending STORIES and trending FORMATS
 
-# Layer 2 (Source Hunter): delegate_task with toolsets=["web","browser"]
+# Layer 2 (Source Hunter): direct YouTube/social search
 # Search YouTube, Instagram, TikTok for videos about top stories
 # Return video title, channel, URL, publish date, duration, views, format, captions?
 
@@ -309,9 +319,9 @@ Route first, then run only the needed workflow. For full Clip Mine, run Layers 1
 # 4. Validate with extract_clip.py
 ```
 
-### Option B: Manual Sequential (for Debugging)
+### Option B: Limited Delegation (Post-Processing Only)
 
-Run each layer yourself using browser tools for public social pages, then terminal for Python scripts. If IG/TikTok blocks access, mark the source blocked and switch to manual assisted input instead of trying to bypass restrictions.
+Use delegation only after source data is already in hand. Suitable tasks: scoring candidate rows, cross-checking source dates, formatting a report, or counter-reviewing a recommendation.
 
 ## Script Usage
 
@@ -329,13 +339,13 @@ Extracts transcripts with timestamps. Output: JSON array of `{time, duration, te
 
 ### extract_clip.py
 Validates clip metadata. Output: JSON with `url_with_timestamp`, `embed_url`, `duration`, `start_time`, `end_time`.
-- Usage: `extract_clip.py <video_url> <start_sec> <end_sec>`
+- Usage: `.venv/bin/python -m goblin_recon.tools.extract_clip <video_url> <start_sec> <end_sec>`
 - Enforces 15–60 second duration
 - Automatically generates YouTube timestamp links
 
 ### score_engagement.py
 Calculates engagement velocity score (0–20). Output: JSON with `score`, `velocity_per_hour`, `hours_since_post`.
-- Usage: `score_engagement.py <platform> <post_url> <ISO_timestamp> <engagement_count>`
+- Usage: `.venv/bin/python -m goblin_recon.tools.score_engagement <platform> <post_url_or_id> <ISO_timestamp> <views>`
 - Platforms: twitter, reddit, youtube, instagram
 - Platform-specific benchmarks for viral thresholds
 
@@ -351,6 +361,9 @@ Normalizes social media observations before Trend Radar scoring.
 Stores Clip Mine candidates in `vault/clips.db` for cross-session lookup, full-text search, and duplicate checks.
 - Run with no args to initialize the database: `.venv/bin/python -m goblin_recon.tools.clip_store`
 - Use from Hermes tool calls or local scripts to save approved or shelved clips with source URL, timestamps, status, scores, and summary fields
+- Correct API: `save_clip({"source_url": "...", "start_sec": 10, "end_sec": 40, ...})`
+- Compatibility API: `save_clip_kwargs(source_url="...", start_sec=10, end_sec=40, ...)`
+- Count stored records with `get_clip_count()`
 - Do not store full raw transcripts, API keys, cookies, or login-only source data
 
 ### query_clips.py
@@ -375,6 +388,9 @@ Pre-flight brand gate helper for generated captions, summaries, hooks, and outbo
 .venv/bin/python -m goblin_recon.tools.brand_gate --file path/to/copy.md --json
 ```
 A fail means rewrite or shelve before Human Gate.
+
+### caption-tone Skill
+Use `skills/caption-tone/SKILL.md` for caption and description tasks. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.
 
 ## Clip Mine Scoring Criteria (7 Dimensions)
 
@@ -496,6 +512,13 @@ Every report MUST lead with `## Decision` — recommended action in the first 3 
 - Competitor reports → `templates/competitor-report.md`
 - Content briefs → use `templates/social-pulse-report.md` unless the user asks for a standalone planning brief
 
+### Auto-Save Rule
+
+After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Competitor report, or Clip Brief:
+- Write the full output to `vault/reports/YYYY-MM-DD-{type}.md`
+- Tell the user: `Saved -> vault/reports/<filename>`
+- Never require the user to ask for a save
+
 ### Trend Report Must Include
 - What's working on Instagram (formats, hooks, creators)
 - What's on TikTok (formats, sounds, viral signals)
@@ -503,6 +526,7 @@ Every report MUST lead with `## Decision` — recommended action in the first 3 
 
 ### Clip Brief Must Include
 - Decision (approve/shelve/modify)
+- Background (2-3 sentences explaining source, speaker, and why the moment matters)
 - Video metadata (title, channel, views, URL)
 - The moment text with exact timestamps
 - Why post
@@ -550,6 +574,18 @@ For personal/current/future change notes, update `personal-dumpground/SESSION_LO
 
 ## Pitfalls
 
+### Search Stop Rule
+If a named topic returns zero relevant results after 3 different search queries across 2+ platforms, stop searching and ask the user for a URL, screenshot, creator name, or more context. Do not keep trying loosely related keywords.
+
+### YouTube Cookie Walls
+YouTube may show a "Before you continue" consent dialog. Click the visible reject/accept option if available, then retry the original URL or query once. Do not use cookies or personal accounts to bypass access controls.
+
+### Browser Stability
+Avoid opening 3+ browser tabs simultaneously during scans. Use terminal/web extraction for stable public sources like Hacker News and reserve browser navigation for sources that need visual inspection.
+
+### Public Social Access Limits
+Reddit often returns a JS challenge without approved API access. Instagram may show login walls even for public profiles. TikTok may expose tag volume but hide individual videos behind login. Mark blocked sources as `access_status: blocked` and ask for manual assisted input only when the missing data is essential.
+
 ### English-Only Captions
 The `get_youtube_transcript.py` script may return non-English captions. GenX brand rules require English-only outward content. Always check language before committing. Fall back to alternative sources.
 
@@ -558,6 +594,14 @@ Cookie walls and login gates block some accounts. Works for public profiles but 
 
 ### Do Not Guess URLs
 Do not invent article URLs from headlines or slugs. Extract real `href` values from category pages, search pages, feeds, sitemaps, or approved APIs. If a URL returns 404, retry once only by extracting the actual link from an index/search page, then move on.
+
+For YouTube search result pages, extract real links from page anchors instead of constructing URLs from titles. Example browser-console pattern:
+
+```js
+Array.from(document.querySelectorAll('a[href*="watch?v="]'))
+  .map((a) => ({ title: a.textContent.trim(), url: a.href }))
+  .filter((item) => item.title && item.url)
+```
 
 ### Blocked Sources Get One Confirmation Attempt
 If a source returns a block page, captcha, DataDome/JS challenge, login wall, or rate-limit response, confirm once, set `access_status: blocked`, and move on. Do not spend repeated calls trying alternate scraping patterns.
@@ -618,6 +662,7 @@ Load before producing output:
 - `genx-market-researcher` — Market research persona
 - `genx-truth-teller` — Quality gate for GenX marketing outputs
 - `genx-copy-chief` — Copywriting for GenX Academy (clip captions, platform variants)
+- `caption-tone` — Single reusable caption-writing skill for platform-specific caption/description tasks
 - `competitor-profiling` — Cherry-picked for competitor scan research
 - `social-content` — Cherry-picked for IG/TikTok platform variants and format analysis
 - `copywriting` — Cherry-picked for caption writing
