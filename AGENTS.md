@@ -33,7 +33,7 @@ If a request mixes workflows, run the smallest useful sequence and state the seq
 
 ## Core Workflows
 
-Goblin Recon has three primary workflows:
+Goblin Recon has four primary workflows:
 
 ### Workflow 1: Social Pulse
 **Purpose:** Content ideas, blogs, carousels, content strategy inspiration.
