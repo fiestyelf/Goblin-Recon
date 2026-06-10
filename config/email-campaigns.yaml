@@ -1,0 +1,109 @@
+# Email Campaign Type Definitions
+# Maps campaign types to psychological triggers, tone, and CTA.
+# Used by email_gate.py for Dimension 2 (Psychological Fit) and Dimension 5 (Campaign Alignment).
+
+campaigns:
+  # VALUE CAMPAIGN
+  # Goal: Deliver useful information. Build authority through insight.
+  # Audience: Cold-ish. They know of you but haven't engaged deeply.
+  value:
+    stage: "awareness"
+    primary_trigger: "curiosity_gap"
+    secondary_trigger: "specificity"
+    recommended_tone: "direct"
+    identity_words: []
+    expected_cta:
+      - "reply"
+      - "check it out"
+      - "see for yourself"
+      - "try it"
+    subject_formulas:
+      - "The [metric] you're not tracking"
+      - "[Number] things about [topic]"
+      - "How [result] in [timeframe]"
+      - "[Topic] without the [pain]"
+      - "What [common belief] gets wrong about [topic]"
+    do_not:
+      - "Do not pitch in the first email"
+      - "Do not use urgency or scarcity"
+      - "Do not open with a filler phrase"
+
+  # TRUST BUILDING CAMPAIGN
+  # Goal: Build credibility through social proof and shared identity.
+  # Audience: Has engaged with content, downloaded something, attended a webinar.
+  trust_building:
+    stage: "consideration"
+    primary_trigger: "social_proof"
+    secondary_trigger: "identity"
+    recommended_tone: "warm"
+    identity_words:
+      - "founder"
+      - "builder"
+      - "operator"
+      - "entrepreneur"
+      - "team"
+      - "built"
+      - "scaling"
+    expected_cta:
+      - "reply"
+      - "let me know"
+      - "interested"
+      - "book"
+      - "schedule"
+    subject_formulas:
+      - "How [similar company] achieved [result]"
+      - "[Number] [type] founders on [method]"
+      - "What we learned from [number] [type] teams"
+      - "[Peer reference]: [insight]"
+    do_not:
+      - "Do not pitch hard in the first 3 emails"
+      - "Do share real stories, not hypotheticals"
+      - "Do reference specific peers or case studies"
+
+  # LAUNCH CAMPAIGN
+  # Goal: Create urgency for a new product/service/offer.
+  # Audience: Has built trust. Knows the value proposition.
+  launch:
+    stage: "decision"
+    primary_trigger: "loss_aversion"
+    secondary_trigger: "curiosity_gap"
+    recommended_tone: "bold"
+    identity_words: []
+    expected_cta:
+      - "book"
+      - "schedule"
+      - "sign up"
+      - "get started"
+      - "grab"
+    subject_formulas:
+      - "You can now [action] without [pain]"
+      - "The [thing] you asked for is here"
+      - "[Product] is live - first [number] get [benefit]"
+      - "What if you could [result] in [timeframe]?"
+    do_not:
+      - "Do not create fake scarcity"
+      - "Do not use countdown timers unless real"
+      - "Do open with value reminder before the ask"
+
+  # RE-ENGAGEMENT CAMPAIGN
+  # Goal: Wake up cold leads who went silent.
+  # Audience: Hasn't opened in 60+ days.
+  re_engagement:
+    stage: "re-engagement"
+    primary_trigger: "pattern_interrupt"
+    secondary_trigger: "curiosity_gap"
+    recommended_tone: "wry"
+    identity_words: []
+    expected_cta:
+      - "reply"
+      - "let me know"
+    subject_formulas:
+      - "About that [topic] we talked about"
+      - "Did [thing] work out?"
+      - "Everything changed since we last spoke"
+      - "I might be wrong, but..."
+      - "One last thought on [topic]"
+    do_not:
+      - "Do not apologize for emailing"
+      - "Do not assume they're not interested"
+      - "Do keep it short - 3 sentences max"

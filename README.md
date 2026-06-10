@@ -37,6 +37,7 @@ Full command guide with plain-language descriptions → [`COMMANDS.md`](COMMANDS
 | `run full scan` | Social Pulse + Clip Mine in sequence |
 | `what clips are ready` | Approved clips awaiting editor handoff |
 | `run competitor scan` | Competitor Scout |
+| `write email hooks for [offer/audience]` | Email Hook variants with quality-gate scores |
 
 ## Architecture
 

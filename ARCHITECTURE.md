@@ -24,6 +24,7 @@ flowchart TD
     B --> D[Clip Mine]
     B --> E[Clip Vault]
     B --> F[Competitor Scout]
+    B --> G[Email Hook]
 
     C --> C1[Collect trend signals]
     C1 --> C2[Social Intake]
@@ -47,9 +48,15 @@ flowchart TD
 
     F --> F1[Run competitor research]
     F1 --> F2[Package competitor report]
+
+    G --> G1[Confirm output direction]
+    G1 --> G2[Select campaign type]
+    G2 --> G3[Generate subject/opening variants]
+    G3 --> G4[Run Email Gate]
+    G4 --> G5[Present ranked variants]
 ```
 
-## The Three Core Workflows
+## The Four Core Workflows
 
 ### 1. Social Pulse
 
@@ -101,6 +108,23 @@ Storage:
 
 Output: approved clip lists, regenerated briefs, duplicate warnings, and production status updates.
 
+### 4. Email Hook
+
+Purpose: generate and validate outbound email subject lines, openers, and short drafts.
+
+Inputs:
+- `write email hooks for [offer/audience]`
+- `write subject lines for [campaign]`
+- `validate this email`
+
+Output: ranked subject/opening variants with attention, psychological fit, brand voice, professional guardrail, and campaign alignment scores.
+
+Email Hook preserves the same gate-first architecture:
+
+```text
+Output Direction -> Campaign Fit -> Email Gate -> Human Gate
+```
+
 ## Intent Router
 
 The router chooses exactly one primary workflow before tools are used.
@@ -112,8 +136,19 @@ The router chooses exactly one primary workflow before tools are used.
 | Retrieve previous clips | Clip Vault | Query `vault/clips.db` first. |
 | Analyze competitors | Competitor Scout | Separate from trend and clip work. |
 | Validate brand fit | Brand Gate | Can run as a standalone review. |
+| Generate email hooks or outbound drafts | Email Hook | Ask Output Direction first, then run Email Gate. |
 
 If a request mixes workflows, run the smallest useful sequence and tell the user what sequence is being used.
+
+## Output Direction
+
+Before producing brand-facing output, the router asks three questions in one short checkpoint:
+
+1. Who is this for? B2C, B2B, or Both?
+2. Where does it go? Faceless Instagram, personal brand, client work, internal use, email/outbound, or other?
+3. What tone should it carry? Professional, casual, edgy, warm, wry, bold, or platform-native?
+
+The answer controls brand angle, destination, tone, scoring lens, template choice, and copy guardrails. If the user skips direction, default to Both / Faceless Instagram / professional and state that default before generating.
 
 ## Scan Modes
 
@@ -249,6 +284,7 @@ Tools are helpers, not the architecture.
 | `goblin_recon.tools.clip_store` | Save clip metadata | Core Clip Vault tool. |
 | `scripts/query_clips.py` | Retrieve clips and regenerate briefs | Core Clip Vault tool. |
 | `goblin_recon.tools.brand_gate` | Check generated copy for blacklist and nuance words | Core Brand Gate helper. |
+| `goblin_recon.tools.email_gate` | Score outbound email drafts across five quality dimensions | Core Email Hook helper. |
 | MCP Memory | Store approved/shelved patterns | Optional, useful early. |
 | Fetch MCP | Extract normal public webpages | Optional, useful early. |
 | Firecrawl | Public web/news extraction | Later, after API key approval. |

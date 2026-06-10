@@ -27,6 +27,7 @@ The router chooses one primary workflow before tools are used:
 | Retrieve or update prior clips | Clip Vault | Clip lists, regenerated briefs, status updates |
 | Analyze competitors | Competitor Scout | Competitor intelligence report |
 | Validate voice or fit | Brand Gate | Pass/shelve/modify recommendation |
+| Generate or validate email hooks | Email Hook | Subject/opening variants with quality-gate scores |
 
 If a request mixes workflows, run the smallest useful sequence and state the sequence. Do not scan every platform or invoke every tool by default.
 
@@ -50,6 +51,12 @@ Goblin Recon has three primary workflows:
 **Purpose:** Persistent memory for approved, shelved, and production-status clips.
 **Storage:** `vault/clips.db`, `vault/briefs/`, `memory/trend-history.md`.
 **Output:** Ready clips, duplicate warnings, regenerated briefs, and workflow status updates.
+
+### Workflow 4: Email Hook
+**Purpose:** Generate and validate subject lines, openers, and short outbound email drafts.
+**Sources:** User-provided offer, audience, campaign type, and brand direction.
+**Output:** Ranked subject/opening variants with attention, psychological fit, brand voice, professional guardrail, and campaign alignment scores.
+**Core chain:** Output Direction -> Campaign Fit -> Email Gate -> Human Gate.
 
 ## Legacy Pipeline Names
 
@@ -192,6 +199,7 @@ access_status:
 13. Instagram/TikTok scraping: public profiles only. No login bypass. Respect rate limits. Stop if blocked.
 14. If a named topic returns zero relevant results after 3 different search queries across 2+ platforms, stop searching and ask the user for a URL or more context.
 15. After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Competitor report, or Clip Brief, save the full output to `vault/reports/YYYY-MM-DD-{type}.md` and tell the user the saved path.
+16. Before creating brand-facing output, ask for output direction: who it is for (B2C, B2B, or Both), where it goes (Faceless Instagram, personal brand, client work, internal use, email/outbound, or other), and the desired tone (professional, casual, edgy, warm, wry, bold, or platform-native). Store this answer for the session. If the user refuses or skips it, default to Both / Faceless Instagram / professional and state that default before generating.
 
 ## Delegate Task Policy
 NEVER use delegate/subagent tasks for Fast Scan, Deep Social Scan, Signal Scan, single-source lookups, brand gate checks, or transcript extraction. Subagents do not reliably inherit Goblin Recon context and can waste tokens by brute-forcing browser navigation.
@@ -218,6 +226,7 @@ ONLY use delegate/subagent tasks after data is already collected, and only for p
 10. Content that fails the brand gate should be shelved before human approval.
 11. For captions, default to professional GenX Academy copy, then ask whether the user wants another voice when the use case would benefit from a more casual, edgy, warm, wry, curious, bold, or platform-native version.
 12. Keep `skills/caption-tone/SKILL.md` as the single reusable caption-writing skill. Use it for caption and description tasks, while still running GenX brand-gate checks on generated outward copy.
+13. Use `skills/email-hook/SKILL.md` for outbound email subject lines, openers, and short email drafts. Run `goblin_recon.tools.email_gate` before delivering final email copy.
 
 ## Security and Compliance Guardrails
 1. Use public sources only unless the company has explicitly approved the integration.
@@ -327,5 +336,6 @@ When finding videos/clips for a trending story, search in this order:
 - "run full scan" → Social Pulse + Clip Mine for the top 2-3 candidates in sequence
 - "run competitor scan" → Competitor Scout
 - "run brand check on [content]" → Brand gate validation
+- "write email hooks for [offer/audience]" → Email Hook subject/opening variants with gate scores
 - "what formats are working?" → Current winning reel format analysis
 - "what did we find yesterday?" → Search past sessions

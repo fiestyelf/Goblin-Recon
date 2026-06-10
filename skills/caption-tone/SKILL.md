@@ -1,16 +1,17 @@
 ---
 name: caption-tone
-version: 2.0.0
+version: 2.1.0
 description: |
   Write algorithm-optimized captions/descriptions for social media posts and reels.
   Supports Instagram (Reels, Feed, Carousel), TikTok, Threads, Facebook, and YouTube Shorts.
   The user sends material (text, image, script, competitor post, screenshot) and
   gets ready-to-use captions for requested platforms, or all platforms when unspecified, in English.
+  Integrates with config/brand-voice.yaml for tone selection, category→tone mapping,
+  platform→tone defaults, and blacklist enforcement.
   Use when asked to "write a caption", "write a description", "caption for instagram",
-  "описание к посту", "подпись для рилса", "описание для тикток",
   "caption for reels", "social media post", or any caption/description writing task.
   Also triggers when user sends an image, screenshot, or text and says something like
-  "сделай описание", "напиши подпись", "caption this", "описание для этого".
+  "caption this".
 allowed-tools:
   - Bash
   - Read
@@ -20,16 +21,24 @@ allowed-tools:
   - Grep
 ---
 
-# Caption Tone — Algorithm-Optimized Social Media Captions (v2)
+# Caption Tone — Algorithm-Optimized Social Media Captions (v2.1)
 
 The user sends material (text, image, script, competitor post, screenshot, or description of content).
 You analyze it and generate captions in English.
 
-When used inside Goblin Recon for GenX Academy, default to professional GenX Academy copy first. If a use case would benefit from a different voice, offer a follow-up option for casual, edgy, warm, wry, curious, bold, or more platform-native versions. Run `goblin_recon.tools.brand_gate` on outward GenX copy when feasible.
-
-**No questions before the first draft. Analyze, deliver the professional GenX version first, then offer tone adjustments if useful.**
+If Goblin Recon has not already captured Output Direction, ask the 3-question pre-check before generating: who it is for, where it goes, and what tone it should carry. After direction is clear, deliver the professional GenX version first, then offer tone adjustments if useful.
 
 ## WORKFLOW
+
+### Step 0: Load Configuration
+
+Load these config files before generating anything:
+
+1. `config/brand-voice.yaml` — Load `caption_tones` section for tone definitions, `default_by_category`, `platform_defaults`
+2. `config/brand-voice.yaml` — Load `blacklist` section for terms to avoid in GenX-written copy
+
+**HARD RULE:** After Output Direction is clear, first output must use `professional_genx` tone unless the user explicitly requested another tone. After delivering, ask:
+"Would you like a different version: casual, edgy, warm, wry, curious, bold, or more platform-native?"
 
 ### STEP 1: Analyze the Input
 
@@ -45,6 +54,29 @@ Write a short (2-3 sentence) analysis:
 **Niche:** [industry/category]
 **Key message:** [the core idea to communicate]
 ```
+
+### Step 1.5: Select Tone
+
+Determine which tone to use from `config/brand-voice.yaml`:
+
+1. If user specified a tone → use it
+2. If content has a category → use `default_by_category` mapping:
+   - `latest_ai_news` → direct
+   - `controversial_polarizing` → bold
+   - `upgrade_democratization` → curious
+   - `analytical_deep_dive` → curious
+3. If platform is specified → use `platform_defaults`:
+   - `instagram_reels` → professional_genx
+   - `instagram_carousel` → curious
+   - `tiktok` → casual_edgy
+   - `threads` → wry
+   - `facebook` → warm
+   - `facebook_group` → warm
+   - `youtube_shorts` → direct
+   - `linkedin` → professional_genx
+4. Default → professional_genx
+
+Apply the selected tone's voice description and guardrails from brand-voice.yaml to the output.
 
 ### STEP 2: Generate Captions
 
@@ -136,7 +168,7 @@ Output in this exact format:
 
 ### STEP 3: End with
 
-"Want me to adjust any of these? I can make them more casual, edgy, warm, wry, curious, bold, expert, or platform-native for a specific use case."
+"Would you like a different version: casual, edgy, warm, wry, curious, bold, or more platform-native?"
 
 ---
 
@@ -302,6 +334,15 @@ Output in this exact format:
 4. **Watch time / Completion rate** — dominant for video (70%+ for viral)
 5. **Likes** — weakest, "vanity metric"
 
+## Brand Gate Step
+
+After generating captions, run this check:
+
+1. Scan GenX-written copy against `config/brand-voice.yaml` → `blacklist`
+2. If any blacklisted term is found: rewrite before delivering
+3. Verify tone matches the selected tone's voice description
+4. If tone doesn't match: flag and offer to regenerate
+
 ## QUALITY CHECKLIST (verify before presenting)
 
 - [ ] Hook in first 80-125 characters
@@ -314,3 +355,7 @@ Output in this exact format:
 - [ ] Zero Facebook trigger words (for FB captions)
 - [ ] Short paragraphs with line breaks
 - [ ] Different formula for each platform
+- [ ] Loaded config/brand-voice.yaml before generating
+- [ ] Tone selected using default_by_category or platform_defaults
+- [ ] Professional_genx delivered first
+- [ ] Brand gate scan completed with zero violations

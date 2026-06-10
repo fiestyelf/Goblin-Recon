@@ -167,7 +167,7 @@ Before human approval, filter every trend, source, and clip brief:
 
 ```
 For each clip brief:
-  1. Confirm Brand Angle: B2C, B2B, or Both
+  1. Use Output Direction from session start (brand angle, destination, and tone). If missing, ask the 3-question Output Direction Pre-Check before judging the brief.
   2. Confirm brand alignment >= 8/15
   3. Scan GenX-written hook, caption, explanation, and next steps against config/brand-voice.yaml blacklist
   4. If transcript contains blacklisted words, flag as quoted source material and do not reuse in GenX copy

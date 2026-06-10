@@ -86,7 +86,19 @@ Use `skills/caption-tone/SKILL.md` for caption and description writing.
 | `make this edgier` | A sharper version for controversial or opinion-led posts. |
 | `make this warmer` | A more human version for B2C or reflective posts. |
 
-Default behavior: produce normal professional GenX copy first, then ask if the user wants a different tone or voice for the use case.
+Default behavior: ask Output Direction first when missing, produce normal professional GenX copy, then ask if the user wants a different tone or voice for the use case.
+
+## Email Hooks
+
+Use `skills/email-hook/SKILL.md` for outbound subject lines, openers, and short drafts.
+
+| Say this | What you get |
+|---|---|
+| `write email hooks for [offer/audience]` | Five subject/opening variants scored by the email gate. |
+| `write subject lines for [campaign]` | Campaign-aware subjects with psychological trigger notes. |
+| `validate this email` | PASS/FLAGGED/REJECT score across five dimensions. |
+
+Before generating, the agent should ask who it is for, where it goes, and what tone it should carry when that direction is missing.
 
 ## Competitors
 
@@ -101,6 +113,7 @@ Default behavior: produce normal professional GenX copy first, then ask if the u
 | `manual scan this ...` | For screenshots, pasted captions, or blocked social pages. | Include the URL, creator, date, visible metrics, caption, and your notes when possible. |
 | `find the moment in [URL]` | For one specific YouTube/video source. | The result must be 15-60 seconds and should not cut mid-sentence. |
 | `run brand check on ...` | For captions, hooks, summaries, or outbound copy. | The copy should be English-only and avoid blacklisted phrases. |
+| `write email hooks for ...` | For outbound/campaign copy. | Include offer, audience, and campaign type when possible. The agent must run `email_gate` before final delivery. |
 | `update clip status ...` | For Clip Vault changes. | Include clip ID and target status. Example: `update clip status CLIP-20260610-001 to approved`. |
 | `what did we do so far?` | For progress status. | The agent should give the latest changes first and avoid repeating the full old summary unless needed. |
 
@@ -114,6 +127,7 @@ Run these from the project folder when needed.
 | `.venv/bin/python -m pip install -e .` | Install the package in editable mode so imports work without setting `PYTHONPATH`. |
 | `python3 scripts/check_secrets.py` | Check for accidental API keys before sharing or committing. |
 | `.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store` | Normalize and store a manual social signal. |
+| `.venv/bin/python -m goblin_recon.tools.email_gate --subject "..." --body "..."` | Score an outbound email draft. |
 | `.venv/bin/python scripts/query_clips.py list --status approved` | List approved clips from the local vault. |
 | `.venv/bin/python scripts/query_clips.py brief [clip_id]` | Regenerate a clip brief from stored metadata. |
 

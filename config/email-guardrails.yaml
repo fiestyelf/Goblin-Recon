@@ -1,0 +1,159 @@
+# Email Quality Guardrails
+# Used by goblin_recon.tools.email_gate.EmailGate
+# Loaded at init - these are the hard rules every email must pass.
+
+# SPAM TRIGGERS (auto -5 from attention, -2 from professional)
+spam_triggers:
+  - "free"
+  - "act now"
+  - "limited time"
+  - "click here"
+  - "buy now"
+  - "don't miss out"
+  - "exclusive offer"
+  - "last chance"
+  - "guaranteed"
+  - "congratulations"  # you won / you're selected
+  - "double your"
+  - "earn money"
+  - "increase sales"
+
+# FILLER OPENERS (auto -5 from attention)
+filler_openers:
+  - "I hope this email finds you well"
+  - "I hope you're doing well"
+  - "I'm reaching out"
+  - "Just checking in"
+  - "Following up on"
+  - "I wanted to touch base"
+  - "Quick follow up"
+  - "Per our conversation"
+  - "I wanted to reach out"
+  - "Just wanted to"
+
+# PAIN SIGNAL WORDS (+3 to attention if present in first 2 sentences)
+pain_signal_words:
+  - "struggling"
+  - "frustrated"
+  - "wasting"
+  - "too much time"
+  - "not working"
+  - "broken"
+  - "failed"
+  - "exhausted"
+  - "overwhelmed"
+  - "stuck"
+  - "burnout"
+  - "manual"
+  - "repetitive"
+  - "chaos"
+  - "no idea"
+
+# CTA PATTERNS (at least one required for -4 penalty)
+cta_patterns:
+  - "reply"
+  - "book"
+  - "schedule"
+  - "let me know"
+  - "interested"
+  - "check it out"
+  - "see for yourself"
+  - "jump on a call"
+  - "grab"
+  - "download"
+  - "try it"
+  - "sign up"
+  - "learn more"
+  - "get started"
+
+# PSYCHOLOGICAL TRIGGERS (keyword patterns the gate checks for)
+triggers:
+  curiosity_gap:
+    keywords:
+      - "you didn't know"
+      - "you're not"
+      - "no one tells you"
+      - "what happens when"
+      - "the real reason"
+      - "here's what"
+      - "why most"
+      - "the truth about"
+      - "what no one"
+      - "almost no one"
+      - "no one tracks"
+      - "secret"
+      - "hidden"
+      - "surprising"
+      - "actually works"
+      - "the one thing"
+      - "the real cost"
+      - "what they don't tell you"
+  social_proof:
+    keywords:
+      - "founders like you"
+      - "companies like"
+      - "teams using"
+      - "how [type] achieved"
+      - "join"
+      - "others in your"
+      - "case study"
+      - "real results"
+      - "proven"
+      - "what worked for"
+  loss_aversion:
+    keywords:
+      - "leaving money on the table"
+      - "missing out"
+      - "falling behind"
+      - "competitors are already"
+      - "you're not taking advantage"
+      - "the cost of waiting"
+      - "what you'll lose"
+      - "while you wait"
+  pattern_interrupt:
+    keywords:
+      - "stop doing"
+      - "forget everything"
+      - "opposite of"
+      - "everything you know"
+      - "wrong about"
+      - "counterintuitive"
+      - "unconventional"
+      - "before you"
+      - "the last thing"
+  identity:
+    keywords:
+      - "for founders who"
+      - "people like us"
+      - "you're the type of"
+      - "if you care about"
+      - "for those who"
+      - "you've built"
+      - "you know"
+      - "you understand"
+
+# BRAND-SPECIFIC RULES (GenX-specific)
+genx:
+  # Subject lines that are NEVER acceptable
+  banned_subject_patterns:
+    - "quick question"
+    - "are you interested"
+    - "just checking"
+    - "following up"
+    - "did you see"
+    - "what do you think"
+    - "thoughts on"
+    - "connect with you"
+    - "collaboration opportunity"
+  # Maximum email body length (words)
+  max_body_words: 200
+  # Maximum subject words
+  max_subject_words: 9
+  # Minimum subject words
+  min_subject_words: 3
+  # Subject should not be a question (for cold emails)
+  no_questions_in_subject: false
+  # Subject should not be a statement about the sender
+  no_sender_focus_in_subject: true
+  # Must include personalization
+  require_personalization: false

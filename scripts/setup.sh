@@ -155,7 +155,7 @@ if [ -f "$PROJECT_DIR/skills/goblin-recon/SKILL.md" ]; then
 fi
 
 # Install pipeline and reusable project skills
-PIPELINE_SKILLS=(orchestrator trend-radar source-hunter moment-finder competitor-scout caption-tone)
+PIPELINE_SKILLS=(orchestrator trend-radar source-hunter moment-finder competitor-scout caption-tone email-hook)
 for skill in "${PIPELINE_SKILLS[@]}"; do
     if [ -d "$PROJECT_DIR/skills/$skill" ]; then
         mkdir -p "$SKILLS_DIR/genx-marketing/$skill"
@@ -238,6 +238,9 @@ if [ -f "requirements-dev.txt" ]; then
     uv pip install -r requirements-dev.txt > /dev/null 2>&1
     echo -e "    ✅  Python dev/test dependencies installed"
 fi
+
+uv pip install -e . > /dev/null 2>&1
+echo -e "    ✅  Goblin Recon Python tools installed"
 
 echo ""
 

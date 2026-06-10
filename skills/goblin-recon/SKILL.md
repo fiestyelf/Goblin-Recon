@@ -115,8 +115,21 @@ Before using tools, classify the user's request:
 | Retrieve approved/shelved clips | Clip Vault | Query `vault/clips.db` first. |
 | Analyze competitors | Competitor Scout | Keep separate from Social Pulse and Clip Mine. |
 | Validate copy/content against brand | Brand Gate | Can run standalone. |
+| Generate or validate outbound email hooks | Email Hook | Ask direction first, then run email gate. |
 
 If a request mixes workflows, use the smallest useful sequence. Example: `run full scan` means Social Pulse first, then Clip Mine only for the 2-3 strongest candidates.
+
+### Output Direction Pre-Check
+
+Before creating brand-facing output, ask these questions in one short message:
+
+1. Who is this for? B2C, B2B, or Both?
+2. Where does it go? Faceless Instagram, personal brand, client work, internal use, email/outbound, or other?
+3. What tone should it carry? Professional, casual, edgy, warm, wry, bold, or platform-native?
+
+Use the answer to set brand angle, destination, tone, format, scoring lens, and copy guardrails for the session. If the user skips the questions, default to Both / Faceless Instagram / professional and state that default before generating.
+
+Skip this pre-check only for Clip Vault retrieval, Manual Assisted Scan where the user already supplied direction, and standalone brand checks on user-provided copy.
 
 ## Scan Modes
 
@@ -390,7 +403,10 @@ Pre-flight brand gate helper for generated captions, summaries, hooks, and outbo
 A fail means rewrite or shelve before Human Gate.
 
 ### caption-tone Skill
-Use `skills/caption-tone/SKILL.md` for caption and description tasks. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.
+Use `skills/caption-tone/SKILL.md` for caption and description tasks after Output Direction is clear. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.
+
+### email-hook Skill
+Use `skills/email-hook/SKILL.md` for outbound email subject lines, openers, and short email drafts. Ask Output Direction first, select the campaign type from `config/email-campaigns.yaml`, then run `.venv/bin/python -m goblin_recon.tools.email_gate` before delivering final email copy.
 
 ## Clip Mine Scoring Criteria (7 Dimensions)
 
@@ -668,6 +684,7 @@ Load before producing output:
 - `genx-truth-teller` — Quality gate for GenX marketing outputs
 - `genx-copy-chief` — Copywriting for GenX Academy (clip captions, platform variants)
 - `caption-tone` — Single reusable caption-writing skill for platform-specific caption/description tasks
+- `email-hook` — Reusable outbound email hook and short draft skill with automated quality gate scoring
 - `competitor-profiling` — Cherry-picked for competitor scan research
 - `social-content` — Cherry-picked for IG/TikTok platform variants and format analysis
 - `copywriting` — Cherry-picked for caption writing

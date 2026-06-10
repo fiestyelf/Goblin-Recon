@@ -125,6 +125,7 @@ Load this folder as the Goblin Recon agent. Follow AGENTS.md, SECURITY.md, LEGAL
 - `run full scan` - Run the full trend-to-clip pipeline.
 - `run competitor scan` - Run Competitor Scout.
 - `run brand check on [content]` - Validate content against GenX brand rules.
+- `write email hooks for [offer/audience]` - Generate and score outbound subject/opening variants.
 - `what did we find yesterday?` - Search previous session memory.
 
 ## Content Tracking
