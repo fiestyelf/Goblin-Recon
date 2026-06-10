@@ -116,7 +116,7 @@ Before using tools, classify the user's request:
 | Analyze competitors | Competitor Scout | Keep separate from Social Pulse and Clip Mine. |
 | Validate copy/content against brand | Brand Gate | Can run standalone. |
 
-If a request mixes workflows, use the smallest useful sequence. Example: `run full scan` means Social Pulse first, then Clip Mine only for the strongest candidates.
+If a request mixes workflows, use the smallest useful sequence. Example: `run full scan` means Social Pulse first, then Clip Mine only for the 2-3 strongest candidates.
 
 ## Scan Modes
 
@@ -462,11 +462,14 @@ Goblin Recon:
   ├─ Scans Instagram/TikTok/X for trending AI stories
   ├─ Searches YouTube for podcasts covering those stories
   ├─ Pulls transcripts from the best videos
+  ├─ Fetches video metadata (views, likes, comments via get_video_metadata)
+  ├─ Computes engagement velocity (via score_engagement)
   ├─ Finds the strongest 30-60 second moments
   └─ Outputs a CLIP BRIEF with:
       - Timestamped URL (youtube.com/watch?v=XXX&t=308)
       - Transcript quote
       - Category tag
+      - Engagement analytics (views, likes, view velocity, like ratio)
       - 7-dimension scores
       - Brand gate result
       - Caption for Instagram
@@ -528,6 +531,7 @@ After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Compe
 - Decision (approve/shelve/modify)
 - Background (2-3 sentences explaining source, speaker, and why the moment matters)
 - Video metadata (title, channel, views, URL)
+- Engagement analytics (views, likes, view velocity, like ratio, comment count)
 - The moment text with exact timestamps
 - Why post
 - Scores by dimension (including scroll_stop)
@@ -554,8 +558,9 @@ After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Compe
 3. **Layer 2** — Browser-based YouTube/IG/TikTok search for top 2–3 stories
 4. **Pick best source** — Prioritize podcast/interview, English captions available, high scroll_stop
 5. **Layer 3** — Extract transcript, find best moment, validate with extract_clip.py
-6. **Brand gate** — Check blacklist, nuance words, brand angle. Score ≥8/15.
-7. **Clip brief** — Follow template with platform variants
+6. **Collect engagement data** — Fetch video metadata (views, likes, comments) via get_video_metadata, compute velocity via score_engagement
+7. **Brand gate** — Check blacklist, nuance words, brand angle. Score ≥8/15.
+8. **Clip brief** — Follow template with platform variants, fill Engagement Analytics section
 
 First test run (June 6, 2026): 5 stories found, 43-second clip extracted, full pipeline ~7 min. See `references/pipeline-test-jun-06-2026.md`.
 

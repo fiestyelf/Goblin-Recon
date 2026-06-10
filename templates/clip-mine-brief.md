@@ -27,6 +27,7 @@
 | **Published** | [Date] |
 | **Duration** | [Total video length] |
 | **Views** | [N] |
+| **Likes** | [N] |
 | **View velocity** | [Views/hr since publish] |
 | **Comments** | [N] |
 | **Like ratio** | [Likes/views %] |
@@ -69,8 +70,10 @@
 | Metric | Value | Assessment |
 |--------|-------|------------|
 | Total views | [N] | Above/below channel average |
+| Likes | [N] | Like depth |
 | Comments | [N] | Engagement level |
 | View velocity | [N]/hr | Early signal strength |
+| Like ratio | [N]% | Source resonance |
 | Comment sentiment | [Positive/Mixed/Negative] | Audience reaction |
 | Peak watch time | [If available from analytics] | Retention indicator |
 

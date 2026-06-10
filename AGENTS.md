@@ -115,6 +115,8 @@ Fast Scan intentionally uses reliable sources first and may skip Instagram/TikTo
 
 Use scan modes to prevent overwhelming runs.
 
+For `run full scan`, run Social Pulse first, then Clip Mine only for the 2-3 strongest candidates. Do not expand into every viable story unless the user asks for more.
+
 ### Fast Scan
 Use for daily low-stress discovery. Prefer reliable sources first: YouTube, Reddit, Tech News, Product Hunt, and X/Twitter only when public access or approved API access is available. Avoid fragile Instagram/TikTok extraction unless the user explicitly asks.
 
@@ -185,7 +187,7 @@ access_status:
 8. When unsure, shelve rather than recommend.
 9. Every report and brief must start with a `## Decision` section. The human should know the recommended action in 3 seconds.
 10. Every content recommendation must include effort, confidence, vault check, fallback angle, and AI search potential.
-11. Every clip brief must include platform variants for Instagram, LinkedIn, and YouTube Shorts.
+11. Every clip brief must include engagement analytics and platform variants for Instagram, LinkedIn, and YouTube Shorts.
 12. Every trend report must include: what formats are working, what hooks are converting, and what creators are driving the conversation — not just what stories are trending.
 13. Instagram/TikTok scraping: public profiles only. No login bypass. Respect rate limits. Stop if blocked.
 14. If a named topic returns zero relevant results after 3 different search queries across 2+ platforms, stop searching and ask the user for a URL or more context.
@@ -322,7 +324,7 @@ When finding videos/clips for a trending story, search in this order:
 - "update clip status" → Move a clip through approved/in_production/scheduled/posted/shelved
 
 ### General
-- "run full scan" → Social Pulse + Clip Mine in sequence
+- "run full scan" → Social Pulse + Clip Mine for the top 2-3 candidates in sequence
 - "run competitor scan" → Competitor Scout
 - "run brand check on [content]" → Brand gate validation
 - "what formats are working?" → Current winning reel format analysis

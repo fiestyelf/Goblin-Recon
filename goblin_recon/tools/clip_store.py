@@ -53,6 +53,11 @@ CREATE TABLE IF NOT EXISTS clips (
     vault_check TEXT,
     fallback_angle TEXT,
     ai_search_potential TEXT,
+    view_count INTEGER,
+    like_count INTEGER,
+    comment_count INTEGER,
+    velocity_score REAL,
+    engagement_rate REAL,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
 );
@@ -81,6 +86,11 @@ OPTIONAL_COLUMNS = {
     "vault_check": "TEXT",
     "fallback_angle": "TEXT",
     "ai_search_potential": "TEXT",
+    "view_count": "INTEGER",
+    "like_count": "INTEGER",
+    "comment_count": "INTEGER",
+    "velocity_score": "REAL",
+    "engagement_rate": "REAL",
     "brief_path": "TEXT",
     "tracker_provider": "TEXT",
     "tracker_entry_id": "TEXT",
@@ -243,6 +253,11 @@ def save_clip(clip: dict, db_path: str | Path = DEFAULT_DB_PATH) -> str:
         "vault_check": clip.get("vault_check"),
         "fallback_angle": clip.get("fallback_angle"),
         "ai_search_potential": clip.get("ai_search_potential"),
+        "view_count": clip.get("view_count"),
+        "like_count": clip.get("like_count"),
+        "comment_count": clip.get("comment_count"),
+        "velocity_score": clip.get("velocity_score"),
+        "engagement_rate": clip.get("engagement_rate"),
         "brief_path": clip.get("brief_path"),
         "tracker_provider": clip.get("tracker_provider"),
         "tracker_entry_id": clip.get("tracker_entry_id"),
@@ -466,6 +481,9 @@ def render_clip_brief(clip: dict) -> str:
 |-------|-------|
 | **Video** | {source_title} - {channel} |
 | **Channel** | {channel} |
+| **Views** | {_value(clip, "view_count")} |
+| **Likes** | {_value(clip, "like_count")} |
+| **Comments** | {_value(clip, "comment_count")} |
 | **Source URL** | {source_url} |
 | **Tracker provider** | {_value(clip, "tracker_provider")} |
 | **Tracker entry** | {_value(clip, "tracker_entry_url", _value(clip, "tracker_entry_id"))} |
@@ -499,6 +517,16 @@ def render_clip_brief(clip: dict) -> str:
 
 ### Why This Moment
 {_value(clip, "why_post")}
+
+## Engagement Analytics
+
+| Metric | Value |
+|--------|-------|
+| Total views | {_value(clip, "view_count")} |
+| Likes | {_value(clip, "like_count")} |
+| Comments | {_value(clip, "comment_count")} |
+| View velocity | {_value(clip, "velocity_score")} |
+| Like ratio | {_value(clip, "engagement_rate")} |
 
 ## Brand Gate
 
