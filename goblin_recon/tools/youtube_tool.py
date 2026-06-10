@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import json
 import re
+import sys
+from argparse import ArgumentParser
 from urllib.parse import parse_qs, urlparse
 
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -103,3 +106,26 @@ def error_response(message: str, video_id: str | None = None) -> list[dict]:
     if video_id:
         response["video_id"] = video_id
     return [response]
+
+
+def main() -> int:
+    parser = ArgumentParser(description="Pull a YouTube transcript with timestamps.")
+    parser.add_argument("video", help="YouTube URL or 11-character video ID")
+    parser.add_argument("--languages", default="en", help="Comma-separated language preference order. Default: en")
+    args = parser.parse_args()
+
+    video_id = None
+    try:
+        video_id = extract_video_id(args.video)
+        languages = [lang.strip() for lang in args.languages.split(",") if lang.strip()]
+        transcript = get_transcript(video_id, languages)
+    except Exception as exc:
+        print(json.dumps(error_response(str(exc), video_id), indent=2))
+        return 1
+
+    print(json.dumps(transcript, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

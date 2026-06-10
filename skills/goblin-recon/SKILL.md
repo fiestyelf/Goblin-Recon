@@ -163,13 +163,13 @@ Rules:
 - If public extraction fails, set `access_status: blocked` and switch to manual assisted input only if the missing data is essential.
 - Instagram and TikTok browser extraction are useful but fragile; do not build the whole workflow around them.
 
-All social observations must pass through `scripts/social_intake.py` before scoring. This creates a stable intake layer for approved API data, public browser observations, and manual assisted inputs.
+All social observations must pass through `goblin_recon.tools.social_intake` before scoring. This creates a stable intake layer for approved API data, public browser observations, and manual assisted inputs.
 
 Examples:
 ```bash
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json
-.venv/bin/python scripts/social_intake.py --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json
+.venv/bin/python -m goblin_recon.tools.social_intake --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store
 ```
 
 Default store: `vault/social-signals.jsonl` (ignored by Git).
@@ -201,7 +201,8 @@ goblin-recon/
 ├── AGENTS.md        ← agent constitution
 ├── config/          ← sources, scoring, brand-voice, security
 ├── memory/          ← brand-rules, trend/competitor history
-├── scripts/         ← Python utilities (transcript, clip, scoring)
+├── goblin_recon/tools/ ← importable tool modules
+├── scripts/         ← standalone setup, secret scan, and query helpers
 ├── templates/       ← output templates
 ├── personal-dumpground/ ← local-only notes, ignored by Git
 └── mcp.json         ← MCP server config (all optional)
@@ -218,8 +219,9 @@ Key files:
 - `config/brand-voice.yaml` — brand voice rules, blacklist, nuance words
 - `config/security.yaml` — data collection policies, API key rules, rate limits
 - `memory/brand-rules.md` — operational brand memory for the agent
-- `scripts/` — Python utilities (transcript extraction, clip validation, engagement scoring)
-- `scripts/check_brand.py` — pre-flight blacklist and nuance-word check for GenX-written copy
+- `goblin_recon/tools/` — importable tool modules (transcripts, clips, scoring, brand gate, social intake)
+- `scripts/` — standalone setup, secret scan, and query helpers
+- `goblin_recon.tools.brand_gate` — pre-flight blacklist and nuance-word check for GenX-written copy
 - `templates/` — output templates (social-pulse-report, clip-mine-brief, competitor-report; trend-report/content-brief are deprecated references)
 - `mcp.json` — MCP server configuration (all optional, see pitfalls)
 
@@ -316,7 +318,7 @@ Run each layer yourself using browser tools for public social pages, then termin
 All scripts are in the project's `.venv`. Run from the project root:
 
 ```bash
-PYTHONPATH=. .venv/bin/python scripts/get_youtube_transcript.py "<video_id_or_url>"
+.venv/bin/python -m goblin_recon.tools.youtube_tool "<video_id_or_url>"
 ```
 
 ### get_youtube_transcript.py
@@ -342,12 +344,12 @@ Normalizes social media observations before Trend Radar scoring.
 - Use for approved API records, public browser findings, and manual assisted input
 - Infer platform from URL when possible
 - Validate required fields: platform, URL, topic, access status
-- Store local social signals: `.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store`
+- Store local social signals: `.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store`
 - Do not store secrets, cookies, login-only data, or private personal data
 
 ### clip_store.py
 Stores Clip Mine candidates in `vault/clips.db` for cross-session lookup, full-text search, and duplicate checks.
-- Run with no args to initialize the database: `.venv/bin/python scripts/clip_store.py`
+- Run with no args to initialize the database: `.venv/bin/python -m goblin_recon.tools.clip_store`
 - Use from Hermes tool calls or local scripts to save approved or shelved clips with source URL, timestamps, status, scores, and summary fields
 - Do not store full raw transcripts, API keys, cookies, or login-only source data
 
@@ -369,8 +371,8 @@ Pre-commit security scan. Run before sharing or pushing:
 ### check_brand.py
 Pre-flight brand gate helper for generated captions, summaries, hooks, and outbound copy:
 ```bash
-.venv/bin/python scripts/check_brand.py --text "Your caption or hook here"
-.venv/bin/python scripts/check_brand.py --file path/to/copy.md --json
+.venv/bin/python -m goblin_recon.tools.brand_gate --text "Your caption or hook here"
+.venv/bin/python -m goblin_recon.tools.brand_gate --file path/to/copy.md --json
 ```
 A fail means rewrite or shelve before Human Gate.
 

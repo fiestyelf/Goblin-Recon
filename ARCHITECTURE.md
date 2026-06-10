@@ -183,7 +183,7 @@ Rules:
 
 ## Social Intake Layer
 
-All social data, regardless of source, must pass through `scripts/social_intake.py` before Trend Radar scoring.
+All social data, regardless of source, must pass through `goblin_recon.tools.social_intake` before Trend Radar scoring.
 
 Accepted inputs:
 - Approved API output
@@ -198,9 +198,9 @@ Accepted inputs:
 Core commands:
 
 ```bash
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json
-.venv/bin/python scripts/social_intake.py --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json
+.venv/bin/python -m goblin_recon.tools.social_intake --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store
 ```
 
 Default local store:
@@ -243,12 +243,12 @@ Tools are helpers, not the architecture.
 | Tool or Integration | Role | Default |
 |---|---|---|
 | Built-in browser/web | Public inspection and discovery | Allowed when public access is available. |
-| `scripts/get_youtube_transcript.py` | YouTube transcript extraction | Core Clip Mine tool. |
-| `scripts/extract_clip.py` | Clip timestamp validation | Core Clip Mine tool. |
-| `scripts/social_intake.py` | Normalize API/public/manual social signals | Core Social Pulse tool. |
-| `scripts/clip_store.py` | Save clip metadata | Core Clip Vault tool. |
+| `goblin_recon.tools.youtube_tool` | YouTube transcript extraction | Core Clip Mine tool. |
+| `goblin_recon.tools.clip_extractor` | Clip timestamp validation | Core Clip Mine tool. |
+| `goblin_recon.tools.social_intake` | Normalize API/public/manual social signals | Core Social Pulse tool. |
+| `goblin_recon.tools.clip_store` | Save clip metadata | Core Clip Vault tool. |
 | `scripts/query_clips.py` | Retrieve clips and regenerate briefs | Core Clip Vault tool. |
-| `scripts/check_brand.py` | Check generated copy for blacklist and nuance words | Core Brand Gate helper. |
+| `goblin_recon.tools.brand_gate` | Check generated copy for blacklist and nuance words | Core Brand Gate helper. |
 | MCP Memory | Store approved/shelved patterns | Optional, useful early. |
 | Fetch MCP | Extract normal public webpages | Optional, useful early. |
 | Firecrawl | Public web/news extraction | Later, after API key approval. |

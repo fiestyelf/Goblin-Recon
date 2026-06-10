@@ -138,14 +138,14 @@ Rules:
 3. If public extraction fails, set `access_status: blocked` and ask for manual assisted input only if the missing data is essential.
 4. Instagram and TikTok browser extraction are useful but fragile; they are not the foundation of the system.
 
-All social signals must pass through `scripts/social_intake.py` before Trend Radar scoring. This applies to approved API data, public browser observations, and manual assisted inputs.
+All social signals must pass through `goblin_recon.tools.social_intake` before Trend Radar scoring. This applies to approved API data, public browser observations, and manual assisted inputs.
 
 Examples:
 
 ```bash
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json
-.venv/bin/python scripts/social_intake.py --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json
+.venv/bin/python -m goblin_recon.tools.social_intake --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store
 ```
 
 Default local store: `vault/social-signals.jsonl`.
@@ -199,7 +199,7 @@ access_status:
 3. B2C angle: real science and real soul, transformation not information, truly seen, depth plus play, never woo or preciousness.
 4. B2B angle: results not advice, delivery not opinions, rigorous, no-BS, science-backed, operators not advisors.
 5. Never use blacklisted words or phrases from `config/brand-voice.yaml` in GenX-written copy. If they appear in a quoted transcript, flag them and rewrite GenX copy around them.
-6. Use `scripts/check_brand.py` as a pre-flight check for generated captions, summaries, hooks, and outbound copy when feasible.
+6. Use `goblin_recon.tools.brand_gate` as a pre-flight check for generated captions, summaries, hooks, and outbound copy when feasible.
 7. `limitless`, `alive`, `awakening`, and `transform` are allowed only when backed by specific before/after proof or real client language.
 8. English-only for outward brand content. Do not produce Arabic or German brand-facing copy.
 9. Do not guess open founder decisions, including the B2C brand name, Sara visibility level, or domain mapping. Flag them as open decisions.
@@ -244,7 +244,7 @@ access_status:
 
 ## Source Hunting Priority
 When finding videos/clips for a trending story, search in this order:
-1. **YouTube** — Podcasts, interviews, analysis channels. Transcripts via `scripts/get_youtube_transcript.py`.
+1. **YouTube** — Podcasts, interviews, analysis channels. Transcripts via `goblin_recon.tools.youtube_tool`.
 2. **Instagram Reels** — Creator accounts, hashtag search. Extract caption + format data.
 3. **TikTok** — Search queries from `config/content-sources.yaml`. Extract sound + format data.
 4. **Podcast platforms** — Apple Podcasts, Spotify for audio-only sources (secondary).
@@ -265,9 +265,9 @@ When finding videos/clips for a trending story, search in this order:
 - FunASR is not enabled by default. Use YouTube captions first; consider speech recognition later only if captionless videos become a frequent blocker.
 
 ## Content Tracking
-- Local clip history is stored in `vault/clips.db` through `scripts/clip_store.py`. Use it for cross-session deduplication and clip lookup.
+- Local clip history is stored in `vault/clips.db` through `goblin_recon.tools.clip_store`. Use it for cross-session deduplication and clip lookup.
 - Use `scripts/query_clips.py list --status approved` to retrieve clips ready for editor handoff, and `scripts/query_clips.py brief [clip_id]` to regenerate an editor-ready brief from stored metadata.
-- Local social signals can be stored in `vault/social-signals.jsonl` through `scripts/social_intake.py`. Use it to preserve manual/API/public observations without committing unpublished social notes.
+- Local social signals can be stored in `vault/social-signals.jsonl` through `goblin_recon.tools.social_intake`. Use it to preserve manual/API/public observations without committing unpublished social notes.
 - Approved clips can be tracked in Notion or Google Sheets through `config/content-tracker.yaml` after explicit approval.
 - Create tracker entries only after the Human Gate approves a clip.
 - Never store full raw transcripts, API keys, cookies, private personal data, or login-only source data in trackers.

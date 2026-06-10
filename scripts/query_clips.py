@@ -11,8 +11,14 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
 
-from clip_store import (
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from goblin_recon.tools.clip_store import (
     DEFAULT_DB_PATH,
     VALID_STATUSES,
     find_clips,

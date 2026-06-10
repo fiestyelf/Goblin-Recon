@@ -17,7 +17,7 @@ Find YouTube videos and Instagram content discussing each trending story from La
 - config/scoring.yaml
 - config/brand-voice.yaml
 - memory/brand-rules.md
-- scripts/get_youtube_transcript.py
+- goblin_recon.tools.youtube_tool
 
 ## Optional Helpers
 - MCP Fetch: extract approved public source pages when standard web_extract is weak
@@ -118,7 +118,7 @@ For each video/reel, calculate score (0-100):
 ### Step 5: Pull Transcripts (YouTube Only)
 ```
 For each selected YouTube video:
-  1. Run: python scripts/get_youtube_transcript.py <video_id>
+  1. Run: python -m goblin_recon.tools.youtube_tool <video_id>
   2. Use transcript locally to identify candidate moments
   3. Store only source URL, timestamps, and short excerpts by default
   4. If transcript unavailable, flag as "no transcript"

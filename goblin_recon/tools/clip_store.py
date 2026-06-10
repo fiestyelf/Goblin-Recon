@@ -509,3 +509,13 @@ def render_clip_brief(clip: dict) -> str:
 
 *Clip ID: {clip["clip_id"]} | Status: {status} | Retrieved from vault/clips.db*
 """
+
+
+def main() -> int:
+    path = init_db()
+    print(f"Clip store ready: {path}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

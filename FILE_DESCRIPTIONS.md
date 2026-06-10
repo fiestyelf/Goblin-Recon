@@ -79,12 +79,12 @@ One-line purpose for every tracked file and folder in this repo.
 |---|---|
 | `scripts/setup.sh` | One-command local setup. Creates/updates the Hermes profile, installs project skills, and prepares Python tooling. |
 | `scripts/check_secrets.py` | Scans the repo for accidental API keys, tokens, or webhooks. |
-| `scripts/check_brand.py` | Checks GenX-written copy against the brand blacklist and nuance-word rules. |
-| `scripts/get_youtube_transcript.py` | Pulls public YouTube captions/transcripts with timestamps. |
-| `scripts/extract_clip.py` | Validates video URLs and clip boundaries, returns clip metadata. |
-| `scripts/score_engagement.py` | Calculates engagement velocity scores for trends/sources. |
-| `scripts/social_intake.py` | Normalizes approved API, public browser, or manual social observations into one schema before scoring. |
-| `scripts/clip_store.py` | Stores approved/shelved Clip Mine records in local SQLite for cross-session lookup and dedup. |
+| `goblin_recon.tools.brand_gate` | Checks GenX-written copy against the brand blacklist and nuance-word rules. |
+| `goblin_recon.tools.youtube_tool` | Pulls public YouTube captions/transcripts with timestamps. |
+| `goblin_recon.tools.clip_extractor` | Validates video URLs and clip boundaries, returns clip metadata. |
+| `goblin_recon.tools.scoring` | Calculates engagement velocity scores for trends/sources. |
+| `goblin_recon.tools.social_intake` | Normalizes approved API, public browser, or manual social observations into one schema before scoring. |
+| `goblin_recon.tools.clip_store` | Stores approved/shelved Clip Mine records in local SQLite for cross-session lookup and dedup. |
 | `scripts/query_clips.py` | CLI for searching stored clips, updating statuses, and exporting clip briefs. |
 
 ## Templates

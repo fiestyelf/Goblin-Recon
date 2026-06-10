@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+import sys
+from argparse import ArgumentParser
 from datetime import datetime, timezone
 from urllib.parse import urlparse
 
@@ -67,3 +70,20 @@ def calculate_velocity(platform: str, post_url: str, timestamp_str: str, engagem
         }
     except Exception as exc:
         return {"error": str(exc), "score": 0}
+
+
+def main() -> int:
+    parser = ArgumentParser(description="Calculate engagement velocity score.")
+    parser.add_argument("platform", choices=sorted(SUPPORTED_PLATFORMS))
+    parser.add_argument("post_url")
+    parser.add_argument("timestamp", help="ISO timestamp, e.g. 2026-06-01T10:00:00Z")
+    parser.add_argument("engagement_count", type=int)
+    args = parser.parse_args()
+
+    result = calculate_velocity(args.platform, args.post_url, args.timestamp, args.engagement_count)
+    print(json.dumps(result, indent=2))
+    return 1 if "error" in result else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

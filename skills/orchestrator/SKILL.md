@@ -96,7 +96,7 @@ Before running the layers, calibrate the scan against the brand rules:
 ```
 1. Use this reliability ladder:
    approved API/public feed -> public browser extraction -> manual assisted input
-2. Normalize every social signal through scripts/social_intake.py before scoring:
+2. Normalize every social signal through goblin_recon.tools.social_intake before scoring:
    platform, creator, url, published_date, views, likes, comments, caption, hook,
    format_type, topic, category, why_it_is_trending, can_genx_adapt_this,
    confidence, access_status
@@ -131,7 +131,7 @@ Before running the layers, calibrate the scan against the brand rules:
 
 ### Step 5.1: Vault Dedup Check
 ```
-1. Before running Moment Finder, check vault/clips.db through scripts/clip_store.py for duplicate source URLs and overlapping timestamp windows.
+1. Before running Moment Finder, check vault/clips.db through goblin_recon.tools.clip_store for duplicate source URLs and overlapping timestamp windows.
 2. Use scripts/query_clips.py list --query "[topic or source]" when you need to retrieve similar prior clips by topic, source title, summary, why-post, or caption text.
 3. Also check memory/trend-history.md and vault/briefs/ for similar:
    a. Trend/topic
@@ -227,7 +227,7 @@ Reply: approve / shelve / modify
 **For each "approve":**
 ```
 1. Save clip brief to vault/briefs/[date]-[headline].md
-2. Save structured clip metadata to vault/clips.db with scripts/clip_store.py using status=approved
+2. Save structured clip metadata to vault/clips.db with goblin_recon.tools.clip_store using status=approved
 3. If the editor needs the brief later, regenerate it with scripts/query_clips.py brief [clip_id] --output vault/briefs/[clip_id].md
 4. Record in memory/trend-history.md
 5. If config/content-tracker.yaml tracking.enabled is true, create/update the Notion or Sheets tracker entry using approved integration only
@@ -303,7 +303,7 @@ NEXT STEPS:
 - [ ] Security preflight completed
 - [ ] Intent router selected one primary workflow
 - [ ] Scan mode selected and stated
-- [ ] Social signals normalized with scripts/social_intake.py before scoring
+- [ ] Social signals normalized with goblin_recon.tools.social_intake before scoring
 - [ ] All layers executed in order
 - [ ] All stories have sources (or noted as "no sources found")
 - [ ] All sources have transcripts (or noted as "no transcript")

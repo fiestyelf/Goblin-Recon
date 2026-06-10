@@ -118,7 +118,7 @@ Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Human Gate
 
 Before using tools, route the request. Do not scan every platform or invoke every integration by default. Use the smallest workflow that can produce a useful decision.
 
-Social extraction is a first-class intake problem. Every social observation from approved APIs, public browser access, screenshots, captions, or manual notes must pass through `scripts/social_intake.py` before scoring. Store useful local observations in `vault/social-signals.jsonl` when they may help future scans.
+Social extraction is a first-class intake problem. Every social observation from approved APIs, public browser access, screenshots, captions, or manual notes must pass through `goblin_recon.tools.social_intake` before scoring. Store useful local observations in `vault/social-signals.jsonl` when they may help future scans.
 
 ### What You Flag For The User
 
@@ -145,7 +145,7 @@ What matters:
 - Cross-reference — IG + X covering same story = confirmed
 - Public profiles only — no login, no bypass, stop if blocked
 - If public social extraction fails, mark the source blocked and switch to manual assisted input only if needed
-- Normalize social data through `scripts/social_intake.py` before Trend Radar scoring
+- Normalize social data through `goblin_recon.tools.social_intake` before Trend Radar scoring
 
 ---
 

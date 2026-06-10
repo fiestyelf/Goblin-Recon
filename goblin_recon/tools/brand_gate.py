@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
+import json
 import re
+import sys
 from pathlib import Path
 
 
@@ -85,3 +88,51 @@ def check_text(text: str, config_path: Path = DEFAULT_CONFIG) -> dict[str, objec
             else "No nuance words found."
         ),
     }
+
+
+def _read_input(args: argparse.Namespace) -> str:
+    if args.text:
+        return args.text
+    if args.file:
+        return Path(args.file).read_text(encoding="utf-8")
+    return sys.stdin.read()
+
+
+def _print_markdown(result: dict[str, object]) -> None:
+    violations = result["blacklist_violations"]
+    print(f"Verdict: {result['verdict']}")
+    print(f"Estimated brand score: {result['estimated_brand_score']}/15")
+    if violations:
+        print("Blacklist violations:")
+        for category, hits in violations.items():
+            print(f"- {category}: {', '.join(hits)}")
+    else:
+        print("Blacklist violations: none")
+    nuance_words = result["nuance_words"]
+    print(f"Nuance words: {', '.join(nuance_words) if nuance_words else 'none'}")
+    print(str(result["nuance_note"]))
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Check copy against GenX brand voice rules.")
+    parser.add_argument("--text", help="Text to check.")
+    parser.add_argument("--file", help="File containing text to check.")
+    parser.add_argument("--config", default=str(DEFAULT_CONFIG), help="Path to brand-voice.yaml.")
+    parser.add_argument("--json", action="store_true", help="Print JSON output.")
+    args = parser.parse_args()
+
+    text = _read_input(args)
+    if not text.strip():
+        print("No text provided. Use --text, --file, or stdin.", file=sys.stderr)
+        return 2
+
+    result = check_text(text, Path(args.config))
+    if args.json:
+        print(json.dumps(result, indent=2, sort_keys=True))
+    else:
+        _print_markdown(result)
+    return 1 if result["verdict"] == "FAIL" else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

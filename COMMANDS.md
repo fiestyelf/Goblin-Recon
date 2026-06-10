@@ -78,7 +78,7 @@ Run these from the project folder when needed.
 |---|---|
 | `.venv/bin/python -m pytest` | Run the test suite. |
 | `python3 scripts/check_secrets.py` | Check for accidental API keys before sharing or committing. |
-| `.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store` | Normalize and store a manual social signal. |
+| `.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store` | Normalize and store a manual social signal. |
 | `.venv/bin/python scripts/query_clips.py list --status approved` | List approved clips from the local vault. |
 | `.venv/bin/python scripts/query_clips.py brief [clip_id]` | Regenerate a clip brief from stored metadata. |
 

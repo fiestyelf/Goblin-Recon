@@ -53,13 +53,13 @@ Full architecture guide → [`ARCHITECTURE.md`](ARCHITECTURE.md)
 All social observations should be normalized before scoring:
 
 ```bash
-.venv/bin/python scripts/social_intake.py --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
+.venv/bin/python -m goblin_recon.tools.social_intake --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
 ```
 
 Store local social signals when useful:
 
 ```bash
-.venv/bin/python scripts/social_intake.py --input vault/intake/social-signal.json --store
+.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store
 ```
 
 ## File Guide

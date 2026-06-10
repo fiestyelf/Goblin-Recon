@@ -14,8 +14,8 @@ Extract the exact clip moment (15-60 seconds) from source videos.
 - config/scoring.yaml
 - config/brand-voice.yaml
 - memory/brand-rules.md
-- scripts/get_youtube_transcript.py
-- scripts/extract_clip.py
+- goblin_recon.tools.youtube_tool
+- goblin_recon.tools.clip_extractor
 
 ## Optional Helpers
 - MCP Memory: compare candidate moments with previously approved/shelved clips

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -191,3 +193,97 @@ def append_records(records: list[dict], store_path: str | Path = DEFAULT_STORE_P
         for record in records:
             handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
     return store_path
+
+
+def _print_json(data: object) -> None:
+    print(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True))
+
+
+def _records_from_args(args: argparse.Namespace) -> list[dict]:
+    if args.input:
+        raw_records = load_records(args.input)
+    else:
+        raw_records = [
+            {
+                "platform": args.platform,
+                "creator": args.creator,
+                "url": args.url,
+                "published_date": args.published_date,
+                "views": args.views,
+                "likes": args.likes,
+                "comments": args.comments,
+                "shares": args.shares,
+                "caption": args.caption,
+                "hook": args.hook,
+                "format_type": args.format_type,
+                "sound_trend": args.sound_trend,
+                "topic": args.topic,
+                "category": args.category,
+                "why_it_is_trending": args.why_it_is_trending,
+                "can_genx_adapt_this": args.can_genx_adapt_this,
+                "confidence": args.confidence,
+                "access_status": args.access_status,
+                "capture_method": args.capture_method,
+                "user_notes": args.user_notes,
+            }
+        ]
+    return [normalize_social_record(record) for record in raw_records]
+
+
+def normalize_command(args: argparse.Namespace) -> int:
+    records = _records_from_args(args)
+    invalid_records = [record for record in records if not record["validation"]["ok"]]
+    if invalid_records:
+        _print_json(records if len(records) != 1 else records[0])
+        print("Invalid social signal(s); not stored.", file=sys.stderr)
+        return 1
+    if args.store:
+        path = append_records(records, args.store)
+        print(f"Stored {len(records)} social signal(s): {path}")
+    else:
+        _print_json(records if len(records) != 1 else records[0])
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Normalize social signals from APIs, public pages, or manual inputs."
+    )
+    parser.add_argument("--input", help="JSON object/list with social signal fields.")
+    parser.add_argument("--store", nargs="?", const=str(DEFAULT_STORE_PATH), help="Append JSONL to store path.")
+    parser.add_argument("--platform")
+    parser.add_argument("--creator")
+    parser.add_argument("--url")
+    parser.add_argument("--published-date")
+    parser.add_argument("--views")
+    parser.add_argument("--likes")
+    parser.add_argument("--comments")
+    parser.add_argument("--shares")
+    parser.add_argument("--caption")
+    parser.add_argument("--hook")
+    parser.add_argument("--format-type")
+    parser.add_argument("--sound-trend")
+    parser.add_argument("--topic")
+    parser.add_argument("--category")
+    parser.add_argument("--why-it-is-trending")
+    parser.add_argument("--can-genx-adapt-this")
+    parser.add_argument("--confidence")
+    parser.add_argument("--access-status", default="manual_ok", choices=sorted(ACCESS_STATUSES))
+    parser.add_argument("--capture-method", default="manual_assisted", choices=sorted(CAPTURE_METHODS))
+    parser.add_argument("--user-notes")
+    parser.set_defaults(func=normalize_command)
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    try:
+        return args.func(args)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

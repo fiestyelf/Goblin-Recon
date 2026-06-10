@@ -11,7 +11,7 @@ Goblin Recon needs these Hermes capabilities:
 1. **Web/search access** to find public trends and articles.
 2. **Browser access** to inspect public pages when search results are not enough.
 3. **File access** to read configs, skills, templates, and save approved briefs.
-4. **Terminal access** to run local Python scripts for transcripts, scoring, tests, and secret scanning.
+4. **Terminal access** to run package tools, tests, and standalone safety helpers.
 5. **Skills access** to load `trend-radar`, `source-hunter`, `moment-finder`, `competitor-scout`, and `orchestrator`.
 6. **Memory/session search access** if the user wants deduplication and past-scan review.
 
@@ -45,7 +45,8 @@ Approve these:
 |---|---|---|
 | Read files inside `goblin-recon/` | Yes | Needed for configs, skills, templates |
 | Write files inside `vault/` or `memory/` | Yes | Needed to save approved briefs and scan history |
-| Run scripts from `scripts/` | Yes | Needed for transcripts, scoring, setup, tests |
+| Run package tools from `goblin_recon.tools` | Yes | Needed for transcripts, scoring, social intake, and brand checks |
+| Run standalone helpers from `scripts/` | Yes | Needed for setup, secret scans, and clip vault queries |
 | Browse public URLs | Yes | Needed for research |
 | Search public web results | Yes | Needed for trend discovery |
 | Use approved `.env` or Hermes secrets | Yes | Only if keys were approved by admin |

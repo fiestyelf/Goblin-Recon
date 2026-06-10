@@ -89,7 +89,7 @@ Priority means install order: start with the lowest-risk tool that gives the mos
 
 This repo includes a starter `mcp.json`. Review it before enabling any server. Keep manual approval on, and do not connect private accounts unless an admin approves the exact integration and scope.
 
-FunASR is intentionally not part of the first setup. Start with YouTube captions through `scripts/get_youtube_transcript.py`. Add speech recognition later only if too many useful videos lack captions.
+FunASR is intentionally not part of the first setup. Start with YouTube captions through `goblin_recon.tools.youtube_tool`. Add speech recognition later only if too many useful videos lack captions.
 
 ## 5. Enable Required Tools
 
@@ -151,7 +151,8 @@ Recommended statuses:
 - `config/` - Sources, scoring, security, brand voice, and integrations.
 - `memory/` - Brand rules and ongoing memory files.
 - `templates/` - Output formats for reports and briefs.
-- `scripts/` - Local helper scripts.
+- `goblin_recon/tools/` - Importable tool modules.
+- `scripts/` - Standalone setup, secret scan, and query helpers.
 
 ## Making It Better
 

@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import json
 import re
+import sys
+from argparse import ArgumentParser
 from urllib.parse import parse_qs, urlparse
 
 
@@ -67,3 +70,19 @@ def extract_clip_metadata(video_url: str, start_sec: int, end_sec: int) -> dict:
         "end_time": format_time(end_sec),
         "clip_range": f"{format_time(start_sec)} -> {format_time(end_sec)}",
     }
+
+
+def main() -> int:
+    parser = ArgumentParser(description="Generate clip metadata from video timestamps.")
+    parser.add_argument("video_url")
+    parser.add_argument("start_sec", type=int)
+    parser.add_argument("end_sec", type=int)
+    args = parser.parse_args()
+
+    result = extract_clip_metadata(args.video_url, args.start_sec, args.end_sec)
+    print(json.dumps(result, indent=2))
+    return 1 if "error" in result else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
