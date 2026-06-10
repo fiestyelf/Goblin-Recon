@@ -255,7 +255,7 @@ The agent should respond with its identity as Goblin Recon at GenX Academy.
 flowchart LR
   A[SOUL.md] --> B[Identity<br/>GenX brand DNA<br/>Voice/Tone]
   C[config/brand-voice.yaml] --> D[Blacklist dictionary<br/>Voice traits<br/>Brand gate config]
-  E[memory/brand-rules.md] --> F[Mission spine<br/>Audience profiles<br/>Content rules]
+  E[memory/] --> F[Brand rules<br/>Trend history<br/>Team learning]
   G[AGENTS.md] --> H[Constitution<br/>Scoring & testing<br/>Pipeline rules]
   I[goblin-recon skill] --> J[Operations manual<br/>Pipeline how-to<br/>Output templates]
   K[config/security.yaml] --> L[Source rules<br/>Compliance checklist<br/>Credentials]
@@ -264,9 +264,20 @@ flowchart LR
 - **SOUL.md** = Identity. Who you are, who you work for, how you behave.
 - **config/brand-voice.yaml** = Blacklist dictionary, voice traits, scoring config.
 - **config/security.yaml** = Source access rules, compliance checklist.
-- **memory/brand-rules.md** = Mission spine, audience profiles, red lines.
+- **memory/** = Human-facing project memory, team history, and learning logs.
 - **AGENTS.md** = Constitution. Pipeline execution, scoring rules, testing protocol.
 - **goblin-recon skill** = Operations manual. Pipeline stages, scoring rubrics, output templates.
+
+### Memory files — what lives where
+
+- **memory/identity.md** = What is this project? 10-second human answer.
+- **memory/brand-rules.md** = Mission spine, audience profiles, red lines.
+- **memory/trend-history.md** = Past trend scans for deduplication.
+- **memory/competitor-snapshots.md** = Competitor data for change detection.
+- **memory/content-performance.md** = What worked, what did not, scoring lessons.
+- **memory/decisions/** = Team decisions, such as brand name, approvals, and source rules.
+- **memory/feedback/** = Human approvals, rejections, and corrections.
+- **memory/metrics/** = Engagement data and scoring trends.
 
 ---
 
