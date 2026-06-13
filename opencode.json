@@ -1,0 +1,65 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "memory": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
+      "enabled": true
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-sequentialthinking"],
+      "enabled": true
+    },
+    "fetch": {
+      "type": "local",
+      "command": ["uvx", "mcp-server-fetch"],
+      "enabled": true
+    },
+    "youtube-transcript": {
+      "type": "local",
+      "command": ["npx", "-y", "@kimtaeyoon83/mcp-server-youtube-transcript"],
+      "enabled": true
+    },
+    "exa": {
+      "type": "local",
+      "command": [
+        "bash",
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y mcp-remote@latest \"https://mcp.exa.ai/mcp?exaApiKey=${EXA_API_KEY}\""
+      ],
+      "enabled": true,
+      "timeout": 15000
+    },
+    "tavily": {
+      "type": "local",
+      "command": [
+        "bash",
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y tavily-mcp@latest"
+      ],
+      "enabled": true,
+      "timeout": 15000
+    },
+    "firecrawl": {
+      "type": "local",
+      "command": [
+        "bash",
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y firecrawl-mcp@latest"
+      ],
+      "enabled": true,
+      "timeout": 15000
+    },
+    "scrapegraph": {
+      "type": "local",
+      "command": [
+        "bash",
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y mcp-remote@latest https://scrapegraph-mcp.onrender.com/mcp --header \"X-API-Key:${SCRAPEGRAPH_API_KEY}\""
+      ],
+      "enabled": true,
+      "timeout": 15000
+    }
+  }
+}

@@ -19,6 +19,43 @@
       "command": "npx",
       "args": ["-y", "@kimtaeyoon83/mcp-server-youtube-transcript"],
       "description": "Optional transcript helper. The Python package remains the primary transcript path."
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequentialthinking"],
+      "description": "Structured step-by-step reasoning for scoring, clip selection, and source validation."
+    },
+    "exa": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y mcp-remote@latest \"https://mcp.exa.ai/mcp?exaApiKey=${EXA_API_KEY}\""
+      ],
+      "description": "Semantic search for trend discovery and source hunting. Loads EXA_API_KEY from API_keys.env."
+    },
+    "tavily": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y tavily-mcp@latest"
+      ],
+      "description": "AI-optimized web search fallback. Loads TAVILY_API_KEY from API_keys.env."
+    },
+    "firecrawl": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y firecrawl-mcp@latest"
+      ],
+      "description": "Public web extraction to clean markdown. Loads FIRECRAWL_API_KEY from API_keys.env."
+    },
+    "scrapegraph": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -a; source ./API_keys.env; set +a; exec npx -y mcp-remote@latest https://scrapegraph-mcp.onrender.com/mcp --header \"X-API-Key:${SCRAPEGRAPH_API_KEY}\""
+      ],
+      "description": "AI-powered structured extraction from URLs. Loads SCRAPEGRAPH_API_KEY from API_keys.env."
     }
   },
   "optionalServers": {
@@ -29,26 +66,6 @@
         "BRAVE_API_KEY": "$BRAVE_API_KEY"
       },
       "description": "Enable later after setting BRAVE_API_KEY locally. Useful for public discovery when fetch plus yt-dlp is not enough."
-    },
-    "firecrawl": {
-      "command": "npx",
-      "args": ["-y", "firecrawl-mcp"],
-      "env": {
-        "FIRECRAWL_API_KEY": "$FIRECRAWL_API_KEY"
-      },
-      "description": "Enable after setting FIRECRAWL_API_KEY locally. Use for allowed public web extraction only. Never paste or commit the API key."
-    },
-    "tavily": {
-      "env": {
-        "TAVILY_API_KEY": "$TAVILY_API_KEY"
-      },
-      "description": "Future search MCP placeholder. Command is intentionally unset until the team chooses the approved Tavily MCP package."
-    },
-    "apify": {
-      "env": {
-        "APIFY_TOKEN": "$APIFY_TOKEN"
-      },
-      "description": "Future actor-based extraction MCP placeholder. Command is intentionally unset until the team approves Apify use and the exact server package."
     },
     "scrapling": {
       "install": "pip install \"scrapling[ai]\"",
