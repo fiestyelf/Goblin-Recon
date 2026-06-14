@@ -1,0 +1,106 @@
+{
+  "url": "https://www.crewai.com",
+  "schema": "features",
+  "data": {
+    "id": "fefc5cdf-9407-46cf-ae95-756fcd239427",
+    "raw": null,
+    "json": {
+      "features": [
+        {
+          "name": "Agentic use case generator powered by billions of agent runs",
+          "description": "Agentic use case generator powered by billions of agent runs"
+        },
+        {
+          "name": "Interactive suggestions refine and improve recommended automations",
+          "description": "Interactive suggestions refine and improve recommended automations"
+        },
+        {
+          "name": "Agent automations in shareable presentation format accelerates team alignment",
+          "description": "Agent automations in shareable presentation format accelerates team alignment"
+        },
+        {
+          "name": "Accelerated path to build automations with one-click context",
+          "description": "Accelerated path to build automations with one-click context"
+        },
+        {
+          "name": "No-code visual editor, exportable to Python",
+          "description": "No-code visual editor, exportable to Python"
+        },
+        {
+          "name": "Code-first API built for total control",
+          "description": "Code-first API built for total control"
+        },
+        {
+          "name": "Role-based agents separate and simplify agent orchestration",
+          "description": "Role-based agents separate and simplify agent orchestration"
+        },
+        {
+          "name": "Create deterministic agent workflows",
+          "description": "Create deterministic agent workflows"
+        },
+        {
+          "name": "Real-time tracing of every LLM call, tool call, and memory read is observable with full cost accounting",
+          "description": "Real-time tracing of every LLM call, tool call, and memory read is observable with full cost accounting"
+        },
+        {
+          "name": "RBAC and audit provide granular control, immutable audit trails, and Enterprise IAM",
+          "description": "RBAC and audit provide granular control, immutable audit trails, and Enterprise IAM"
+        },
+        {
+          "name": "Human-in-the-loop approval gates and intervention during execution",
+          "description": "Human-in-the-loop approval gates and intervention during execution"
+        },
+        {
+          "name": "Runtime hooks inject PII redaction and policy checks at every LLM and tool call",
+          "description": "Runtime hooks inject PII redaction and policy checks at every LLM and tool call"
+        },
+        {
+          "name": "Automated and human-guided training for continuous improvement",
+          "description": "Automated and human-guided training for continuous improvement"
+        },
+        {
+          "name": "Multi-LLM testing for model swapping at runtime, find the right model for every workflow",
+          "description": "Multi-LLM testing for model swapping at runtime, find the right model for every workflow"
+        },
+        {
+          "name": "Evaluation for native tracking with expanded sophistication powered by Arize, Galileo, DataDog, and Patronus",
+          "description": "Evaluation for native tracking with expanded sophistication powered by Arize, Galileo, DataDog, and Patronus"
+        },
+        {
+          "name": "Real-time tracing for every LLM call, tool call, and memory read is observable with full cost accounting",
+          "description": "Real-time tracing for every LLM call, tool call, and memory read is observable with full cost accounting"
+        },
+        {
+          "name": "Starting out",
+          "description": "You're ready for agents. You need a solid foundation to start building."
+        },
+        {
+          "name": "Scaling up",
+          "description": "You've launched pilots. Now you need agents in production."
+        },
+        {
+          "name": "At scale",
+          "description": "Agents are running. You need to manage the sprawl."
+        }
+      ]
+    },
+    "usage": {
+      "promptTokens": 9113,
+      "completionTokens": 3167
+    },
+    "metadata": {
+      "chunker": {
+        "chunks": [
+          {
+            "size": 5000
+          },
+          {
+            "size": 1018
+          }
+        ]
+      },
+      "fetch": {}
+    }
+  },
+  "source": "scrapegraph"
+}

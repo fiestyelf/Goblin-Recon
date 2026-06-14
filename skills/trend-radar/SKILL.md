@@ -1,3 +1,14 @@
+---
+name: trend-radar
+description: >
+  Layer 1 of Clip Mine — find today's top 5 trending AI stories from multiple sources.
+  Triggers on "run social pulse", "what's trending", "blog ideas", "carousel ideas".
+  Priority: Instagram → TikTok → X/Twitter → Reddit → Tech News → Product Hunt.
+  Output: ranked trend opportunities with normalized social data, hooks, and format analysis.
+category: genx-marketing
+version: 1.0.0
+---
+
 # Trend Radar — Layer 1
 
 ## Purpose

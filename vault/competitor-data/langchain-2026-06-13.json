@@ -1,0 +1,70 @@
+{
+  "url": "https://www.langchain.com",
+  "schema": "features",
+  "data": {
+    "id": "7f372481-7b7c-4885-bf92-7f265de96a36",
+    "raw": null,
+    "json": {
+      "features": [
+        {
+          "name": "Engine",
+          "description": "Improve agents autonomously. Surface and diagnose undetected issues autonomously to improve agents faster. LangSmith Engine clusters production failures into prioritized issues, finds the root cause in your traces and code, and proposes the fix for your review."
+        },
+        {
+          "name": "Observability",
+          "description": "See exactly what your agents are doing. Understand exactly what your agent is doing: native tracing for popular agent frameworks and OpenTelemetry, SDKs for multiple languages, message threading for multi\u2011turn chat interactions, and analytics with AI\u2011driven insights to uncover patterns across traces."
+        },
+        {
+          "name": "Evaluation",
+          "description": "Score and improve agent performance. Use real\u2011world usage for iterative improvement: capture production traces, turn them into test cases, and score agents with a mix of human review and automated evaluations. Includes reusable LLM\u2011as\u2011judge and multi\u2011turn evals, eval calibration with human feedback, human feedback annotations, and online/offline scoring."
+        },
+        {
+          "name": "Deployment",
+          "description": "Ship and scale agents in production. Supports human\u2011in\u2011the\u2011loop interactions, input concurrency, and background agents; type\u2011safe streaming of messages, UI components, and custom events; scalable, distributed runtime to handle agent swarms; native protocol support for A2A & MCP."
+        },
+        {
+          "name": "Fleet",
+          "description": "Agents for the whole company. Bring your own models, use first\u2011party integrations or extend with any MCP server, export agent files for pro\u2011code development, integrated LangSmith tracing, and agents improve with user feedback."
+        },
+        {
+          "name": "Sandboxes",
+          "description": "Run agent\u2011generated code safely."
+        },
+        {
+          "name": "deepagents",
+          "description": "Build long\u2011running agents for complex tasks, offering intelligent, open\u2011ended capabilities for highly autonomous agents."
+        },
+        {
+          "name": "langchain",
+          "description": "Quick start agents with any model provider, enabling fast development with templates."
+        },
+        {
+          "name": "langgraph",
+          "description": "Build reliable agents with low\u2011level control, suitable for production agents that require determinism."
+        },
+        {
+          "name": "Build with our open source frameworks",
+          "description": "Build agents fast with any model provider. Choose the right framework for the job from batteries included to low-level control."
+        }
+      ]
+    },
+    "usage": {
+      "promptTokens": 9387,
+      "completionTokens": 3868
+    },
+    "metadata": {
+      "chunker": {
+        "chunks": [
+          {
+            "size": 5000
+          },
+          {
+            "size": 1446
+          }
+        ]
+      },
+      "fetch": {}
+    }
+  },
+  "source": "scrapegraph"
+}

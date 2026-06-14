@@ -1,3 +1,13 @@
+---
+name: orchestrator
+description: >
+  Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence.
+  For Clip Mine, preserve the core chain: Trend Radar → Source Hunter → Moment Finder → Brand Gate → Human Gate.
+  Supports Fast Scan, Deep Social Scan, Manual Assisted Scan, and Signal Scan modes.
+category: genx-marketing
+version: 1.0.0
+---
+
 # Orchestrator — Driver Skill
 
 ## Purpose

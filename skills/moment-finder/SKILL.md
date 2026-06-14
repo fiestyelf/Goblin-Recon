@@ -1,3 +1,14 @@
+---
+name: moment-finder
+description: >
+  Layer 3 of Clip Mine — extract the exact clip moment (15-60 seconds) from source videos.
+  Triggers on "find the moment in [URL]", "extract clip from [url]", or auto-chain from source-hunter.
+  Uses youtube_tool for transcripts, extract_clip for validation, clip_store for persistence.
+  Output: editor-ready clip brief with timestamped URL, transcript quote, and 7-dimension score.
+category: genx-marketing
+version: 1.0.0
+---
+
 # Moment Finder — Layer 3
 
 ## Purpose

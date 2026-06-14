@@ -29,33 +29,33 @@
       "command": "bash",
       "args": [
         "-lc",
-        "set -a; source ./API_keys.env; set +a; exec npx -y mcp-remote@latest \"https://mcp.exa.ai/mcp?exaApiKey=${EXA_API_KEY}\""
+        "set -a; source ./.env 2>/dev/null; set +a; exec npx -y mcp-remote@latest \"https://mcp.exa.ai/mcp?exaApiKey=${EXA_API_KEY}\""
       ],
-      "description": "Semantic search for trend discovery and source hunting. Loads EXA_API_KEY from API_keys.env."
+      "description": "Semantic search for trend discovery and source hunting. Loads EXA_API_KEY from .env."
     },
     "tavily": {
       "command": "bash",
       "args": [
         "-lc",
-        "set -a; source ./API_keys.env; set +a; exec npx -y tavily-mcp@latest"
+        "set -a; source ./.env 2>/dev/null; set +a; exec npx -y tavily-mcp@latest"
       ],
-      "description": "AI-optimized web search fallback. Loads TAVILY_API_KEY from API_keys.env."
+      "description": "AI-optimized web search fallback. Loads TAVILY_API_KEY from .env."
     },
     "firecrawl": {
       "command": "bash",
       "args": [
         "-lc",
-        "set -a; source ./API_keys.env; set +a; exec npx -y firecrawl-mcp@latest"
+        "set -a; source ./.env 2>/dev/null; set +a; exec npx -y firecrawl-mcp@latest"
       ],
-      "description": "Public web extraction to clean markdown. Loads FIRECRAWL_API_KEY from API_keys.env."
+      "description": "Public web extraction to clean markdown. Loads FIRECRAWL_API_KEY from .env."
     },
     "scrapegraph": {
       "command": "bash",
       "args": [
         "-lc",
-        "set -a; source ./API_keys.env; set +a; exec npx -y mcp-remote@latest https://scrapegraph-mcp.onrender.com/mcp --header \"X-API-Key:${SCRAPEGRAPH_API_KEY}\""
+        "set -a; source ./.env 2>/dev/null; set +a; exec npx -y mcp-remote@latest https://scrapegraph-mcp.onrender.com/mcp --header \"X-API-Key:${SCRAPEGRAPH_API_KEY}\""
       ],
-      "description": "AI-powered structured extraction from URLs. Loads SCRAPEGRAPH_API_KEY from API_keys.env."
+      "description": "AI-powered structured extraction from URLs. Loads SCRAPEGRAPH_API_KEY from .env."
     }
   },
   "optionalServers": {

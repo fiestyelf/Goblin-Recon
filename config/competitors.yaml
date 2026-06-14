@@ -1,12 +1,20 @@
 # Goblin Recon — Competitor Configuration
-# Add competitors to monitor (fill in later)
+# Add competitors below. Each entry needs at minimum a name and website.
+# Goblin Recon will extract features, pricing, and positioning weekly.
 
-competitors: []
-  # Example:
+competitors:
+  - name: "CrewAI"
+    website: "https://www.crewai.com"
+    pricing_page: "https://www.crewai.com/pricing"
+    category: "agent-platform"
+
+  - name: "LangChain"
+    website: "https://www.langchain.com"
+    pricing_page: "https://www.langchain.com/pricing"
+    category: "agent-platform"
+
+  # ── Add your competitors below ──
   # - name: "Competitor Name"
   #   website: "https://competitor.com"
   #   pricing_page: "https://competitor.com/pricing"
-  #   blog: "https://competitor.com/blog"
-  #   twitter: "@competitor"
-  #   linkedin: "competitor"
-  #   instagram: "competitor"
+  #   category: "agent-platform"

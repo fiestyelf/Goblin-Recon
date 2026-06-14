@@ -2,6 +2,42 @@
 # Keep integrations disabled until company/admin approval is complete.
 
 integrations:
+  exa_search_api:
+    enabled: true
+    approval_required: false
+    purpose: "Semantic search for AI story discovery — finds content by meaning, not keywords."
+    env_vars:
+      - EXA_API_KEY
+    recommended_scope: "Read-only public web search"
+    avoid: "Storing search keys in chat, source files, or committed config"
+
+  tavily_search_api:
+    enabled: true
+    approval_required: false
+    purpose: "AI-optimized research search for faster, more relevant research-heavy queries."
+    env_vars:
+      - TAVILY_API_KEY
+    recommended_scope: "Read-only public web search"
+    avoid: "Storing search keys in chat, source files, or committed config"
+
+  firecrawl_extraction:
+    enabled: true
+    approval_required: false
+    purpose: "Deep web page extraction for JS-heavy sites that browser struggles with."
+    env_vars:
+      - FIRECRAWL_API_KEY
+    recommended_scope: "Read-only public page extraction"
+    avoid: "Login-only pages, paywalls, restricted surfaces"
+
+  scrapegraph_extraction:
+    enabled: true
+    approval_required: false
+    purpose: "Structured scraping for competitor data, pricing, and feature extraction."
+    env_vars:
+      - SCRAPEGRAPH_API_KEY
+    recommended_scope: "Read-only public structured data extraction"
+    avoid: "Login-only pages, paywalls, restricted surfaces"
+
   brave_search_api:
     enabled: false
     approval_required: true

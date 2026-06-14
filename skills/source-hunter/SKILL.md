@@ -1,3 +1,14 @@
+---
+name: source-hunter
+description: >
+  Layer 2 of Clip Mine — find YouTube videos and Instagram content discussing each trending AI story from Layer 1.
+  Triggers on "run clip mine", "find clips about [topic]", "find the moment in [URL]".
+  Searches YouTube (podcasts, interviews, keynotes) and public social surfaces.
+  Output: ranked source candidates with video metadata.
+category: genx-marketing
+version: 1.0.0
+---
+
 # Source Hunter — Layer 2
 
 ## Purpose

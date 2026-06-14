@@ -405,6 +405,22 @@ A fail means rewrite or shelve before Human Gate.
 ### caption-tone Skill
 Use `skills/caption-tone/SKILL.md` for caption and description tasks after Output Direction is clear. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.
 
+### api_search.py — Exa + Tavily
+Semantic search for AI story discovery:
+```bash
+.venv/bin/python -m goblin_recon.tools.api_search --exa "AI agents 2026" --limit 5
+.venv/bin/python -m goblin_recon.tools.api_search --tavily "OpenAI latest news" --limit 5 --json
+```
+Exa finds content by meaning (not keywords). Tavily provides AI-optimized research results. Keys: `EXA_API_KEY`, `TAVILY_API_KEY` in project `.env`.
+
+### api_extract.py — Firecrawl + ScrapeGraph
+Deep extraction for JS-heavy pages and structured data:
+```bash
+.venv/bin/python -m goblin_recon.tools.api_extract --firecrawl "https://example.com" --json
+.venv/bin/python -m goblin_recon.tools.api_extract --scrapegraph "https://..." --schema competitor --json
+```
+Firecrawl returns clean markdown from any page. ScrapeGraph pulls structured data (article, pricing, features, competitor schemas). Keys: `FIRECRAWL_API_KEY`, `SCRAPEGRAPH_API_KEY` in project `.env`.
+
 ### email-hook Skill
 Use `skills/email-hook/SKILL.md` for outbound email subject lines, openers, and short email drafts. Ask Output Direction first, select the campaign type from `config/email-campaigns.yaml`, then run `.venv/bin/python -m goblin_recon.tools.email_gate` before delivering final email copy.
 
@@ -597,6 +613,30 @@ For personal/current/future change notes, update `personal-dumpground/SESSION_LO
 
 ### Search Stop Rule
 If a named topic returns zero relevant results after 3 different search queries across 2+ platforms, stop searching and ask the user for a URL, screenshot, creator name, or more context. Do not keep trying loosely related keywords.
+
+### New Skills Must Have Frontmatter
+
+Hermes discovers local skills from the profile skills directory, but each skill file must start with YAML frontmatter:
+
+```yaml
+---
+name: skill-name
+description: >
+  What it does.
+category: genx-marketing
+version: 1.0.0
+---
+
+# The rest of the skill...
+```
+
+A plain `# Title` header may not be indexed correctly by Hermes skill tooling.
+
+**The pattern for new skills:**
+1. Create `skills/<name>/SKILL.md` with YAML frontmatter in the repo.
+2. Run `scripts/setup.sh` to copy it into the `goblin-recon` Hermes profile.
+3. Verify with `hermes skills list -p goblin-recon --source local`.
+4. Launch `hermes --profile goblin-recon` and invoke the workflow naturally.
 
 ### YouTube Cookie Walls
 YouTube may show a "Before you continue" consent dialog. Click the visible reject/accept option if available, then retry the original URL or query once. Do not use cookies or personal accounts to bypass access controls.

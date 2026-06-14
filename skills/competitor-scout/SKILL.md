@@ -1,3 +1,14 @@
+---
+name: competitor-scout
+description: >
+  Monitor competitor pricing, features, and marketing activity for GenX Academy.
+  Triggers on "competitor scan", "check competitors", "what are competitors doing".
+  Sources: competitor websites, social profiles, pricing pages, news mentions.
+  Output: competitor intelligence report with change detection.
+category: genx-marketing
+version: 1.0.0
+---
+
 # Competitor Scout — Standalone Skill
 
 ## Purpose
