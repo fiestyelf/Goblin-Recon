@@ -211,8 +211,8 @@ fi
 
 # Agent settings
 set_profile_config agent.max_turns 90
-set_profile_config terminal.timeout 300
-echo -e "    ✅  Agent settings checked (max_turns=90, timeout=300)"
+set_profile_config terminal.timeout 120
+echo -e "    ✅  Agent settings checked (max_turns=90, timeout=120)"
 
 echo ""
 

@@ -297,10 +297,19 @@ Use whichever provider and model the company has approved. Example:
 hermes -p goblin-recon config set model.provider openai
 hermes -p goblin-recon config set model.default gpt-4o
 hermes config set agent.max_turns 90 -p goblin-recon
-hermes config set terminal.timeout 300 -p goblin-recon
+hermes config set terminal.timeout 120 -p goblin-recon
 ```
 
 Never paste or commit API keys. Store provider keys through Hermes secrets or another approved local secret method.
+
+## Runtime Limit Policy
+
+Do not let any command, browser action, API extraction, scraping job, transcript fetch, or skill-driven subprocess run longer than 120 seconds. If there is no useful progress by then, stop that route and tell the user clearly:
+- what timed out or stalled,
+- why the current route is not possible/reliable right now,
+- one practical alternative, such as smaller scope, manual URL/input, different source/API, cached data, or retry later.
+
+Do not keep retrying the same stalled process. One retry is allowed only when there is a clear fix, such as corrected URL, fresh key, smaller query, or alternate endpoint.
 
 ## Delegate Task Policy
 
