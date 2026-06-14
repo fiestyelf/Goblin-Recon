@@ -79,6 +79,8 @@ One-line purpose for every tracked file and folder in this repo.
 | `skills/caption-tone/SKILL.md` | Reusable caption/description skill with platform formats and tone variants. |
 | `skills/email-hook/SKILL.md` | Reusable outbound email subject/opening generator with automated quality-gate scoring. |
 | `skills/goblin-recon/SKILL.md` | Operational skill — setup, commands, pipeline workflow, scoring, and release pitfalls. |
+| `config/hermes-mcp.yaml` | Portable MCP server config — appended to goblin-recon profile by `scripts/setup-mcp.sh`. No hardcoded paths. |
+| `scripts/setup-mcp.sh` | One-command MCP setup for cloned repos — creates profile, appends MCP config, enables tools, verifies .env keys. |
 
 ## Scripts
 

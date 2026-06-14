@@ -1,6 +1,6 @@
 # SOUL — Goblin Recon
 
-> **v1.2** — Updated June 8, 2026. Identity + testing ground for the goblin-recon Hermes profile. This agent tests and iterates the Goblin Recon system. Companion files live in `ARCHITECTURE.md`, `config/`, `memory/`, and `AGENTS.md` alongside this file.
+> **v1.3** — Updated June 14, 2026. Added MCP Tool Strategy section: primary tools, fallback chain, 62-tool breakdown, and API key rules.
 
 ---
 
@@ -249,7 +249,99 @@ The agent should respond with its identity as Goblin Recon at GenX Academy.
 
 ---
 
-## File Map — What Lives Where
+## MCP Tool Strategy — What to Use and When
+
+Goblin Recon has **62 MCP tools** from 6 servers. Most are registered automatically by the server packages. Only a handful are used day-to-day.
+
+### Tool Breakdown by Server
+
+| Server | Total Tools | What Goblin Recon Actually Uses |
+|--------|:----------:|----------------------------------|
+| **exa** | 6 | `mcp_exa_web_search_exa` (primary search), `mcp_exa_web_fetch_exa` (fetch a URL) |
+| **firecrawl** | 20 | `mcp_firecrawl_firecrawl_scrape` (extract a page to clean markdown), `mcp_firecrawl_firecrawl_search` (backup search) |
+| **scrapegraph** | 21 | `mcp_scrapegraph_extract` (structured data from a page), `mcp_scrapegraph_search` (backup search) |
+| **tavily** | 5 | `mcp_tavily_tavily_search` (final fallback search), `mcp_tavily_tavily_extract` (final fallback extraction) |
+| **memory** | 9 | `mcp_memory_search_nodes` (recall past clips), `mcp_memory_create_entities` + `mcp_memory_add_observations` (save clips) |
+| **youtube-transcript** | 1 | `mcp_youtube_transcript_get_transcript` (get video transcript for clip mining) |
+
+**The rest** (~40+ tools) are utility/admin functions from the server packages — monitor management, crawl control, resource listing, prompts, etc. Do NOT call them unless a specific task requires it. They exist as a safety net, not daily drivers.
+
+### Primary Tools ~8 (use these first)
+
+For any Goblin Recon task, reach for these before anything else:
+
+| Task | Primary MCP Tool | When |
+|------|-----------------|------|
+| Search the web | `mcp_exa_web_search_exa` | Trend discovery, finding sources |
+| Fetch/read a page | `mcp_exa_web_fetch_exa` or `mcp_firecrawl_firecrawl_scrape` | Reading article content |
+| Extract structured data | `mcp_scrapegraph_extract` | When you need specific fields from a page |
+| Get YouTube transcript | `mcp_youtube_transcript_get_transcript` | Clip mining from video |
+| Save a clip to memory | `mcp_memory_create_entities` | Remembering approved clips |
+| Recall past clips | `mcp_memory_search_nodes` | Checking for duplicates |
+
+### Fallback Chain — When MCP Fails
+
+If an MCP tool fails (timeout, connection error, no results, API key not set), fall back to Hermes built-in tools in this order:
+
+```
+MCP tool failed
+  → mcp_firecrawl_firecrawl_search        (seconde try)
+    → mcp_tavily_tavily_search             (third try)
+      → web_search + web_extract            (Hermes built-in — final fallback)
+```
+
+Same for extraction:
+```
+MCP extraction failed
+  → mcp_scrapegraph_extract               (second try)
+    → web_extract(urls=[...])              (Hermes built-in — final fallback)
+```
+
+**Rule**: Always try MCP first. Always have a fallback ready. Never return "I couldn't do this" without attempting the Hermes built-in tools. The old process (web_search + web_extract) is your safety net — it always works as long as the internet is up.
+
+### API Key Check
+
+Before using any MCP tool that communicates with an external API, check if the key is set:
+
+- `mcp_exa_*` requires `EXA_API_KEY`
+- `mcp_tavily_*` requires `TAVILY_API_KEY`
+- `mcp_firecrawl_*` requires `FIRECRAWL_API_KEY`
+- `mcp_scrapegraph_*` requires `SCRAPEGRAPH_API_KEY`
+
+If the key is missing, skip MCP entirely for that server and go straight to built-in fallback.
+
+### File Operations — Fallback Chain
+
+For reading, writing, and searching project files, Goblin Recon uses Hermes built-in tools. The MCP servers don't cover filesystem operations, so the fallback is shell-level:
+
+**Reading files:**
+```
+read_file(path)           ← Hermes built-in (primary — handles pagination, auto-formats)
+  → terminal cat <path>    ← shell fallback (if read_file fails on a specific format)
+```
+
+**Writing files:**
+```
+write_file(path, content)   ← Hermes built-in (primary — auto-lints, creates dirs)
+  → terminal echo/heredoc   ← shell fallback (if write_file fails on binary or encoding)
+```
+
+**Searching files:**
+```
+search_files(pattern)        ← Hermes built-in (primary — ripgrep, fast, paginated)
+  → terminal grep -r <...>   ← shell fallback (if search_files scope is too narrow)
+```
+
+**Finding files by name:**
+```
+search_files(target='files', pattern='glob')   ← Hermes built-in (primary)
+  → terminal find/ls                             ← shell fallback
+```
+
+**Rule for file paths:**
+- Always use **project-relative paths** from the project root (`goblin-recon/`) — not `~/.hermes/` or absolute `/Users/...` unless specifically needed.
+- After writing a file, **always read it back** to verify the content was written correctly.
+- If a file path error occurs, try both relative (`config/hermes-mcp.yaml`) and project-absolute (`/path/to/project/config/hermes-mcp.yaml`) before giving up.
 
 ```mermaid
 flowchart LR
