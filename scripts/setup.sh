@@ -164,11 +164,14 @@ for skill in "${PIPELINE_SKILLS[@]}"; do
     fi
 done
 
+# Skills are loaded by Hermes directly from the profile skills directory.
+# No separate registration command is needed.
+
 # Install project assets that skills call at runtime
 for asset_dir in scripts templates config memory; do
     if [ -d "$PROJECT_DIR/$asset_dir" ]; then
         mkdir -p "$PROFILE_DIR/$asset_dir"
-        cp -r "$PROJECT_DIR/$asset_dir"/* "$PROFILE_DIR/$asset_dir/"
+        cp -R "$PROJECT_DIR/$asset_dir/." "$PROFILE_DIR/$asset_dir/"
         echo -e "    ✅  $asset_dir installed"
     fi
 done
@@ -214,7 +217,48 @@ echo -e "    ✅  Agent settings checked (max_turns=90, timeout=300)"
 echo ""
 
 # ─────────────────────────────────────────────────────────────
-# Step 6: Python Environment
+# Step 6: Environment (.env)
+# ─────────────────────────────────────────────────────────────
+echo -e "${CYAN}🔑  Checking API keys...${NC}"
+
+if [ -f "$PROJECT_DIR/.env" ]; then
+    echo -e "    ✅  .env file already exists"
+    # Check if it's still the template (all keys commented out)
+    uncommented=$(grep -c "^[^#].*=" "$PROJECT_DIR/.env" 2>/dev/null || echo 0)
+    if [ "$uncommented" -eq 0 ]; then
+        echo -e "${YELLOW}    ⚠️  .env looks like the template — no API keys filled in yet.${NC}"
+        echo -e "    Edit $PROJECT_DIR/.env and add your keys before running scans."
+    else
+        echo -e "    ✅  $uncommented API key(s) found"
+    fi
+else
+    if [ -f "$PROJECT_DIR/.env.example" ]; then
+        cp "$PROJECT_DIR/.env.example" "$PROJECT_DIR/.env"
+        echo -e "    ✅  .env created from .env.example"
+        echo -e "${YELLOW}    ⚠️  Edit $PROJECT_DIR/.env and add your API keys before running scans.${NC}"
+        echo ""
+        echo -e "    Required for best results:"
+        echo -e "      EXA_API_KEY      — semantic search"
+        echo -e "      TAVILY_API_KEY   — research search"
+        echo -e "      FIRECRAWL_API_KEY  — deep page extraction"
+        echo -e "      SCRAPEGRAPH_API_KEY — structured data extraction"
+        echo ""
+    else
+        echo -e "${RED}    ❌  No .env.example found — create .env manually${NC}"
+    fi
+fi
+
+# Copy .env to Hermes profile so tools can find keys
+if [ -f "$PROJECT_DIR/.env" ]; then
+    mkdir -p "$PROFILE_DIR"
+    cp "$PROJECT_DIR/.env" "$PROFILE_DIR/.env"
+    echo -e "    ✅  .env copied to profile"
+fi
+
+echo ""
+
+# ─────────────────────────────────────────────────────────────
+# Step 7: Python Environment
 # ─────────────────────────────────────────────────────────────
 echo -e "${CYAN}🐍  Setting up Python environment...${NC}"
 
@@ -245,7 +289,7 @@ echo -e "    ✅  Goblin Recon Python tools installed"
 echo ""
 
 # ─────────────────────────────────────────────────────────────
-# Step 7: Verify
+# Step 8: Verify
 # ─────────────────────────────────────────────────────────────
 echo -e "${CYAN}🧪  Verifying...${NC}"
 
