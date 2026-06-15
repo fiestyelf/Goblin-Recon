@@ -44,6 +44,7 @@ Full command guide with plain-language descriptions → [`COMMANDS.md`](COMMANDS
 | `find the moment in [URL]` | Extract best clip from a video |
 | `run full scan` | Social Pulse + Clip Mine in sequence |
 | `run full autonomous scan` | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail using approved public/local sources, without repeated confirmations |
+| `enable full project access` | Grants local repo file read/write/test/commit permission for the current session without repeated file-access confirmations |
 | `what clips are ready` | Approved clips awaiting editor handoff |
 | `run competitor scan` | Competitor Scout with Security Rail and cell-ready moves |
 | `write email hooks for [offer/audience]` | Email Hook variants with quality-gate scores |

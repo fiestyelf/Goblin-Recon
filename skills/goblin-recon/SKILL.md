@@ -102,6 +102,7 @@ Every item — Social Pulse idea or Clip Mine clip — is tagged by type:
 |---------|--------------|
 | `run full scan` | Social Pulse + Clip Mine in sequence |
 | `run full autonomous scan` | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail using approved public/local sources, without repeated confirmations |
+| `enable full project access` | File read/write/test/commit permission for the current repo session without repeated file-access confirmations |
 | `what formats are working?` | Current winning reel formats from IG/TikTok |
 | `run competitor scan` | Competitor Scout |
 
@@ -125,7 +126,9 @@ Before using tools, classify the user's request:
 
 If a request mixes workflows, use the smallest useful sequence. Example: `run full scan` means Social Pulse first, then Clip Mine only for the 2-3 strongest candidates.
 
-`run full autonomous scan` is the one-command permission phrase for a complete approved-source run. It allows local file reads, approved public web/search/browser extraction, local Python tools/tests, vault report creation, memory updates, template application, and Security Rail without repeated confirmations. It does not allow secret disclosure/use, external account setup, paid-service setup, access-control bypass, publishing/sending messages, destructive deletes, or irreversible deployment actions.
+`enable full project access` is the one-command permission phrase for local repo maintenance. It allows reading/searching files, editing project files, creating docs/templates/tests/assets, running local checks, cleaning generated artifacts, updating non-secret config/docs, and committing safe changes without repeated file-access confirmations. It does not allow secret disclosure/use, external service setup, paid-service setup, access-control bypass, publishing/sending messages, destructive deletes, Git history rewrites, force-pushes, or irreversible deployment actions.
+
+`run full autonomous scan` is the one-command permission phrase for a complete approved-source scan. It allows local file reads, approved public web/search/browser extraction, local Python tools/tests, vault report creation, memory updates, template application, and Security Rail without repeated confirmations. It does not allow secret disclosure/use, external account setup, paid-service setup, access-control bypass, publishing/sending messages, destructive deletes, or irreversible deployment actions.
 
 ### Output Direction Pre-Check
 
