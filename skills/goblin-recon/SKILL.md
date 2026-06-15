@@ -11,7 +11,7 @@ category: genx-marketing
 Goblin Recon is the intelligence division of the Goblin Bureau (GenX's AI agent suite). It is a semi-autonomous content intelligence system with this professional operating pattern:
 
 ```text
-Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
+Router -> Workflow -> Tools -> Normalized Data -> Score -> Security Rail -> Human Gate -> Memory
 ```
 
 The agent does not scan every platform or invoke every tool by default. It routes the user's request into one primary workflow, uses the minimum reliable tools, presents decision-ready output, and stores useful memory.
@@ -71,7 +71,7 @@ Commands:
 Clip Mine preserves the original core chain:
 
 ```text
-Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Human Gate
+Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Security Rail -> Human Gate
 ```
 
 ### Workflow 3: Clip Vault
@@ -103,6 +103,11 @@ Every item — Social Pulse idea or Clip Mine clip — is tagged by type:
 | `run full scan` | Social Pulse + Clip Mine in sequence |
 | `what formats are working?` | Current winning reel formats from IG/TikTok |
 | `run competitor scan` | Competitor Scout |
+
+### Final Gate: Security Rail
+Before any user-facing output, run `skills/security-rail/SKILL.md` as the final Constitutional AI-style review gate. It checks source quality, access/platform safety, legal/copyright risk, human-review requirements, and business usefulness.
+
+Security Rail returns one decision: `APPROVE`, `REVISE`, `SHELVE`, or `NEEDS HUMAN REVIEW`. Deliver the approved/revised safe version only. If it shelves an item, do not recommend it. If it requires human review, label that clearly before the user treats it as publish-ready.
 
 ## Intent Router
 
@@ -235,6 +240,7 @@ Key files:
 - `config/scoring.yaml` — scoring dimensions (social_velocity, scroll_stop, etc.)
 - `config/brand-voice.yaml` — brand voice rules, blacklist, nuance words
 - `config/security.yaml` — data collection policies, API key rules, rate limits
+- `skills/security-rail/SKILL.md` — final source/safety/usefulness review before user-facing output
 - `memory/brand-rules.md` — operational brand memory for the agent
 - `goblin_recon/tools/` — importable tool modules (transcripts, clips, scoring, brand gate, social intake)
 - `scripts/` — standalone setup, secret scan, and query helpers
@@ -409,7 +415,7 @@ Pre-flight brand gate helper for generated captions, summaries, hooks, and outbo
 .venv/bin/python -m goblin_recon.tools.brand_gate --text "Your caption or hook here"
 .venv/bin/python -m goblin_recon.tools.brand_gate --file path/to/copy.md --json
 ```
-A fail means rewrite or shelve before Human Gate.
+A fail means rewrite or shelve before Security Rail and Human Gate.
 
 ### caption-tone Skill
 Use `skills/caption-tone/SKILL.md` for caption and description tasks after Output Direction is clear. Default to professional GenX Academy copy, then ask whether the user wants another voice when the content would benefit from a casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or platform-native version. Run the brand gate on generated outward copy when feasible.

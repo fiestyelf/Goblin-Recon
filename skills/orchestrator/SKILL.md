@@ -2,7 +2,7 @@
 name: orchestrator
 description: >
   Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence.
-  For Clip Mine, preserve the core chain: Trend Radar → Source Hunter → Moment Finder → Brand Gate → Human Gate.
+  For Clip Mine, preserve the core chain: Trend Radar → Source Hunter → Moment Finder → Brand Gate → Security Rail → Human Gate.
   Supports Fast Scan, Deep Social Scan, Manual Assisted Scan, and Signal Scan modes.
 category: genx-marketing
 version: 1.0.0
@@ -11,7 +11,7 @@ version: 1.0.0
 # Orchestrator — Driver Skill
 
 ## Purpose
-Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence. For Clip Mine, preserve the core chain: Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Human Gate.
+Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence. For Clip Mine, preserve the core chain: Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Security Rail -> Human Gate.
 
 ## Triggers
 - "run full scan"
@@ -23,7 +23,7 @@ Route user intent into the right Goblin Recon workflow, then run the smallest us
 - "what clips are ready"
 
 ## Tools Required
-- Loads and chains: trend-radar → source-hunter → moment-finder
+- Loads and chains: trend-radar → source-hunter → moment-finder → security-rail
 - All config files
 - All templates
 - memory/brand-rules.md
@@ -187,7 +187,28 @@ For each clip brief:
   8. If any check fails: auto-shelve and record reason
 ```
 
-Only briefs that pass the brand gate reach the Human Gate.
+Only briefs that pass the brand gate reach the Security Rail.
+
+### Step 7.5: Security Rail — Final Check
+
+Before presenting results to the user, run `skills/security-rail/SKILL.md` on every final answer, report, clip brief, competitor finding, or publish/shelve recommendation.
+
+```
+For each user-facing output:
+  1. Check source integrity: URLs, dates, timestamps, quotes, metrics, and unverified claims.
+  2. Check access/platform safety: public or approved sources only; no bypasses or private sources.
+  3. Check legal/copyright/human-review flags using LEGAL_GUARDRAILS.md.
+  4. Check business usefulness: specific, decision-ready, not vague or falsely certain.
+  5. Return one decision: APPROVE, REVISE, SHELVE, or NEEDS HUMAN REVIEW.
+```
+
+Security Rail handling:
+- `APPROVE`: present the output.
+- `REVISE`: present only the safer revised version.
+- `SHELVE`: do not recommend the item; explain the shelve reason briefly.
+- `NEEDS HUMAN REVIEW`: present with a clear human-review warning and do not call it publish-ready.
+
+Only outputs that pass Security Rail or are revised by Security Rail reach the Human Gate.
 
 ### Step 8: Human Gate — Present Results
 
@@ -321,7 +342,9 @@ NEXT STEPS:
 - [ ] All clips are 15-60 seconds
 - [ ] All clips have working URLs
 - [ ] Brand calibration completed before Layer 1
-- [ ] Brand gate completed before human gate
+- [ ] Brand gate completed before Security Rail
+- [ ] Security Rail completed before Human Gate
+- [ ] Security Rail decision recorded as APPROVE, REVISE, SHELVE, or NEEDS HUMAN REVIEW
 - [ ] Brand Angle and brand alignment score included for every presented clip
 - [ ] First-touch feeling included for every presented clip
 - [ ] Effort, confidence, vault check, fallback, AI search potential, and platform variants included for every presented clip
@@ -332,3 +355,4 @@ NEXT STEPS:
 - [ ] Content tracker updated only if enabled and approved
 - [ ] No secrets, cookies, or API keys included in outputs
 - [ ] No restricted or private sources used without approval
+- [ ] Unsupported claims are removed, sourced, marked unverified, or shelved
