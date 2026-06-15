@@ -11,7 +11,6 @@ Use these phrases inside the Goblin Recon Hermes profile. Keep prompts simple an
 | `run signal scan` | You want first-mover discovery before mainstream coverage. | Early signals from public X when available, Hacker News, GitHub Trending, ArXiv, and public Reddit fallback. |
 | `run full scan` | You want ideas and clips in one pass. | Social Pulse first, then Clip Mine for the strongest candidates only. |
 | `run full autonomous scan` | You want Goblin Recon to use all approved local/public tools without asking repeated confirmations. | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail, using only approved public/local sources. |
-| `enable full project access` | You want to grant file read/write/test/commit permission for the current repo session without repeated file-access confirmations. | Project maintenance mode: inspect files, edit structure, run tests/checks, clean generated artifacts, and commit safe changes.
 
 ## Social Pulse
 
@@ -108,43 +107,7 @@ Before generating, the agent should ask who it is for, where it goes, and what t
 |---|---|---|
 | `run competitor scan` | You want competitor intelligence. | Competitor report with claims, source URLs, risks, and brand gap analysis. |
 
-## Full Project Access Mode
-
-Say this when you want to give Goblin Recon full local repo permission for the current session without repeated file-access confirmations:
-
-```text
-enable full project access
-```
-
-This grants permission to:
-
-- inspect, read, search, and compare project files
-- edit project files when needed to complete the requested task
-- create new docs, templates, tests, and local project assets
-- run local tests, formatters, linters, secret scans, and structure checks
-- clean generated artifacts such as `.DS_Store`, `__pycache__`, `.pyc`, `.pytest_cache`, and logs
-- update non-secret config and documentation
-- stage and commit safe project changes when the task is complete
-
-It does **not** grant permission to:
-
-- reveal, print, copy, or use secrets/API keys without explicit approval
-- create external accounts or configure paid services
-- bypass paywalls, captchas, login walls, robots.txt, or rate limits
-- publish, post, email, DM, or contact anyone externally
-- delete important source files or perform irreversible deployment actions
-- rewrite Git history, force-push, or remove branches/remotes without explicit approval
-
-At the end, report:
-
-```text
-Files changed
-Checks run
-Commit hash, if committed
-Remaining risks or human-review items
-```
-
-## Full Autonomous Scan Mode
+## Full Autonomous Mode
 
 Say this when you want to give Goblin Recon full working permission for one scan without repeated yes/no prompts:
 

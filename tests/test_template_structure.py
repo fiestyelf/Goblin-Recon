@@ -39,19 +39,6 @@ def test_full_autonomous_scan_command_is_documented():
         assert "run full autonomous scan" in text
 
 
-def test_full_project_access_command_is_documented():
-    commands = (ROOT / "COMMANDS.md").read_text()
-    readme = (ROOT / "README.md").read_text()
-    goblin = (ROOT / "skills" / "goblin-recon" / "SKILL.md").read_text()
-
-    for text in (commands, readme, goblin):
-        assert "enable full project access" in text
-
-    assert "does **not** grant permission" in commands
-    assert "secrets" in commands
-    assert "force-push" in commands
-
-
 def test_caption_skill_uses_caption_pack_and_security_rail():
     skill = (ROOT / "skills" / "caption-tone" / "SKILL.md").read_text()
 
