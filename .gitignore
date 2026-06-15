@@ -21,11 +21,13 @@ secrets.*
 vault/intake/*
 vault/briefs/*
 vault/reports/*
+vault/competitor-data/*
 vault/*.db
 vault/*.jsonl
 !vault/intake/.gitkeep
 !vault/briefs/.gitkeep
 !vault/reports/.gitkeep
+!vault/competitor-data/.gitkeep
 
 # Internal brand and planning docs — not for public repo
 docs/

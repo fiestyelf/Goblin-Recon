@@ -9,8 +9,10 @@ Professional agents stay narrow, observable, and recoverable.
 Goblin Recon follows this pattern:
 
 ```text
-Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
+Router -> Workflow -> Tools -> Normalized Data -> Score -> Security Rail -> Human Gate -> Memory
 ```
+
+The Security Rail is the final safety/source-quality review before user-facing recommendations, competitor claims, publishing instructions, or operational cells are delivered.
 
 The agent should not try to run every source, every tool, and every workflow for every request. It routes the user request to one focused workflow, uses the minimum reliable tools, presents decision-ready output, and stores only useful memory.
 
@@ -30,7 +32,8 @@ flowchart TD
     C1 --> C2[Social Intake]
     C2 --> C3[Normalize social data]
     C3 --> C4[Score trends]
-    C4 --> C5[Output ranked content ideas]
+    C4 --> C5[Security Rail]
+    C5 --> C6[Output ranked content ideas]
 
     D --> D1[Pick trend or topic]
     D1 --> D2[Find source videos]
@@ -38,8 +41,9 @@ flowchart TD
     D3 --> D4[Check Clip Vault]
     D4 --> D5[Find 15-60s moment]
     D5 --> D6[Brand Gate]
-    D6 --> D7[Human Approval]
-    D7 --> D8[Save approved or shelved clip]
+    D6 --> D7[Security Rail]
+    D7 --> D8[Human Approval]
+    D8 --> D9[Save approved or shelved clip]
 
     E --> E1[Search clips.db]
     E1 --> E2[Show ready clips]
@@ -48,12 +52,15 @@ flowchart TD
 
     F --> F1[Run competitor research]
     F1 --> F2[Package competitor report]
+    F2 --> F3[Security Rail]
+    F3 --> F4[Cell-ready moves]
 
     G --> G1[Confirm output direction]
     G1 --> G2[Select campaign type]
     G2 --> G3[Generate subject/opening variants]
     G3 --> G4[Run Email Gate]
-    G4 --> G5[Present ranked variants]
+    G4 --> G5[Security Rail]
+    G5 --> G6[Present ranked variants]
 ```
 
 ## The Four Core Workflows
@@ -83,12 +90,12 @@ Inputs:
 - `find clips about [topic]`
 - `find the moment in [URL]`
 
-Output: 1-3 decision-ready clip briefs with timestamp links, source access, embed preview, clip window, caption, platform variants, vault check, and rights-review note.
+Output: 1-3 decision-ready clip briefs with timestamp links, source access, embed preview, clip window, caption, platform variants, vault check, Security Rail result, and rights-review note.
 
 Clip Mine preserves the original core architecture:
 
 ```text
-Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Human Gate
+Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Security Rail -> Human Gate
 ```
 
 ### 3. Clip Vault
@@ -122,7 +129,7 @@ Output: ranked subject/opening variants with attention, psychological fit, brand
 Email Hook preserves the same gate-first architecture:
 
 ```text
-Output Direction -> Campaign Fit -> Email Gate -> Human Gate
+Output Direction -> Campaign Fit -> Email Gate -> Security Rail -> Human Gate
 ```
 
 ## Intent Router
@@ -134,9 +141,9 @@ The router chooses exactly one primary workflow before tools are used.
 | Find trends or ideas | Social Pulse | Use scan mode to control depth. |
 | Find source video clips | Clip Mine | Run dedup before Moment Finder. |
 | Retrieve previous clips | Clip Vault | Query `vault/clips.db` first. |
-| Analyze competitors | Competitor Scout | Separate from trend and clip work. |
+| Analyze competitors | Competitor Scout | Separate from trend and clip work; include Security Rail and cell-ready moves. |
 | Validate brand fit | Brand Gate | Can run as a standalone review. |
-| Generate email hooks or outbound drafts | Email Hook | Ask Output Direction first, then run Email Gate. |
+| Generate email hooks or outbound drafts | Email Hook | Ask Output Direction first, then run Email Gate and Security Rail. |
 
 If a request mixes workflows, run the smallest useful sequence and tell the user what sequence is being used.
 
@@ -285,6 +292,7 @@ Tools are helpers, not the architecture.
 | `scripts/query_clips.py` | Retrieve clips and regenerate briefs | Core Clip Vault tool. |
 | `goblin_recon.tools.brand_gate` | Check generated copy for blacklist and nuance words | Core Brand Gate helper. |
 | `goblin_recon.tools.email_gate` | Score outbound email drafts across five quality dimensions | Core Email Hook helper. |
+| `skills/security-rail/SKILL.md` | Review source quality, access safety, claims, usefulness, and human-review needs | Mandatory before user-facing delivery. |
 | MCP Memory | Store approved/shelved patterns | Optional, useful early. |
 | Fetch MCP | Extract normal public webpages | Optional, useful early. |
 | Firecrawl | Public web/news extraction | Later, after API key approval. |
@@ -332,7 +340,10 @@ The agent should fail cleanly.
 | Article URL returns 404 | Retry once by extracting a real `href`; do not keep guessing slugs. |
 | Claim has only one source | Mark unverified. |
 | Clip overlaps vault history | Differentiate or shelve before extraction. |
-| Brand gate fails | Shelve before Human Gate. |
+| Brand gate fails | Shelve before Security Rail and Human Gate. |
+| Security Rail returns `REVISE` | Fix the output, then rerun the rail before delivery. |
+| Security Rail returns `SHELVE` | Do not deliver the recommendation or cell as usable. |
+| Security Rail returns `NEEDS HUMAN REVIEW` | Label clearly and require human approval before publishing or action. |
 | Human does not approve | Do not save as approved or send to editor. |
 
 ## Professional Operating Model
@@ -340,7 +351,7 @@ The agent should fail cleanly.
 Goblin Recon should stay semi-autonomous:
 
 ```text
-Agent gathers -> Agent structures -> Agent scores -> Human approves -> Agent stores -> Editor produces
+Agent gathers -> Agent structures -> Agent scores -> Security Rail checks -> Human approves -> Agent stores -> Editor produces
 ```
 
 This is intentional. The agent does leverage work; the human keeps judgment, rights review, and publishing approval.

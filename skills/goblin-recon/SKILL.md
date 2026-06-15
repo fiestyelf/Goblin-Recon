@@ -620,7 +620,7 @@ The clip brief includes a URL like `youtube.com/watch?v=ABC&t=308`. The `&t=308`
 
 **Goblin Recon is the brain. The editor is the hands.**
 
-Full process reference: `references/clip-mine-process.md`
+Full process reference: this section is the canonical Clip Mine process. Historical reference notes were folded into this skill so the repo has no required `references/` folder.
 
 ## Output Format
 
@@ -677,7 +677,7 @@ After every Social Pulse report, Fast Scan, Deep Social Scan, Signal Scan, Compe
 7. **Brand gate** — Check blacklist, nuance words, brand angle. Score ≥8/15.
 8. **Clip brief** — Follow template with platform variants, fill Engagement Analytics section
 
-First test run (June 6, 2026): 5 stories found, 43-second clip extracted, full pipeline ~7 min. See `references/pipeline-test-jun-06-2026.md`.
+First test run (June 6, 2026): 5 stories found, 43-second clip extracted, full pipeline ~7 min. Historical test notes were folded into this skill so deployment does not depend on a separate `references/` folder.
 
 ## Session Discipline
 
@@ -762,8 +762,8 @@ Array.from(document.querySelectorAll('main > div > a[href]'))
 ### MCPs Are Optional
 The entire pipeline runs on Hermes built-in tools (browser, web, terminal). The MCPs in `mcp.json` (memory, fetch, ghost-browser) are supplementary. The only one worth enabling early is `memory` for persisting brand-gate decisions. Ghost-browser is redundant with Hermes' built-in browser.
 
-### Competitor Config Is Empty
-`config/competitors.yaml` has zero entries. `run competitor scan` produces nothing until filled.
+### Competitor Config Must Stay Source-Typed
+`config/competitors.yaml` now ships with CrewAI and LangChain examples using source-typed entries. Keep new competitors in the same structure: `name`, `domain`, `website`, `pricing_page`, `category`, and `sources[]` with `url`, `kind`, and `label`.
 
 ### Some YouTube Channel IDs Incomplete
 Lex Fridman ID was truncated (fixed in Session 1). AI Exchange and AI Explained still have empty strings.
@@ -771,11 +771,13 @@ Lex Fridman ID was truncated (fixed in Session 1). AI Exchange and AI Explained 
 ### delegate_task Subagents Don't Share Context
 For news-site scanning, use direct browser/web extraction as the primary data collector. Reserve `delegate_task` for post-processing such as scoring, cross-referencing, and brand gate checks. If you do delegate, pass all necessary context explicitly: source URLs, search queries, story topics, IG creator handles, retry limits, and blocked-source rules.
 
-### Tests Require PYTHONPATH
+### Tests and Pre-Flight Checks
 ```bash
 cd goblin-recon  # or wherever you cloned the project
-PYTHONPATH=. .venv/bin/python -m unittest tests.test_scripts -v
+bash scripts/dev_check.sh
 ```
+
+The check runs pytest, secret scanning, and required-file validation.
 
 ### setup.sh Handles Full Setup
 The `scripts/setup.sh` handles the complete setup: profile creation, SOUL.md installation, skill installation, auto-load configuration, Python venv, and verification. One command, done.
@@ -814,9 +816,12 @@ Load before producing output:
 - `content-strategy` — Cherry-picked for weekly content planning
 - `marketing-psychology` — Cherry-picked for engagement mechanics
 
-## Reference Files
+## Reference Notes
 
-- `references/soul-md-example.md` — Canonical SOUL.md for goblin-recon profile
-- `references/pipeline-test-jun-06-2026.md` — First end-to-end test results
-- `references/session-2-bifurcation.md` — Session 2 bifurcation details
-- `references/clip-mine-process.md` — Full Clip Mine workflow: AI discovery → scoring → editor production
+The previous `references/` folder is not required for deployment. Its important operating guidance has been folded into:
+
+- `SOUL.md` — Canonical profile identity and operating memory.
+- `ARCHITECTURE.md` — Current router, workflows, gates, and failure behavior.
+- `skills/goblin-recon/SKILL.md` — Canonical operational workflow and release pitfalls.
+- `docs/plans/2026-06-15-security-rail-design.md` — Local/internal Security Rail design notes when available.
+- `updates/hermes/` — Tracked Hermes upgrade/reference notes kept outside the Python package.

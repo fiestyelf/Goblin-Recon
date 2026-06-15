@@ -16,6 +16,14 @@ hermes -p goblin-recon
 
 The setup script installs the Goblin Recon Hermes profile, SOUL.md, bundled skills, profile defaults, Python virtual environment, and dependencies. If no model provider is configured yet, setup will warn and continue so you can configure one later.
 
+Before sharing, deploying, or scheduling automation, run:
+
+```bash
+bash scripts/dev_check.sh
+```
+
+This runs tests, the secret scanner, and structure checks.
+
 Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
 
 ## Commands
@@ -36,7 +44,7 @@ Full command guide with plain-language descriptions → [`COMMANDS.md`](COMMANDS
 | `find the moment in [URL]` | Extract best clip from a video |
 | `run full scan` | Social Pulse + Clip Mine in sequence |
 | `what clips are ready` | Approved clips awaiting editor handoff |
-| `run competitor scan` | Competitor Scout |
+| `run competitor scan` | Competitor Scout with Security Rail and cell-ready moves |
 | `write email hooks for [offer/audience]` | Email Hook variants with quality-gate scores |
 
 ## Architecture

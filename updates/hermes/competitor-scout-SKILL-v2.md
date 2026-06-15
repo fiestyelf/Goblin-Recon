@@ -445,5 +445,6 @@ When the Python CLI is unreachable (Hermes backend errors, sandbox restrictions)
 
 ## Reference Files
 
-- `references/competitor-scan-workflow.md` — Full end-to-end workflow: setup, extraction, diffing, gap analysis, schema reference, storage
-- `references/landscape-research-jun-2026.md` — Open-source competitive intelligence landscape: 7 repos analyzed, techniques compared, adaptation plan
+- `updates/hermes/competitor-report-template-v2.md` — Full report structure and section guidance.
+- `updates/hermes/competitor-landscape-research-jun-2026.md` — Open-source competitive intelligence landscape: repos analyzed, techniques compared, adaptation plan.
+- `updates/hermes/competitors-v2.yaml` — Source-typed competitor config reference.

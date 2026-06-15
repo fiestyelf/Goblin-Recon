@@ -61,7 +61,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `config/email-campaigns.yaml` | Email campaign types mapped to triggers, tones, CTAs, and subject formulas. |
 | `config/email-guardrails.yaml` | Email quality guardrails for spam triggers, filler openers, CTAs, and GenX subject rules. |
 | `config/content-sources.yaml` | YouTube channels, Instagram accounts, hashtags, and topic patterns for Source Hunter. |
-| `config/competitors.yaml` | Empty template for competitor tracking. |
+| `config/competitors.yaml` | Source-typed competitor tracking config with homepage, pricing, blog, docs, jobs, and other monitored pages. |
 | `config/security.yaml` | Machine-readable security defaults — public-only sources, rate limits, human review. |
 | `config/integrations.yaml` | Registry of optional integrations (all disabled by default). |
 | `config/social-extraction.yaml` | Platform-by-platform social extraction playbook for approved APIs, public access, and manual assisted intake. |
@@ -71,7 +71,7 @@ One-line purpose for every tracked file and folder in this repo.
 
 | File | Job |
 |---|---|
-| `skills/orchestrator/SKILL.md` | Pipeline driver — runs Trend Radar → Source Hunter → Moment Finder → Human Gate. |
+| `skills/orchestrator/SKILL.md` | Pipeline driver — runs Trend Radar → Source Hunter → Moment Finder → Security Rail → Human Gate. |
 | `skills/trend-radar/SKILL.md` | Layer 1 — finds and scores trending AI stories. |
 | `skills/source-hunter/SKILL.md` | Layer 2 — finds YouTube/Instagram sources for a trend or topic. |
 | `skills/moment-finder/SKILL.md` | Layer 3 — extracts 15-60s clip moments from transcripts. |
@@ -79,6 +79,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `skills/caption-tone/SKILL.md` | Reusable caption/description skill with platform formats and tone variants. |
 | `skills/email-hook/SKILL.md` | Reusable outbound email subject/opening generator with automated quality-gate scoring. |
 | `skills/goblin-recon/SKILL.md` | Operational skill — setup, commands, pipeline workflow, scoring, and release pitfalls. |
+| `skills/security-rail/SKILL.md` | Mandatory final source/safety/usefulness review before user-facing output or operational cells. |
 | `config/hermes-mcp.yaml` | Portable MCP server config — appended to goblin-recon profile by `scripts/setup-mcp.sh`. No hardcoded paths. |
 | `scripts/setup-mcp.sh` | One-command MCP setup for cloned repos — creates profile, appends MCP config, enables tools, verifies .env keys. |
 
@@ -102,6 +103,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `goblin_recon.tools.email_gate` | Scores outbound email drafts across attention, psychological fit, brand voice, guardrails, and campaign alignment. |
 | `goblin_recon.tools.web_scraper` | Lightweight public web page fetch helper used for allowed public-source extraction. |
 | `scripts/query_clips.py` | CLI for searching stored clips, updating statuses, and exporting clip briefs. |
+| `updates/hermes/` | Tracked Hermes-provided upgrade/reference docs kept outside the Python package. |
 
 ## Templates
 
@@ -133,6 +135,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `vault/intake/.gitkeep` | Keeps the intake folder in Git. Actual raw intake files are local-only and ignored. |
 | `vault/briefs/.gitkeep` | Keeps the briefs folder in Git. Actual briefs are local outputs and ignored. |
 | `vault/reports/.gitkeep` | Keeps the reports folder in Git. Actual reports are local outputs and ignored. |
+| `vault/competitor-data/.gitkeep` | Keeps the competitor extraction folder in Git. Actual scraped JSON snapshots are local-only and ignored. |
 
 ## Tests
 
@@ -146,6 +149,8 @@ One-line purpose for every tracked file and folder in this repo.
 | `tests/test_check_secrets.py` | Unit tests for secret-pattern detection and safe placeholders. |
 | `tests/test_email_gate.py` | Unit tests for email-gate pass/reject scoring and emoji-free feedback. |
 | `tests/test_pipeline_integration.py` | Contract tests for clip extraction, scoring, and brand-gate handoff behavior. |
+| `tests/test_scoring_lifecycle.py` | Tests lifecycle scoring, acceleration, diversity reranking, and trend scoring behavior. |
+| `tests/test_competitor_config.py` | Tests Competitor Scout v2 config, report template, Security Rail, and cell-ready sections. |
 
 ---
 
@@ -167,5 +172,6 @@ These exist locally but are ignored by `.gitignore`:
 | `vault/intake/*` | May contain sensitive research notes. |
 | `vault/briefs/*` | May contain unpublished content. |
 | `vault/reports/*` | May contain internal competitor intel. |
+| `vault/competitor-data/*` | May contain scraped competitor snapshots and internal launch-positioning analysis. |
 | `vault/*.jsonl` | Local social signal intake records, potentially unpublished social notes. |
 | `*.log` | May contain runtime details. |

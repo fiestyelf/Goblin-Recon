@@ -52,10 +52,13 @@ sep
 MISSING=0
 for f in \
     "AGENTS.md" "SOUL.md" "INSTRUCTIONS.md" "README.md" \
-    "scripts/extract_clip.py" "scripts/score_engagement.py" \
-    "scripts/get_youtube_transcript.py" "scripts/check_secrets.py" \
-    "templates/social-pulse-report.md" "templates/clip-mine-brief.md" \
-    "config/sources.yaml" "config/content-sources.yaml" "config/scoring.yaml"
+    "scripts/check_secrets.py" "scripts/query_clips.py" \
+    "goblin_recon/tools/extract_clip.py" "goblin_recon/tools/score_engagement.py" \
+    "goblin_recon/tools/youtube_tool.py" "goblin_recon/tools/social_intake.py" \
+    "goblin_recon/tools/scoring.py" "goblin_recon/tools/clip_store.py" \
+    "templates/social-pulse-report.md" "templates/clip-mine-brief.md" "templates/competitor-report.md" \
+    "skills/security-rail/SKILL.md" "skills/competitor-scout/SKILL.md" \
+    "config/sources.yaml" "config/content-sources.yaml" "config/scoring.yaml" "config/competitors.yaml" "config/security.yaml"
 do
     if [ -f "$ROOT/$f" ]; then
         echo "  ✓ $f"
