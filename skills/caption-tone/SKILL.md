@@ -6,6 +6,7 @@ description: |
   Supports Instagram (Reels, Feed, Carousel), TikTok, Threads, Facebook, and YouTube Shorts.
   The user sends material (text, image, script, competitor post, screenshot) and
   gets ready-to-use captions for requested platforms, or all platforms when unspecified, in English.
+  Uses templates/caption-pack.md for structured handoff and Security Rail-ready review status.
   Integrates with config/brand-voice.yaml for tone selection, category→tone mapping,
   platform→tone defaults, and blacklist enforcement.
   Use when asked to "write a caption", "write a description", "caption for instagram",
@@ -83,7 +84,9 @@ Apply the selected tone's voice description and guardrails from brand-voice.yaml
 If the user requests a specific platform, generate only that platform. If no platform is specified, generate captions for all 7 formats below. Each caption must use a DIFFERENT formula when multiple platforms are generated.
 All captions in **English only**.
 
-Output in this exact format:
+Use `templates/caption-pack.md` as the output structure. At minimum, include: Metadata, Decision, Source Context, Caption Variants, Platform Packaging, Brand Gate, Security Rail Result, and Publishing Notes.
+
+For the platform-packaging section, use this exact platform order:
 
 ---
 
@@ -166,7 +169,11 @@ Output in this exact format:
 
 ---
 
-### STEP 3: End with
+### STEP 3: Security Rail + End
+
+Run `skills/security-rail/SKILL.md` before final delivery. If the caption makes a factual, competitor, performance, or serious claim without proof, mark it `NEEDS HUMAN REVIEW` or `REVISE`.
+
+End with:
 
 "Would you like a different version: casual, edgy, warm, wry, curious, reflective, analytical/data-driven, bold, or more platform-native?"
 

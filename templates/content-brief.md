@@ -3,11 +3,16 @@
 > Deprecated: prefer `templates/social-pulse-report.md` for Social Pulse content opportunities.
 > Use this file only when the user explicitly asks for a standalone planning brief.
 
-**Generated:** [timestamp]
-**Trend Score:** [X]/100
-**Brand Angle:** [B2C / B2B / Both]
-**Brand Alignment:** [X]/15
-**Status:** [Approved / Pending / Shelved]
+| Field | Value |
+|---|---|
+| Generated | [timestamp] |
+| Workflow | Content Brief / Social Pulse |
+| Audience | B2C / B2B / Both |
+| Output use | Planning / production / publish-ready after review |
+| Trend score | [X]/100 |
+| Brand alignment | [X]/15 |
+| Confidence | High / Medium / Low |
+| Review status | APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW |
 
 ---
 
@@ -19,6 +24,16 @@
 **Vault check:** [no overlap / similar piece exists: link or filename / needs differentiation].
 **Fallback:** If rejected, use [alternative hook, format, or trend angle].
 **AI search potential:** [Strong / Medium / Weak] — [one-line reason].
+
+---
+
+## Evidence Ledger
+
+| Claim / Signal | Source | Date | What It Proves | Confidence |
+|---|---|---|---|---|
+| [claim] | [URL] | [date] | [specific proof] | High / Medium / Low |
+
+**Unverified items:** [none / list]
 
 ---
 
@@ -127,6 +142,14 @@
 **Distribution risk:** [low / medium / high] — [reason]
 **Best posting time:** [specific window / unknown because no historical data]
 **Target reach:** [followers / non-followers / both]
+
+---
+
+## Security Rail Result
+
+**Decision:** [APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW]
+**Reason:** [source quality, claims, safety, usefulness]
+**Required revision:** [only if REVISE]
 
 ---
 

@@ -10,6 +10,7 @@ Use these phrases inside the Goblin Recon Hermes profile. Keep prompts simple an
 | `run deep social scan` | You want a deeper weekly social scan. | Instagram/TikTok-first trend read with fallback to X, Reddit, and tech news if blocked. |
 | `run signal scan` | You want first-mover discovery before mainstream coverage. | Early signals from public X when available, Hacker News, GitHub Trending, ArXiv, and public Reddit fallback. |
 | `run full scan` | You want ideas and clips in one pass. | Social Pulse first, then Clip Mine for the strongest candidates only. |
+| `run full autonomous scan` | You want Goblin Recon to use all approved local/public tools without asking repeated confirmations. | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail, using only approved public/local sources. |
 
 ## Social Pulse
 
@@ -105,6 +106,42 @@ Before generating, the agent should ask who it is for, where it goes, and what t
 | Say this | Use it when | What you get |
 |---|---|---|
 | `run competitor scan` | You want competitor intelligence. | Competitor report with claims, source URLs, risks, and brand gap analysis. |
+
+## Full Autonomous Mode
+
+Say this when you want to give Goblin Recon full working permission for one scan without repeated yes/no prompts:
+
+```text
+run full autonomous scan
+```
+
+This grants permission to:
+
+- read project files and memory needed for the scan
+- use approved public web/search/browser extraction
+- run local Python tools and tests
+- create reports/briefs/caption packs in `vault/`
+- update local memory files when the workflow requires it
+- apply templates and Security Rail automatically
+
+It does **not** grant permission to:
+
+- reveal, print, or use secrets without explicit approval
+- create external accounts or configure paid services
+- bypass paywalls, captchas, login walls, robots.txt, or rate limits
+- publish, post, email, DM, or contact anyone externally
+- delete important source files or perform irreversible deployment actions
+
+Required output at the end:
+
+```text
+What I scanned
+What I created
+What passed Security Rail
+What needs human review
+Where files were saved
+Next recommended action
+```
 
 ## Special Prompt Rules
 

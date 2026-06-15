@@ -109,11 +109,14 @@ One-line purpose for every tracked file and folder in this repo.
 
 | File | Job |
 |---|---|
+| `templates/README.md` | Explains the shared Goblin Recon information-structure system and status labels. |
 | `templates/trend-report.md` | Deprecated reference. Use `templates/social-pulse-report.md` for trend reports. |
-| `templates/social-pulse-report.md` | Current Social Pulse and trend-report template. |
-| `templates/clip-mine-brief.md` | Primary output format for Clip Mine editor-ready briefs. |
-| `templates/content-brief.md` | Deprecated reference for standalone planning briefs. Prefer `templates/social-pulse-report.md`. |
-| `templates/competitor-report.md` | Output format for competitor intelligence reports. |
+| `templates/social-pulse-report.md` | Current Social Pulse and trend-report template with metadata, evidence ledger, action cells, and Security Rail. |
+| `templates/news-brief.md` | Single-story or multi-story news digest template for source-backed story analysis. |
+| `templates/clip-mine-brief.md` | Primary output format for Clip Mine editor-ready briefs and production handoff. |
+| `templates/caption-pack.md` | Structured platform-caption handoff with variants, brand gate, and Security Rail status. |
+| `templates/content-brief.md` | Fallback standalone planning brief. Prefer `templates/social-pulse-report.md` unless explicitly requested. |
+| `templates/competitor-report.md` | Output format for competitor intelligence reports, battlecards, and cell-ready moves. |
 
 ## Memory Files
 

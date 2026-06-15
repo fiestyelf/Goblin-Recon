@@ -1,160 +1,194 @@
-# Clip Mine Brief Template
+# Clip Mine Brief — [CLIP TITLE]
 
-> Use this template for all Clip Mine outputs.
-> Pipeline: Podcast/YouTube clips for faceless Instagram page.
-> Output goes straight to editors. They download the clip and produce the reel.
+> Editor-ready handoff for podcast/YouTube clips. The editor should know exactly what to cut, what to show, what to caption, and what needs review.
+
+| Field | Value |
+|---|---|
+| Generated | [timestamp] |
+| Workflow | Clip Mine |
+| Clip ID | [CLIP-YYYYMMDD-### / pending] |
+| Audience | B2C / B2B / Both |
+| Output use | Editor handoff / review / shelve |
+| Category | Latest AI News / Controversial / Upgrade / Analytical |
+| Confidence | High / Medium / Low |
+| Review status | APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW |
 
 ---
 
 ## Decision
 
-**Recommended action:** [approve / modify / shelve] [one-line reason].
-**Category:** [Latest AI News | Controversial/Polarizing | Upgrade/Democratization | Analytical/Deep-dive]
+**Recommended action:** [approve / modify / shelve] — [one-line reason].
+**Best use:** [Instagram Reel / YouTube Shorts / LinkedIn clip / do not use].
 **Effort:** [X] minutes from source review to finished edit.
-**Confidence:** [High / Medium / Low] — [one-line reason based on source quality, clip strength, and brand fit].
+**Confidence:** [High / Medium / Low] — [source quality + clip strength + brand fit].
 **Vault check:** [no overlap / similar clip exists / needs differentiation / not checked].
-**Fallback angle:** If rejected, use [alternative timestamp, hook, or source].
-**AI search potential:** [Strong / Medium / Weak] — [one-line reason].
+**Fallback angle:** [alternative timestamp, hook, or source].
+**AI search potential:** [Strong / Medium / Weak] — [reason].
+
+---
+
+## Evidence Ledger
+
+| Claim / Fact | Source | Timestamp / Date | What It Proves | Confidence |
+|---|---|---|---|---|
+| [claim] | [URL] | [MM:SS / date] | [specific proof] | High / Medium / Low |
+
+**Unverified items:** [none / list]
 
 ---
 
 ## Video Metadata
 
 | Field | Value |
-|-------|-------|
-| **Video** | [Title] — [Channel] |
-| **Channel** | [Channel name] |
-| **Published** | [Date] |
-| **Duration** | [Total video length] |
-| **Views** | [N] |
-| **Likes** | [N] |
-| **View velocity** | [Views/hr since publish] |
-| **Comments** | [N] |
-| **Like ratio** | [Likes/views %] |
-| **Source URL** | [Full YouTube URL] |
+|---|---|
+| Video | [Title] |
+| Channel / Creator | [Channel name] |
+| Published | [Date] |
+| Duration | [Total video length] |
+| Views | [N] |
+| Likes | [N] |
+| Comments | [N] |
+| View velocity | [Views/hr since publish] |
+| Like ratio | [Likes/views %] |
+| Source URL | [Full URL] |
 
-## Background
+---
+
+## Source Context
 
 [2-3 sentences. Explain what the source is, who is speaking, and why this moment matters now. The reviewer should understand what they are checking before seeing the quote.]
 
-## The Clip
+---
+
+## Clip Identity
 
 | Field | Value |
-|-------|-------|
-| **Start time** | [MM:SS] ([N] seconds) |
-| **End time** | [MM:SS] |
-| **Duration** | [N] seconds |
-| **Direct link** | [URL with &t=XXX] |
-| **Embed preview** | [YouTube embed URL with start/end] |
+|---|---|
+| Start time | [MM:SS] ([N] seconds) |
+| End time | [MM:SS] ([N] seconds) |
+| Duration | [N] seconds |
+| Direct link | [URL with timestamp] |
+| Embed preview | [embed URL with start/end if available] |
+| Clip type | Quote / argument / demonstration / prediction / controversy |
+| Emotional driver | fear / awe / relief / challenge / curiosity / urgency |
 
-## Source Access
+### Transcript Window
 
-| Field | Value |
-|-------|-------|
-| **Original source** | [Full YouTube URL] |
-| **Open at clip start** | [Clickable YouTube timestamp URL] |
-| **Preview window** | [Embed URL with start/end parameters] |
-| **Clip window** | [Start seconds] → [End seconds] |
-| **Rights note** | Use the link to inspect and cut the moment. Do not download or repost copyrighted source footage without human rights review. |
+> "[Exact transcript quote. Word for word. Do not paraphrase.]"
 
-### THE MOMENT
-> "[Exact transcript quote. Word for word.]"
+**Context before:** [one sentence]
+**Context after:** [one sentence]
+**Why this moment:** [why this specific 15-60 seconds is the best segment]
 
-### Why This Moment
-[One sentence: why this specific 30-60 seconds is the best clip in the entire video]
+---
+
+## Editor Cut Sheet
+
+| Item | Instruction |
+|---|---|
+| Start | [exact timestamp + first words] |
+| End | [exact timestamp + last words] |
+| Keep | [must-keep phrase or beat] |
+| Cut | [filler/context to remove] |
+| Primary overlay | [key phrase on screen] |
+| Secondary overlay | [supporting context] |
+| CTA overlay | [comment/save/share prompt] |
+| Visual style | Faceless reel / talking head / b-roll mix |
+| Background | Dark / light / footage / graphic |
+| Audio | original / voiceover / music bed |
+| Subtitles | required / optional |
+| Rights review | required / not required / unknown |
 
 ---
 
 ## Engagement Analytics
 
 | Metric | Value | Assessment |
-|--------|-------|------------|
-| Total views | [N] | Above/below channel average |
-| Likes | [N] | Like depth |
-| Comments | [N] | Engagement level |
-| View velocity | [N]/hr | Early signal strength |
-| Like ratio | [N]% | Source resonance |
-| Comment sentiment | [Positive/Mixed/Negative] | Audience reaction |
-| Peak watch time | [If available from analytics] | Retention indicator |
+|---|---:|---|
+| Total views | [N] | above/below channel average |
+| Likes | [N] | [assessment] |
+| Comments | [N] | [assessment] |
+| View velocity | [N]/hr | [assessment] |
+| Like ratio | [N]% | [assessment] |
+| Comment sentiment | Positive / Mixed / Negative / Unknown | [notes] |
 
 ---
 
-## Scoring
+## Scorecard
 
 | Dimension | Score | Notes |
-|-----------|-------|-------|
-| Scroll-stop | [N]/15 | Would someone stop scrolling? |
-| Quotability | [N]/20 | Would someone quote this? |
-| Emotion | [N]/15 | Fear, awe, anger, excitement |
-| Clarity | [N]/15 | Clear without context? |
-| Controversy | [N]/10 | Challenges conventional thinking? |
-| Visual potential | [N]/10 | Works with text overlay? |
-| Brand alignment | [N]/15 | B2C or B2B angle? |
-| **Total** | **[N]/100** | |
+|---|---:|---|
+| Scroll-stop | [N]/15 | [notes] |
+| Quotability | [N]/20 | [notes] |
+| Emotion | [N]/15 | [notes] |
+| Clarity | [N]/15 | [notes] |
+| Controversy | [N]/10 | [notes] |
+| Visual potential | [N]/10 | [notes] |
+| Brand alignment | [N]/15 | [notes] |
+| **Total** | **[N]/100** | PASS / MODIFY / SHELVE |
+
+---
+
+## Platform Packaging
+
+### Instagram Reel
+- **Format:** [format type]
+- **Caption:** [full caption or link to caption-pack]
+- **Hashtags:** [tags]
+- **Pinned comment:** [optional]
+
+### YouTube Shorts
+- **Title:** [short, searchable title]
+- **Description:** [brief description + source credit]
+- **Keywords:** [tags]
+
+### LinkedIn
+- **Format:** [clip / text post / document]
+- **Copy angle:** [professional angle]
+- **CTA:** [comment / DM / read more]
 
 ---
 
 ## Brand Gate
 
 | Check | Result |
-|-------|--------|
+|---|---|
 | Brand angle | B2C / B2B / Both |
 | Brand alignment score | [N]/15 |
-| Blacklist violations | 0 / [N flagged] |
-| Nuance words | [List if any, with justification] |
-| **Verdict** | PASS / SHELVE |
+| Blacklist violations | none / [list] |
+| Nuance words | none / [list with proof] |
+| Verdict | PASS / REVISE / SHELVE |
 
 ---
 
-## Editor Instructions
+## Security Rail Result
 
-### What to Cut
-- **Start at:** [Exact timestamp with context]
-- **End at:** [Exact timestamp]
-- **Do NOT include:** [Parts to cut out]
-
-### Text Overlay Suggestions
-- **Primary text:** [The key phrase to put on screen]
-- **Secondary text:** [Supporting context]
-- **CTA text:** [Hook for comments/shares]
-
-### Visual Style
-- **Format:** Faceless reel / Talking head / B-roll mix
-- **Text animation:** Typewriter / Fade in / Slide in
-- **Background:** Dark theme / Light theme / Footage
-
-### Sound
-- **Keep original audio?** Yes / No, use voiceover
-- **Subtitles:** Required / Optional
-- **Music:** None / Ambient / Trending sound
+**Decision:** [APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW]
+**Reason:** [source quality, access safety, copyright/rights, claims, usefulness]
+**Required revision:** [only if REVISE]
+**Human review needed for:** [rights / competitor claim / serious claim / publishing]
 
 ---
 
-## Platform Variants
+## Production Checklist
 
-### Instagram Reel (Primary)
-- **Format:** [Format type]
-- **Caption:** [Full caption with hashtags]
-- **Hashtags:** #ainews #artificialintelligence #[topic]
-
-### YouTube Shorts
-- **Title:** [Short, punchy title]
-- **Description:** [Brief description + link to full episode]
-
-### LinkedIn
-- **Format:** [Text post / Video]
-- **Copy:** [Professional angle]
+- [ ] Source URL opens.
+- [ ] Timestamp starts and ends cleanly.
+- [ ] Transcript quote matches the source.
+- [ ] Vault duplicate check completed.
+- [ ] Caption created or linked.
+- [ ] Brand Gate passed.
+- [ ] Security Rail passed or human review requested.
+- [ ] Editor has all cut instructions.
 
 ---
 
 ## Fallback Angles
 
-If this clip is rejected, here are alternatives from the same video:
-
 | Timestamp | Duration | Quote | Why It Works |
-|-----------|----------|-------|--------------|
-| [MM:SS] | [N]s | "[Quote]" | [Reasoning] |
+|---|---:|---|---|
+| [MM:SS] | [N]s | "[quote]" | [reason] |
 
 ---
 
-*Scored: [N]/100 | Category: [category] | Verdict: PASS/SHELVE*
+*Scored: [N]/100 | Category: [category] | Verdict: PASS / MODIFY / SHELVE*

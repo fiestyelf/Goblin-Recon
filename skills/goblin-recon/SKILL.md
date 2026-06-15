@@ -101,6 +101,7 @@ Every item — Social Pulse idea or Clip Mine clip — is tagged by type:
 | Command | What It Does |
 |---------|--------------|
 | `run full scan` | Social Pulse + Clip Mine in sequence |
+| `run full autonomous scan` | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail using approved public/local sources, without repeated confirmations |
 | `what formats are working?` | Current winning reel formats from IG/TikTok |
 | `run competitor scan` | Competitor Scout |
 
@@ -123,6 +124,8 @@ Before using tools, classify the user's request:
 | Generate or validate outbound email hooks | Email Hook | Ask direction first, then run email gate. |
 
 If a request mixes workflows, use the smallest useful sequence. Example: `run full scan` means Social Pulse first, then Clip Mine only for the 2-3 strongest candidates.
+
+`run full autonomous scan` is the one-command permission phrase for a complete approved-source run. It allows local file reads, approved public web/search/browser extraction, local Python tools/tests, vault report creation, memory updates, template application, and Security Rail without repeated confirmations. It does not allow secret disclosure/use, external account setup, paid-service setup, access-control bypass, publishing/sending messages, destructive deletes, or irreversible deployment actions.
 
 ### Output Direction Pre-Check
 
@@ -245,7 +248,7 @@ Key files:
 - `goblin_recon/tools/` — importable tool modules (transcripts, clips, scoring, brand gate, social intake)
 - `scripts/` — standalone setup, secret scan, and query helpers
 - `goblin_recon.tools.brand_gate` — pre-flight blacklist and nuance-word check for GenX-written copy
-- `templates/` — output templates (social-pulse-report, clip-mine-brief, competitor-report; trend-report/content-brief are deprecated references)
+- `templates/` — output templates and handoff structures (`social-pulse-report`, `news-brief`, `clip-mine-brief`, `caption-pack`, `competitor-report`; `trend-report`/`content-brief` are deprecated or fallback references)
 - `mcp.json` — MCP server configuration (all optional, see pitfalls)
 
 ## Profile Setup (Hermes Desktop)
@@ -626,7 +629,9 @@ Full process reference: this section is the canonical Clip Mine process. Histori
 
 Every report MUST lead with `## Decision` — recommended action in the first 3 seconds. Follow templates:
 - Social Pulse and trend reports → `templates/social-pulse-report.md`
+- News briefs or single-story digests → `templates/news-brief.md`
 - Clip briefs → `templates/clip-mine-brief.md`
+- Caption packs → `templates/caption-pack.md`
 - Competitor reports → `templates/competitor-report.md`
 - Content briefs → use `templates/social-pulse-report.md` unless the user asks for a standalone planning brief
 

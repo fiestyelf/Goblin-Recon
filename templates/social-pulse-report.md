@@ -1,61 +1,63 @@
-# Social Pulse Report Template
+# Social Pulse Report — [DATE / SCAN NAME]
 
-> Use this template for all Social Pulse outputs.
-> Pipeline: Social-first intelligence for ideas, blogs, carousels, content strategy.
-> NOT for direct video clips.
+> Use for news, social signals, content opportunities, blog angles, carousels, and weekly strategy. Do not use for editor-ready clips; use `clip-mine-brief.md`.
+
+| Field | Value |
+|---|---|
+| Generated | [timestamp] |
+| Workflow | Social Pulse / Fast Scan / Deep Social Scan / Signal Scan |
+| Audience | B2C / B2B / Both / Internal |
+| Output use | Ideas / planning / monitor / content production |
+| Scan health | [N]/[N] source tiers returned usable data |
+| Confidence | High / Medium / Low |
+| Review status | APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW |
 
 ---
 
 ## Decision
 
-**Recommended action:** [advance / monitor / shelve] [top recommendation in one line].
+**Recommended action:** [advance / monitor / shelve] — [top recommendation in one line].
+**Best opportunity:** [story / format / angle].
 **Effort:** [X] minutes or hours.
-**Confidence:** [High / Medium / Low] — [one-line reason based on recency, velocity, source quality, and brand fit].
+**Confidence:** [High / Medium / Low] — [reason based on recency, velocity, source quality, and brand fit].
 **Vault check:** [no overlap / similar angle exists / needs differentiation / not checked].
-**Fallback angle:** If rejected, pursue [alternative story, hook, or format].
-**AI search potential:** [Strong / Medium / Weak] — [one-line reason].
-**Scan health:** [N]/[N] source tiers returned usable data. [News-tier-only / social-confirmed / manual-assisted].
+**Fallback angle:** [alternative story, hook, or format].
+**AI search potential:** [Strong / Medium / Weak] — [reason].
 
 ---
 
-## What's Popping on Instagram
+## Evidence Ledger
 
-Include this section only when Instagram returns usable public/API/manual data. If unavailable, write one line: `Instagram unavailable: [blocked / no public signal / not requested].`
+| Story / Signal | Source | Date | What It Proves | Confidence |
+|---|---|---|---|---|
+| [story] | [URL] | [date] | [specific proof] | High / Medium / Low |
+| [story] | [URL] | [date] | [specific proof] | High / Medium / Low |
 
-| Creator | Followers | Trending Post | Views | Format | Hook Style | Category |
-|---------|-----------|--------------|-------|--------|------------|----------|
-| @handle | 491K | [Brief description] | 1.2M | Text-overlay quote | "[Authority] just [did X]" | Latest AI News |
-
-### Format Analysis
-- **Hook:** What stops the scroll?
-- **Structure:** How is the content built?
-- **CTA:** What drives engagement?
-- **Stealability:** Can we adapt this for GenX? How?
+**Unverified items:** [none / list claims that need confirmation]
+**Blocked sources:** [none / platform + reason]
 
 ---
 
-## What's Accelerating on TikTok
+## Source Health
 
-Include this section only when TikTok returns usable public/API/manual data. If unavailable, write one line: `TikTok unavailable: [blocked / no public signal / not requested].`
-
-| Hashtag | Trending Sound | Topic | Views | Format | Category |
-|---------|---------------|-------|-------|--------|----------|
-| #ainews | [Sound name] | [Topic] | 2.4M | Shocking stat reveal | Controversial |
-
-### Sound/Format Trends
-- New sounds being used
-- Transition styles
-- Text overlay animations
+| Source Tier | Status | Notes |
+|---|---|---|
+| Instagram | usable / blocked / not requested | [notes] |
+| TikTok | usable / blocked / not requested | [notes] |
+| X / Twitter | usable / blocked / not requested | [notes] |
+| Reddit | usable / blocked / not requested | [notes] |
+| Tech news | usable / blocked / not requested | [notes] |
+| YouTube | usable / blocked / not requested | [notes] |
 
 ---
 
 ## Cross-Platform Validation
 
-Only mark `Confirmed` when 2+ independent sources support the same story. If social platforms are unavailable, state that validation is news-only or manual-assisted.
+Only mark `Confirmed` when 2+ independent sources support the same story.
 
 | Story | IG Signal | TikTok Signal | X Signal | News Confirm | Status |
-|-------|-----------|---------------|----------|--------------|--------|
-| [Story] | 1.2M views | 2.4M views | Trending | TechCrunch URL | Confirmed |
+|---|---|---|---|---|---|
+| [story] | [metric/link] | [metric/link] | [metric/link] | [URL] | Confirmed / partial / unverified |
 
 ---
 
@@ -63,30 +65,36 @@ Only mark `Confirmed` when 2+ independent sources support the same story. If soc
 
 ### 1. [Headline] — [score]/100
 
-**Category:** [Latest AI News | Controversial/Polarizing | Upgrade/Democratization | Analytical/Deep-dive]
-**Decision:** [advance / monitor / shelve]
-**Brand angle:** [B2C / B2B / Both]
-**Effort:** [X] minutes or hours
-**Confidence:** [High / Medium / Low] — [reason]
-**Vault check:** [result]
-**Fallback angle:** [specific alternative]
-**AI search potential:** [Strong / Medium / Weak] — [reason]
+| Field | Value |
+|---|---|
+| Category | Latest AI News / Controversial / Upgrade / Analytical |
+| Lifecycle | BASELINE / EMERGING / GROWING / PEAKING / DECLINING / VIRAL |
+| Decision | advance / monitor / shelve |
+| Brand angle | B2C / B2B / Both |
+| Effort | [X] minutes or hours |
+| Confidence | [High / Medium / Low] — [reason] |
+| Vault check | [result] |
+| Fallback | [specific alternative] |
+
+**Why now:** [1-2 sentences explaining what changed and why attention is rising.]
+
+**Hook / format:** [what hook is converting and what format to adapt.]
 
 **Sources:**
 - [Source]: [URL] (published: [date]) — [what it proves]
 
-**Why now:** [1-2 sentences explaining what changed and why attention is rising.]
-
-**Hook/format:** [what hook is converting and what format to adapt.]
-
 **Score breakdown:**
-- Social velocity: [X]/25
-- Recency: [X]/15
-- Cross-source: [X]/15
-- Controversy: [X]/10
-- Format stealability: [X]/10
-- GenX relevance: [X]/10
-- Brand alignment: [X]/15
+
+| Dimension | Score | Notes |
+|---|---:|---|
+| Social velocity | [X]/25 | [notes] |
+| Recency | [X]/15 | [notes] |
+| Cross-source validation | [X]/15 | [notes] |
+| Controversy | [X]/10 | [notes] |
+| Format stealability | [X]/10 | [notes] |
+| GenX relevance | [X]/10 | [notes] |
+| Brand alignment | [X]/15 | [notes] |
+| **Total** | **[X]/100** | [advance / monitor / shelve] |
 
 **Brand gate:**
 - Audience resonance: [specific B2C/B2B reason to care]
@@ -96,52 +104,60 @@ Only mark `Confirmed` when 2+ independent sources support the same story. If soc
 
 ---
 
+## Format Intelligence
+
+### Instagram
+`Instagram unavailable: [blocked / no public signal / not requested]` if not usable.
+
+| Creator | Followers | Trending Post | Views | Format | Hook Style | Category |
+|---|---:|---|---:|---|---|---|
+| @handle | [N] | [brief description] | [N] | [format] | [hook] | [category] |
+
+### TikTok
+`TikTok unavailable: [blocked / no public signal / not requested]` if not usable.
+
+| Hashtag / Creator | Sound | Topic | Views | Format | Category |
+|---|---|---|---:|---|---|
+| [tag] | [sound] | [topic] | [N] | [format] | [category] |
+
+---
+
 ## Content Ideas by Category
 
-### Latest AI News
-| Idea | Format | Platform | Why It Works |
-|------|--------|----------|--------------|
-| [Idea] | Carousel | IG | [Reasoning] |
-
-### Controversial/Polarizing
-| Idea | Format | Platform | Why It Works |
-|------|--------|----------|--------------|
-| [Idea] | Blog | Website | [Reasoning] |
-
-### Upgrade/Democratization
-| Idea | Format | Platform | Why It Works |
-|------|--------|----------|--------------|
-| [Idea] | Reel | IG | [Reasoning] |
-
-### Analytical/Deep-dive
-| Idea | Format | Platform | Why It Works |
-|------|--------|----------|--------------|
-| [Idea] | Carousel | IG | [Reasoning] |
+| Category | Idea | Format | Platform | Why It Works | Proof Needed |
+|---|---|---|---|---|---|
+| Latest AI News | [idea] | Reel / Carousel / Blog | [platform] | [reason] | [source/proof] |
+| Controversial | [idea] | [format] | [platform] | [reason] | [source/proof] |
+| Upgrade / Democratization | [idea] | [format] | [platform] | [reason] | [source/proof] |
+| Analytical / Deep-dive | [idea] | [format] | [platform] | [reason] | [source/proof] |
 
 ---
 
-## Blog Angles
+## Action Cells
 
-| Topic | Angle | Hook | Category |
-|-------|-------|------|----------|
-| [Topic] | [Specific angle] | [Opening line] | [Category] |
-
----
-
-## Carousel Angles
-
-| Topic | Slide Structure | Category |
-|-------|-----------------|----------|
-| [Topic] | 1. Hook → 2. Context → 3. Detail → 4. CTA | [Category] |
+| Cell | Move | Owner | Due | Review Status |
+|---|---|---|---|---|
+| Content Cell | [create/adapt/monitor] | [owner] | [date] | APPROVE / NEEDS HUMAN REVIEW |
+| Clip Cell | [move to Clip Mine / skip] | [owner] | [date] | APPROVE / NEEDS HUMAN REVIEW |
+| Research Cell | [verify/source/check] | [owner] | [date] | APPROVE / NEEDS HUMAN REVIEW |
 
 ---
 
-## Content Strategy Notes
+## Security Rail Result
 
-- **This week's theme:** [Emerging theme across platforms]
-- **Gap opportunity:** [What's NOT being covered that GenX could own]
-- **Format to test:** [New format showing early signals]
+**Decision:** [APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW]
+**Reason:** [source quality, access safety, claims, usefulness]
+**Required revision:** [only if REVISE]
+**Human review needed for:** [claims, publishing, legal/copyright, competitor mention]
 
 ---
 
-*Scored: [score]/100 | Category: [category] | Verdict: [advance / monitor / shelve]*
+## Next Step
+
+1. [specific action]
+2. [specific action]
+3. [specific action]
+
+---
+
+*Generated by Goblin Recon — "You trigger. It hunts."*

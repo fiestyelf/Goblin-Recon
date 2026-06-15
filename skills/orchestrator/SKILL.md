@@ -3,7 +3,7 @@ name: orchestrator
 description: >
   Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence.
   For Clip Mine, preserve the core chain: Trend Radar → Source Hunter → Moment Finder → Brand Gate → Security Rail → Human Gate.
-  Supports Fast Scan, Deep Social Scan, Manual Assisted Scan, and Signal Scan modes.
+  Supports Fast Scan, Deep Social Scan, Manual Assisted Scan, Signal Scan, and Full Autonomous Scan modes.
 category: genx-marketing
 version: 1.0.0
 ---
@@ -15,6 +15,7 @@ Route user intent into the right Goblin Recon workflow, then run the smallest us
 
 ## Triggers
 - "run full scan"
+- "run full autonomous scan"
 - "goblin recon go"
 - "find me content"
 - "run fast scan"
@@ -49,7 +50,8 @@ Route user intent into the right Goblin Recon workflow, then run the smallest us
    - Brand fit review -> Brand Gate
 2. If the request mixes workflows, use the smallest useful sequence.
 3. For "run full scan", run Social Pulse first, then Clip Mine only for the strongest candidates.
-4. State the selected workflow and scan mode before collecting data.
+4. For "run full autonomous scan", run Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail using approved public/local sources without repeated confirmations.
+5. State the selected workflow and scan mode before collecting data.
 ```
 
 **Output:** Selected workflow, scan mode, and stop condition
@@ -71,6 +73,12 @@ Manual Assisted Scan:
   - Use when the user provides URLs, screenshots, captions, creator handles, or notes
   - Normalize the human-provided signal and score it
   - Recommend Social Pulse, Clip Mine, or shelve
+
+Full Autonomous Scan:
+  - User permission phrase: "run full autonomous scan"
+  - Use approved public/local sources and local tools without repeated yes/no prompts
+  - Produce Social Pulse/news brief, Clip Mine candidates, Competitor Scout report, Caption Pack, and Security Rail summary
+  - Still stop for secrets, external service setup, paid-service setup, publishing/sending, access-control bypass, destructive deletes, or irreversible deployment actions
 ```
 
 **Output:** Source plan and extraction depth

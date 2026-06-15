@@ -1,8 +1,14 @@
 # Competitor Intelligence Report — [DATE]
 
-**Generated:** [timestamp]
-**Source:** Goblin Recon Competitor Scout v2.0
-**Scan type:** [Quick Pulse / Standard / Deep / Gap Analysis]
+| Field | Value |
+|---|---|
+| Generated | [timestamp] |
+| Workflow | Competitor Scout v2.0 |
+| Scan type | Quick Pulse / Standard / Deep / Gap Analysis |
+| Audience | B2B / Internal / Sales / Product / Content |
+| Output use | positioning / sales enablement / product gaps / content cells |
+| Confidence | High / Medium / Low |
+| Review status | APPROVE / REVISE / SHELVE / NEEDS HUMAN REVIEW |
 
 ---
 
@@ -35,6 +41,20 @@
 **Confidence:** [High / Medium / Low] — [one-line reason based on source quality, recency, and pattern strength].
 **Vault check:** [no overlap / similar response exists: link or filename / needs differentiation].
 **Fallback:** If rejected, monitor [specific signal] for [timeframe].
+
+---
+
+## Evidence Ledger
+
+Every material competitor claim must appear here or be labelled `unverified` in the report.
+
+| Claim / Signal | Competitor | Source | Date Accessed | What It Proves | Confidence |
+|---|---|---|---|---|---|
+| [claim] | [name] | [URL] | [date] | [specific proof] | High / Medium / Low |
+| [claim] | [name] | [URL] | [date] | [specific proof] | High / Medium / Low |
+
+**Unavailable data:** [pricing not public / page blocked / no recent posts / none]
+**Unverified claims:** [none / list]
 
 ---
 
@@ -159,6 +179,30 @@
 - 🔴 **Critical** — Revenue leak, broken UX, massive SEO gap. Fix within 2 weeks.
 - 🟡 **High-Value** — Credibility, engagement, list building. Fix within 30 days.
 - 🟢 **Nice-to-Have** — Polish, scale. Fix when capacity allows.
+
+---
+
+## Sales Battlecard
+
+One-page quick reference for sales/client-facing situations. Keep this honest, sourced, and short.
+
+| Situation | Talk Track | Proof | Risk / Caveat |
+|---|---|---|---|
+| Prospect mentions [competitor] | [specific response] | [source/client proof] | [what not to overclaim] |
+| Competitor wins on [strength] | [counter-positioning] | [proof] | [risk] |
+| Buyer asks about pricing/features | [answer or review-needed language] | [source] | [mark unknowns] |
+
+### Where GenX Wins
+- **[Advantage]:** [proof-backed reason]
+- **[Advantage]:** [proof-backed reason]
+
+### Where They Win
+- **[Competitor strength]:** [honest note + how GenX should respond]
+- **[Competitor strength]:** [honest note + how GenX should respond]
+
+### Discovery Questions
+- [Question that reveals GenX's advantage without making unsupported claims]
+- [Question that clarifies buyer need]
 
 ---
 
