@@ -325,26 +325,62 @@ ONLY use delegate_task after data is already collected, and only for post-proces
 
 ## How to Run Workflows
 
-### Option A: Manual Sequential (Default)
+### Deterministic/AI Split (CRITICAL)
 
-Route first, then run only the needed workflow with direct tool use. For full Clip Mine, collect Layer 1 and Layer 2 data yourself, then run Layer 3 sequentially:
+**Rule: Deterministic boundary work belongs to scripts, not the LLM.**
 
+The LLM handles JUDGMENT (what story matters, what angle to take, what moment is the best clip).
+Scripts handle BOUNDARY WORK (fetching, parsing, scoring, validating).
+
+| Layer | Deterministic (Script) | AI Judgment (LLM) |
+|-------|------------------------|-------------------|
+| L1 Trend Radar | Source fetching, velocity calculation, dedup | Story selection, angle assessment, brand fit |
+| L2 Source Hunter | YouTube search, metadata extraction, transcript check | Source quality judgment, clip potential |
+| L3 Moment Finder | Transcript pull (`youtube_tool`), timestamp validation (`extract_clip`), brand gate (`brand_gate`) | Moment selection, scoring, caption writing |
+| Brand Gate | Blacklist scan, nuance-word check | Brand angle assignment, tone assessment |
+
+**Why this matters:** LLMs add cost and variance to deterministic work.
+Source: mindaugasnakrosis/agentic-newsroom architecture principle.
+
+### Parallel Source Gathering (L1)
+
+**Do NOT scan sources one-at-a-time.** Batch all source queries in parallel:
+
+```text
+# ✅ CORRECT — parallel batch
+[Instagram query] [TikTok query] [X query] [Reddit query] [News query] [Exa search]
+                          ↓
+                   Aggregation + dedup
+                          ↓
+                   Scoring + ranking
+
+# ❌ WRONG — sequential
+IG → TikTok → X → Reddit → News  (wastes ~4 min per scan)
 ```
-# Layer 1 (Trend Radar): direct browser/web/API extraction
-# PRIORITY: Scan Instagram creator accounts FIRST (@therundownai, @rowancheung)
-# Then TikTok hashtags, then X/Twitter, then tech news
-# Return top 5-8 stories with: headline, IG views/engagement, format type, hook style
-# Include both trending STORIES and trending FORMATS
 
-# Layer 2 (Source Hunter): direct YouTube/social search
+Use MCP tools (Exa, Tavily, Firecrawl) in parallel where available.
+Fall back to Hermes `web_search` + `web_extract` batch.
+
+### Option A: Parallel (Default)
+
+Route first, then run only the needed workflow with parallel tool use. For full Clip Mine, collect Layer 1 in parallel, then Layer 2 in parallel:
+
+```text
+# Layer 1 (Trend Radar): PARALLEL source queries
+# Fire source queries by tier — Instagram, TikTok, X, Reddit, News, Exa
+# Aggregate results, deduplicate, score with lifecycle awareness
+# Return top 5-8 stories with: headline, lifecycle state, format type, hook style
+# Apply diversity enforcement: min 3 source domains in top 5
+
+# Layer 2 (Source Hunter): PARALLEL YouTube/social search
 # Search YouTube, Instagram, TikTok for videos about top stories
-# Return video title, channel, URL, publish date, duration, views, format, captions?
+# Return video title, channel, URL, publish date, duration, views, captions?
 
 # Layer 3 (Moment Finder): Run sequentially after picking best source
-# 1. Use get_youtube_transcript.py to pull transcript
-# 2. Check vault/clips.db for duplicate source/time windows
-# 3. Analyze transcript for best 15-60s moment (prioritize scroll_stop, quotability)
-# 4. Validate with extract_clip.py
+# 1. DETERMINISTIC: Use get_youtube_transcript.py to pull transcript
+# 2. DETERMINISTIC: Check vault/clips.db for duplicate source/time windows
+# 3. AI JUDGMENT: Analyze transcript for best 15-60s moment (prioritize scroll_stop, quotability)
+# 4. DETERMINISTIC: Validate with extract_clip.py
 ```
 
 ### Option B: Limited Delegation (Post-Processing Only)
@@ -372,10 +408,37 @@ Validates clip metadata. Output: JSON with `url_with_timestamp`, `embed_url`, `d
 - Automatically generates YouTube timestamp links
 
 ### score_engagement.py
-Calculates engagement velocity score (0–20). Output: JSON with `score`, `velocity_per_hour`, `hours_since_post`.
-- Usage: `.venv/bin/python -m goblin_recon.tools.score_engagement <platform> <post_url_or_id> <ISO_timestamp> <views>`
-- Platforms: twitter, reddit, youtube, instagram
-- Platform-specific benchmarks for viral thresholds
+Calculates engagement velocity score with lifecycle classification (0–20).
+
+**Standard velocity** (original API, backward-compatible):
+```bash
+.venv/bin/python -m goblin_recon.tools.score_engagement <platform> <post_url_or_id> <ISO_timestamp> <views>
+```
+Output: `score`, `velocity_per_hour`, `hours_since_post`.
+
+**Lifecycle-aware scoring** (NEW — catches EMERGING stories before they PEAK):
+```python
+from goblin_recon.tools.score_engagement import score_with_lifecycle
+result = score_with_lifecycle("youtube", video_url, "2026-06-15T10:00:00Z", 50000)
+# Returns: score, velocity, acceleration_score, lifecycle_state, recommendation
+```
+
+Lifecycle states: BASELINE → EMERGING → GROWING → PEAKING → DECLINING → VIRAL.
+**Always prefer EMERGING/GROWING stories.** PEAKING/DECLINING stories are past their clip window.
+
+Diversity enforcement is deterministic via `goblin_recon.tools.scoring.enforce_source_diversity`. Use it after aggregation/scoring so the top set contains at least 3 source domains when available and no single source dominates.
+
+Two-window mode for true acceleration (optional):
+```python
+score_with_lifecycle(
+    "youtube", url, "2026-06-15T12:00:00Z", 50000,
+    previous_views=20000, previous_time="2026-06-15T10:00:00Z"
+)
+```
+
+Platforms: twitter, reddit, youtube, instagram.
+Platform-specific benchmarks for viral thresholds.
+Minimum engagement floor: 1,000 (below this, acceleration is zero-weighted).
 
 ### social_intake.py
 Normalizes social media observations before Trend Radar scoring.
@@ -404,9 +467,14 @@ Retrieves stored clips without manually opening SQLite.
 - Export a markdown brief: `.venv/bin/python scripts/query_clips.py brief [clip_id] --output vault/briefs/[clip_id].md`
 
 ### check_secrets.py
-Pre-commit security scan. Run before sharing or pushing:
+Pre-commit security scan. Run before pushing tracked project files:
 ```bash
 .venv/bin/python scripts/check_secrets.py
+```
+
+Before packaging or sharing the whole folder, include ignored local `.env` files too:
+```bash
+.venv/bin/python scripts/check_secrets.py --include-local-env
 ```
 
 ### check_brand.py

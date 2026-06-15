@@ -1,7 +1,8 @@
-"""Compatibility entry point for engagement velocity scoring.
+"""Compatibility entry point for engagement velocity + lifecyle scoring.
 
 The canonical implementation lives in ``goblin_recon.tools.scoring``.
-This module keeps ``python -m goblin_recon.tools.score_engagement`` working.
+This module keeps ``python -m goblin_recon.tools.score_engagement`` working
+and adds lifecycle-aware ``score_with_lifecycle``.
 """
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ import json
 import sys
 from argparse import ArgumentParser
 
-from .scoring import calculate_velocity
+from .scoring import calculate_velocity, calculate_velocity_with_lifecycle
 
 
 def _source_url(platform: str, video_id_or_url: str) -> str:
@@ -31,6 +32,38 @@ def score_engagement(platform: str, video_id: str, publish_time: str, views: int
     return result
 
 
+def score_with_lifecycle(
+    platform: str,
+    video_id: str,
+    publish_time: str,
+    views: int,
+    *,
+    previous_views: int | None = None,
+    previous_time: str | None = None,
+) -> dict:
+    """Score with lifecycle classification, acceleration, and recommendation.
+
+    Args:
+        platform: One of twitter/x, reddit, youtube, instagram.
+        video_id: Source ID or full URL.
+        publish_time: ISO timestamp of publication.
+        views: Current engagement count.
+        previous_views: Earlier engagement count for true acceleration (optional).
+        previous_time: Earlier ISO timestamp for true acceleration (optional).
+
+    Returns:
+        Dict with score, velocity, acceleration_score, lifecycle_state, recommendation.
+    """
+    return calculate_velocity_with_lifecycle(
+        platform,
+        _source_url(platform, video_id),
+        publish_time,
+        views,
+        previous_engagement=previous_views,
+        previous_timestamp_str=previous_time,
+    )
+
+
 def main() -> int:
     parser = ArgumentParser(description="Calculate engagement velocity score.")
     parser.add_argument("platform")
@@ -44,7 +77,7 @@ def main() -> int:
     return 1 if "error" in result else 0
 
 
-__all__ = ["score_engagement"]
+__all__ = ["score_engagement", "score_with_lifecycle"]
 
 
 if __name__ == "__main__":

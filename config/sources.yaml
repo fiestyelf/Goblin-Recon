@@ -96,6 +96,33 @@ social_extraction_policy:
     - platform_access_denied
   blocked_behavior: "Set access_status=blocked and switch to manual assisted input only if the missing data is essential."
 
+  # ── Graceful Degradation Fallback Chains ──
+  # When a source is blocked/empty, the chain doesn't break — it expands
+  # remaining sources to fill the gap. Never return fewer than 3 stories
+  # without exhausting the fallback chain.
+  # Source: neelmanivispute/trends-engine graceful degradation pattern.
+  fallback_chains:
+    instagram_blocked:
+      expand: [youtube, tiktok, x_twitter]
+      reason: "IG blocked → expand YouTube + TikTok + X to compensate."
+    tiktok_blocked:
+      expand: [instagram, youtube, reddit]
+      reason: "TikTok blocked → expand IG + YouTube + Reddit."
+    x_twitter_blocked:
+      expand: [reddit, hacker_news, tech_news]
+      reason: "X blocked → expand Reddit + HN + tech news."
+    reddit_blocked:
+      expand: [hacker_news, tech_news, github_trending]
+      reason: "Reddit blocked → expand HN + tech news + GitHub."
+    youtube_transcript_failed:
+      expand: [podcast_shownotes, article_text, blog_summary]
+      reason: "Transcript failed → use shownotes or article text as text source."
+    all_social_blocked:
+      expand: [tech_news, hacker_news, github_trending, arxiv, product_hunt]
+      reason: "All social blocked → full reliable-source mode (Fast Scan fallback)."
+    minimum_stories_not_met:
+      behavior: "Expand time window from 24h to 72h, then to 7 days. If still under 3, return what you have with a LOW_COVERAGE warning."
+
 sources:
 
   # ── FAST SCAN: YOUTUBE (Reliable Public Video/News Leads) ──

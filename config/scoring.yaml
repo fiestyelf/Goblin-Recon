@@ -37,6 +37,42 @@ trend_radar:
     extract_sound_trend: true
     extract_format_innovation: true
 
+  # ── Acceleration Scoring ──
+  # Velocity alone is misleading. A story at 155% above baseline looks hot,
+  # but if it was at 250% last window, acceleration is -0.95 — it's PEAKING not GROWING.
+  # Sources: neelmanivispute/trends-engine velocity+acceleration algorithm.
+  acceleration:
+    enabled: true
+    weight: 0.4  # 60% velocity + 40% acceleration in combined score
+    min_engagement_floor: 1000  # Stories below this get zero acceleration weight
+    lifecycle_states:
+      - BASELINE   # Below thresholds or floor. Monitor, don't act.
+      - EMERGING   # Fresh + accelerating. BEST TIME TO SOURCE CLIPS.
+      - GROWING    # Strong velocity + positive acceleration. Good for analytical.
+      - PEAKING    # High velocity but decelerating. Clip if unique, otherwise skip.
+      - DECLINING  # Past peak. Skip unless take is timeless.
+      - VIRAL      # Very high velocity regardless. Confirm with 2+ sources.
+
+  # ── Diversity Enforcement ──
+  # Prevents single-domain dominance. Without this, high-activity domains
+  # (AI/ML) dominate and the report misses contrarian or research signals.
+  # Source: 0xrdan/topic-discovery round-robin algorithm.
+  diversity:
+    enforce: true
+    min_source_domains: 3         # Top 5 must include at least 3 unique source types
+    max_per_domain: 3             # No single domain contributes more than 3 to the set
+    domain_weights:               # Priority for round-robin selection
+      instagram: 1.0
+      tiktok: 0.9
+      x_twitter: 0.8
+      youtube: 0.7
+      reddit: 0.6
+      tech_news: 0.5
+      hacker_news: 0.5
+      github: 0.4
+      arxiv: 0.3
+    blocked_domain_behavior: "Expand remaining domains proportionally. Never reduce output below 3 stories."
+
 # Source Hunter (Layer 2)
 source_hunter:
   threshold: 65

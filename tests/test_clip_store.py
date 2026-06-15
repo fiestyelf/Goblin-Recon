@@ -2,6 +2,7 @@
 
 from goblin_recon.tools.clip_store import (
     check_duplicate,
+    check_novelty,
     find_clips,
     get_clip,
     render_clip_brief,
@@ -115,3 +116,44 @@ def test_render_clip_brief_has_retrieval_links(tmp_path):
     assert "https://www.youtube.com/watch?si=abc&v=dQw4w9WgXcQ&t=45" in brief
     assert "https://www.youtube.com/embed/dQw4w9WgXcQ?start=45&end=75" in brief
     assert f"Clip ID: {clip_id}" in brief
+
+
+def test_check_novelty_flags_near_duplicate_approved_clip(tmp_path):
+    db_path = tmp_path / "clips.db"
+    save_clip(
+        sample_clip(
+            status="approved",
+            moment_summary="AI agents replace manual SDR research workflows with automated first pass qualification",
+        ),
+        db_path,
+    )
+
+    novelty = check_novelty(
+        "AI agents replace manual SDR research workflows with automated first pass qualification",
+        threshold=0.8,
+        db_path=db_path,
+    )
+
+    assert novelty["novelty_status"] == "near_duplicate"
+    assert novelty["similarity_score"] >= 0.8
+    assert novelty["similar_clips"]
+
+
+def test_check_novelty_allows_distinct_clip_summary(tmp_path):
+    db_path = tmp_path / "clips.db"
+    save_clip(
+        sample_clip(
+            status="approved",
+            moment_summary="AI agents replace manual SDR research workflows with automated qualification",
+        ),
+        db_path,
+    )
+
+    novelty = check_novelty(
+        "A founder explains why meditation retreats changed her leadership style",
+        threshold=0.8,
+        db_path=db_path,
+    )
+
+    assert novelty["novelty_status"] == "novel"
+    assert novelty["similar_clips"] == []

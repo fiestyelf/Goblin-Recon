@@ -23,7 +23,7 @@ Find today's top 5 trending AI stories from multiple sources.
 - "content strategy this week" — Social Pulse + editorial suggestions
 - "run full scan" — Social Pulse + Clip Mine
 
-## Tools Required
+## Tool Requirements
 - web_search
 - web_extract
 - browser (for Reddit, Product Hunt)
@@ -31,11 +31,32 @@ Find today's top 5 trending AI stories from multiple sources.
 - config/scoring.yaml
 - config/brand-voice.yaml
 - memory/brand-rules.md
+- exa/tavily/firecrawl MCP (parallel search acceleration)
 
-## Optional Helpers
-- MCP Memory: store approved/shelved trend patterns after human review
-- MCP Fetch: cleaner extraction from approved public pages
-- TrendRadar-style inputs: RSS feeds, keyword filters, and multi-platform alerts as extra signals only
+## Source Priority (PARALLEL execution)
+
+**CRITICAL: Do NOT scan sources one-at-a-time.** Priority affects ranking and fallback order; execution should happen in parallel by tier.
+
+**Tier 1 — primary social signal:** Instagram + TikTok + X/Twitter
+- Instagram: scan creator accounts (@therundownai, @rowancheung, @inflecta.ai, @ankitgupta.ai)
+- TikTok: search hashtags (#ainews, #artificialintelligence, #aiexplained)
+- X/Twitter: validate velocity and real-time conversation
+
+**Tier 2 — validation and source depth:** Reddit + YouTube + Tech News
+- Reddit: community sentiment
+- YouTube: clip leads and source videos
+- Tech News: source verification, dates, and canonical URLs
+
+**Tier 3 — early-signal fallback:** Product Hunt + Hacker News + GitHub Trending + ArXiv
+- Use when running Signal Scan or when Tier 1/2 coverage is blocked or weak
+
+MCP tools (Exa, Tavily, Firecrawl) run in parallel. Hermes `web_search` + `web_extract` is the fallback batch. This keeps scans fast without changing ranking priorities.
+
+**Diversity enforcement:** After aggregation, enforce `config/scoring.yaml` diversity settings with `goblin_recon.tools.scoring.enforce_source_diversity`: minimum 3 unique source domains in top 5 when available, max 3 stories per domain.
+If blocked domains reduce coverage, apply fallback chains from `config/sources.yaml`.
+
+**Acceleration scoring:** Use lifecycle-aware scoring via `goblin_recon.tools.score_engagement.score_with_lifecycle`.
+Prioritize EMERGING/GROWING stories over PEAKING/DECLINING.
 
 ## Execution Flow
 
@@ -53,9 +74,11 @@ Load config/brand-voice.yaml for brand gate and blacklist
 Load memory/brand-rules.md for B2C/B2B positioning
 ```
 
-### Step 2: Scan Sources (in priority order)
+### Step 2: Scan Sources (parallel by tier)
 
-**Instagram (PRIMARY — scan first):**
+Run sources in parallel by the tiers above. Do not wait for Instagram to finish before starting TikTok/X/validation searches. Use priority only when ranking results, handling blocked sources, and choosing fallbacks.
+
+**Instagram (PRIMARY ranking signal):**
 - Check creator accounts from config/sources.yaml: @therundownai (491K), @rowancheung (418K), @inflecta.ai, @ankitgupta.ai
 - Browse #ainews, #artificialintelligence, #aitools hashtags
 - Extract: story, hook style, format type, engagement metrics (views, likes, comments)
@@ -193,10 +216,14 @@ For each story include:
 - Each story has URLs, dates, scores, and reasoning
 - Stories below 60/100 are listed as "shelved" with reason
 
-## Error Handling
-- If a source is unreachable, skip it and note in report
+## Error Handling & Graceful Degradation
+- If a source is blocked/empty, activate the fallback chain from `config/sources.yaml`
+- Expand remaining sources proportionally — never return fewer than 3 stories without exhausting fallbacks
+- If all social blocked → full Fast Scan mode (YouTube, Tech News, HN, GitHub, ArXiv)
+- If transcript failed → use podcast shownotes or article text
+- If minimum stories not met → expand time window: 24h → 72h → 7 days
+- If still under 3 with expanded window → return what you have with LOW_COVERAGE warning
 - If no stories pass threshold, report "No trending stories found today"
-- If fewer than 5 pass, report what you have with explanation
 
 ## Quality Checks
 - [ ] Sources are public or approved

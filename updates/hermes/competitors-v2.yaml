@@ -1,0 +1,103 @@
+# Goblin Recon — Competitor Configuration v2.0
+# Source-typed entries with content-hash dedup support.
+# Add competitors below. Each entry needs a name, domain, and at least one source URL.
+# Goblin Recon will extract features, pricing, and positioning weekly.
+
+competitors:
+
+  # ── Active Competitors ──
+
+  - name: "CrewAI"
+    domain: "crewai.com"
+    category: "agent-platform"
+    sources:
+      - url: "https://www.crewai.com"
+        kind: homepage
+        label: "Main landing page"
+      - url: "https://www.crewai.com/pricing"
+        kind: pricing
+        label: "Pricing page"
+      - url: "https://www.crewai.com/blog"
+        kind: blog
+        label: "Company blog"
+      - url: "https://www.crewai.com/careers"
+        kind: jobs
+        label: "Careers page"
+      - url: "https://docs.crewai.com"
+        kind: docs
+        label: "Documentation"
+    rss_feed: ""
+
+  - name: "LangChain"
+    domain: "langchain.com"
+    category: "agent-platform"
+    sources:
+      - url: "https://www.langchain.com"
+        kind: homepage
+        label: "Main landing page"
+      - url: "https://www.langchain.com/pricing"
+        kind: pricing
+        label: "Pricing page"
+      - url: "https://blog.langchain.dev"
+        kind: blog
+        label: "Company blog"
+      - url: "https://www.langchain.com/careers"
+        kind: jobs
+        label: "Careers page"
+      - url: "https://docs.langchain.com"
+        kind: docs
+        label: "Documentation"
+      - url: "https://www.langchain.com/about"
+        kind: about
+        label: "About page"
+    rss_feed: "https://blog.langchain.dev/feed"
+
+  # ── Template (copy to add new competitors) ──
+
+  # - name: "Competitor Name"
+  #   domain: "competitor.com"
+  #   category: "agent-platform"
+  #   sources:
+  #     - url: "https://www.competitor.com"
+  #       kind: homepage
+  #       label: "Main landing page"
+  #     - url: "https://www.competitor.com/pricing"
+  #       kind: pricing
+  #       label: "Pricing page"
+  #     - url: "https://www.competitor.com/blog"
+  #       kind: blog
+  #       label: "Company blog"
+  #     - url: "https://www.competitor.com/careers"
+  #       kind: jobs
+  #       label: "Careers page"
+  #     - url: "https://docs.competitor.com"
+  #       kind: docs
+  #       label: "Documentation"
+  #     - url: "https://www.competitor.com/about"
+  #       kind: about
+  #       label: "About page"
+  #     - url: "https://www.competitor.com/events"
+  #       kind: events
+  #       label: "Events page"
+  #     - url: "https://www.competitor.com/press"
+  #       kind: press
+  #       label: "Press/media page"
+  #   rss_feed: ""  # optional: "https://competitor.com/blog/feed"
+
+# ── Source Kind Reference ──
+#
+# homepage   — Main landing page: positioning, narrative, hero copy    [🔴 Critical]
+# pricing    — Pricing page: plan changes, tier restructuring          [🔴 Critical]
+# blog       — Blog index: content velocity, topic shifts, launches    [🟡 High]
+# changelog  — Product changelog: feature releases, deprecations       [🟡 High]
+# jobs       — Careers page: hiring signals, growth direction          [🟢 Signal]
+# docs       — Documentation: API changes, new capabilities            [🟢 Signal]
+# about      — About page: team growth, mission shifts                 [🟢 Signal]
+# events     — Events page: webinars, conferences, launches            [🟢 Signal]
+# press      — Press/media page: credibility moves, announcements      [🟢 Signal]
+# podcast    — Podcast page: thought leadership, audience building     [🟢 Signal]
+# other      — Custom page: specify with label                         [🟢 Signal]
+#
+# Priority determines scrape order and report prominence.
+# 🔴 Critical pages are always scraped. 🟡 High are scraped on standard scans.
+# 🟢 Signal pages are scraped only on deep scans.

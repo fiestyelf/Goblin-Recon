@@ -7,6 +7,7 @@ It is not a replacement for company secret scanning in GitHub.
 
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -25,20 +26,23 @@ PATTERNS = {
 }
 
 
-def should_scan(path: Path) -> bool:
+def should_scan(path: Path, *, include_local_env: bool = False) -> bool:
     if any(part in SKIP_DIRS for part in path.parts):
         return False
     if path.name == ".env.example":
         return True
     if path.name.startswith(".env"):
-        return True
+        # Local .env files are intentionally ignored by git and often contain
+        # real development credentials. Keep CI/pre-commit scans clean by
+        # default; use --include-local-env before packaging or sharing a folder.
+        return include_local_env
     return path.suffix in TEXT_EXTENSIONS
 
 
-def scan() -> list[str]:
+def scan(*, include_local_env: bool = False) -> list[str]:
     findings: list[str] = []
     for path in ROOT.rglob("*"):
-        if not path.is_file() or not should_scan(path):
+        if not path.is_file() or not should_scan(path, include_local_env=include_local_env):
             continue
         try:
             text = path.read_text(encoding="utf-8")
@@ -54,8 +58,16 @@ def scan() -> list[str]:
     return findings
 
 
-def main() -> int:
-    findings = scan()
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Scan Goblin Recon for obvious leaked secrets.")
+    parser.add_argument(
+        "--include-local-env",
+        action="store_true",
+        help="also scan ignored local .env files before packaging or sharing the folder",
+    )
+    args = parser.parse_args([] if argv is None else argv)
+
+    findings = scan(include_local_env=args.include_local_env)
     if findings:
         print("Potential secrets found:")
         for finding in findings:
@@ -67,4 +79,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

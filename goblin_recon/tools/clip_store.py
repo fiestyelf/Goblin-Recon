@@ -390,6 +390,101 @@ def check_duplicate(
     return [dict(row) for row in rows]
 
 
+def check_novelty(
+    moment_summary: str,
+    *,
+    threshold: float = 0.85,
+    max_recent: int = 20,
+    db_path: str | Path = DEFAULT_DB_PATH,
+) -> dict:
+    """Semantic novelty check against recent approved clips.
+
+    Uses word-overlap Jaccard similarity as a lightweight proxy for
+    embedding-based cosine similarity. Flag as near-duplicate if the
+    overlap ratio exceeds threshold.
+
+    Inspired by AutoViralAI multi-signal ranking: novelty scoring
+    balances exploitation (use what works) with exploration (try new things).
+    New patterns get an effective exploration bonus — near-duplicates
+    require explicit human override.
+
+    Returns:
+        Dict with novelty_status, similarity_score, and similar_clip_ids.
+    """
+    if not moment_summary or not moment_summary.strip():
+        return {
+            "novelty_status": "skipped",
+            "similarity_score": 0.0,
+            "similar_clips": [],
+            "reason": "Empty summary, cannot check novelty.",
+        }
+
+    # Tokenize: lowercase, split on non-alphanumeric
+    tokens = set(re.findall(r"[a-z0-9]+", moment_summary.lower()))
+    if len(tokens) < 5:
+        return {
+            "novelty_status": "skipped",
+            "similarity_score": 0.0,
+            "similar_clips": [],
+            "reason": "Summary too short (< 5 tokens) for reliable novelty check.",
+        }
+
+    with connect(db_path) as conn:
+        # Fetch last N approved clips with summaries
+        rows = conn.execute(
+            """
+            SELECT clip_id, moment_summary, source_title
+            FROM clips
+            WHERE status = 'approved' AND moment_summary IS NOT NULL AND moment_summary != ''
+            ORDER BY created_at DESC
+            LIMIT ?
+            """,
+            (max_recent,),
+        ).fetchall()
+
+    if not rows:
+        return {
+            "novelty_status": "no_prior_clips",
+            "similarity_score": 0.0,
+            "similar_clips": [],
+            "reason": "No prior approved clips to compare against.",
+        }
+
+    best_score = 0.0
+    best_match: dict = {}
+    for row in rows:
+        existing_tokens = set(re.findall(r"[a-z0-9]+", str(row["moment_summary"]).lower()))
+        if not existing_tokens:
+            continue
+        # Jaccard similarity: |A ∩ B| / |A ∪ B|
+        intersection = tokens & existing_tokens
+        union = tokens | existing_tokens
+        similarity = len(intersection) / len(union) if union else 0.0
+        if similarity > best_score:
+            best_score = similarity
+            best_match = dict(row)
+
+    if best_score >= threshold:
+        return {
+            "novelty_status": "near_duplicate",
+            "similarity_score": round(best_score, 3),
+            "similar_clips": [best_match],
+            "reason": (
+                f"Word-overlap similarity {best_score:.2%} exceeds threshold {threshold:.0%}. "
+                f"Closest match: clip {best_match.get('clip_id', 'unknown')} "
+                f"({best_match.get('source_title', 'unknown')[:60]}). "
+                "Requires explicit human override to proceed."
+            ),
+        }
+
+    return {
+        "novelty_status": "novel",
+        "similarity_score": round(best_score, 3),
+        "similar_clips": [],
+        "reason": f"Max similarity {best_score:.2%} is below threshold {threshold:.0%}. Safe to proceed.",
+    }
+
+
 def init_db(db_path: str | Path = DEFAULT_DB_PATH) -> Path:
     with connect(db_path):
         pass
