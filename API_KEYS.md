@@ -22,7 +22,7 @@ Not allowed:
 
 1. `config/*.yaml`
 2. `README.md`
-3. `INSTRUCTIONS.md`
+3. `docs/ops/instructions.md`
 4. `AGENTS.md`
 5. `skills/**/SKILL.md`
 6. Screenshots or copied terminal output.
@@ -53,7 +53,7 @@ Best for scheduled jobs, shared automation, or production usage.
 
 Use GitHub Actions secrets, 1Password, AWS Secrets Manager, Doppler, Infisical, or the company-approved vault.
 
-For social API setup details, read `SOCIAL_API_SETUP.md`.
+For social API setup details, read `docs/ops/social-api-setup.md`.
 
 ---
 

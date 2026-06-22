@@ -15,7 +15,7 @@ Your job: find what's trending, find the source, find the moment.
 Goblin Recon is a semi-autonomous content intelligence system, not a single giant all-purpose scraper. Follow this structure for every request:
 
 ```text
-Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
+Router -> Workflow -> Tools -> Normalized Data -> Score/Gate -> Human Gate -> Memory
 ```
 
 The router chooses one primary workflow before tools are used:
@@ -27,13 +27,14 @@ The router chooses one primary workflow before tools are used:
 | Retrieve or update prior clips | Clip Vault | Clip lists, regenerated briefs, status updates |
 | Analyze competitors | Competitor Scout | Competitor intelligence report |
 | Validate voice or fit | Brand Gate | Pass/shelve/modify recommendation |
-| Generate or validate email hooks | Email Hook | Subject/opening variants with quality-gate scores |
+| Generate or validate email hooks | Email Hook | Email subject lines and openers with scores |
+| Build a carousel or social image | Carousel Generator | Brand memory → slide layers → QA → vault/carousels/ |
 
 If a request mixes workflows, run the smallest useful sequence and state the sequence. Do not scan every platform or invoke every tool by default.
 
 ## Core Workflows
 
-Goblin Recon has four primary workflows:
+Goblin Recon has these primary workflows:
 
 ### Workflow 1: Social Pulse
 **Purpose:** Content ideas, blogs, carousels, content strategy inspiration.
@@ -45,7 +46,7 @@ Goblin Recon has four primary workflows:
 **Purpose:** Direct video clips for the faceless Instagram page.
 **Sources:** YouTube podcasts -> Interviews -> Keynotes -> public social videos when accessible.
 **Output:** Timestamped clips (15-60s), source access, transcript quote, engagement rationale, brand gate, and editor-ready brief.
-**Core chain:** Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Human Gate.
+**Core chain:** Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Security Rail -> Human Gate.
 
 ### Workflow 3: Clip Vault
 **Purpose:** Persistent memory for approved, shelved, and production-status clips.
@@ -55,8 +56,20 @@ Goblin Recon has four primary workflows:
 ### Workflow 4: Email Hook
 **Purpose:** Generate and validate subject lines, openers, and short outbound email drafts.
 **Sources:** User-provided offer, audience, campaign type, and brand direction.
-**Output:** Ranked subject/opening variants with attention, psychological fit, brand voice, professional guardrail, and campaign alignment scores.
-**Core chain:** Output Direction -> Campaign Fit -> Email Gate -> Human Gate.
+**Output:** Scored subject lines, openers, and short drafts.
+**Core chain:** Output Direction -> Campaign Fit -> Email Gate -> Security Rail -> Human Gate.
+
+### Other routed workflows
+- **Competitor Scout:** public competitor intelligence report.
+- **Brand Gate:** pass/revise/shelve copy and content fit.
+- **Carousel Generator:** reference/template -> memory -> slide plan -> approval -> visual layers -> local text render -> QA -> `vault/carousels/`.
+
+Carousel Generator QA:
+- Text must be readable on mobile.
+- Replicate is for visual/background layers only; final typography is rendered locally.
+- Platform dimensions must match Instagram or Facebook memory.
+- Page/account fit and claim safety must pass before approval.
+- Human approval is required before paid generation and before external use.
 
 ## Legacy Pipeline Names
 
@@ -237,7 +250,7 @@ ONLY use delegate/subagent tasks after data is already collected, and only for p
 6. Do not collect private personal data. Only collect public information directly needed for the brief.
 7. Do not store full raw transcripts by default. Store source URLs, timestamps, and short excerpts only.
 8. Human approval is required before publishing clips, competitor claims, or sensitive claims.
-9. Follow SECURITY.md, API_KEYS.md, LEGAL_GUARDRAILS.md, and config/security.yaml.
+9. Follow SECURITY.md, API_KEYS.md, docs/security/legal-guardrails.md, and config/security.yaml.
 
 ## Output Format
 - Social Pulse reports: use templates/social-pulse-report.md
@@ -308,34 +321,36 @@ When finding videos/clips for a trending story, search in this order:
 ## Commands (User can say these)
 
 ### Scan Modes
-- "run fast scan" -> Low-stress daily Social Pulse using reliable sources first
-- "run deep social scan" -> Instagram/TikTok-first Social Pulse with fallback when blocked
-- "run signal scan" -> First-mover scan across X/public early signals, Hacker News, GitHub Trending, ArXiv, and public Reddit when available
-- "manual scan this [URL/screenshot/caption]" -> Normalize and score human-provided social material
+- "run fast scan" -> Quick daily trend check
+- "run deep social scan" -> Deeper Instagram and TikTok trend check
+- "run signal scan" -> Find early AI signals before they are mainstream
+- "manual scan this [URL/screenshot/caption]" -> Score something the user pastes in
 
 ### Social Pulse (Ideas, Blogs, Carousels, Strategy)
-- "run social pulse" → Scan IG/TikTok/X/Reddit/News for trending AI topics, formats, hooks
-- "what's trending on Instagram" → IG-only creator scan with format analysis
-- "what's trending on TikTok" → TikTok-only trend scan with sound/format trends
-- "blog ideas" → Social Pulse filtered for long-form content angles
-- "carousel ideas" → Social Pulse filtered for carousel-worthy topics
-- "content strategy this week" → Social Pulse + editorial calendar suggestions
+- "run social pulse" → Find content ideas, blog angles, and hooks
+- "what's trending on Instagram" → Instagram trends and creator hooks
+- "what's trending on TikTok" → TikTok trends, sounds, and formats
+- "blog ideas" → Article ideas from current trends
+- "carousel ideas" → Swipe-post ideas from current trends
+- "run carousel generator" → Build a multi-slide carousel for Instagram or Facebook
+- "generate single post" → Make one social image for a topic
+- "content strategy this week" → Simple weekly posting plan
 
 ### Clip Mine (Video Clips for Faceless IG Page)
-- "run clip mine" → Find best podcast clips from trending AI stories
-- "find clips about [topic]" → Source Hunter + Moment Finder for specific topic
-- "find the moment in [URL]" → Extract best clip from a specific video
+- "run clip mine" → Find short video clip ideas
+- "find clips about [topic]" → Find clips about one topic
+- "find the moment in [URL]" → Pick the best short clip from one video
 
 ### Clip Vault (Persistent Clip Memory)
-- "what clips are ready" → Show all approved clips awaiting editor handoff
-- "search clips about [topic]" → Search stored clip history by topic/source/summary/caption
-- "show clip [clip_id]" → Show one stored clip record
-- "update clip status" → Move a clip through approved/in_production/scheduled/posted/shelved
+- "what clips are ready" → Show approved clips ready for editors
+- "search clips about [topic]" → Search saved clips by topic
+- "show clip [clip_id]" → Show one saved clip
+- "update clip status" → Change a saved clip status
 
 ### General
-- "run full scan" → Social Pulse + Clip Mine for the top 2-3 candidates in sequence
-- "run competitor scan" → Competitor Scout
-- "run brand check on [content]" → Brand gate validation
-- "write email hooks for [offer/audience]" → Email Hook subject/opening variants with gate scores
-- "what formats are working?" → Current winning reel format analysis
-- "what did we find yesterday?" → Search past sessions
+- "run full scan" → Find trends, then clips for the best ones
+- "run competitor scan" → Check competitors and suggest next moves
+- "run brand check on [content]" → Check copy against brand rules before posting
+- "write email hooks for [offer/audience]" → Write and score email subject lines and openers
+- "what formats are working?" → Show reel and carousel formats working now
+- "what did we find yesterday?" → Look up past findings

@@ -15,50 +15,11 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 import urllib.request
-from pathlib import Path
 from typing import Any
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
-
-# ---- key loading -----------------------------------------------------------
-
-def _load_dotenv(path: Path) -> dict[str, str]:
-    """Parse a .env file into a dict. Ignores comments and blank lines."""
-    result: dict[str, str] = {}
-    if not path.is_file():
-        return result
-    for line in path.read_text(errors="ignore").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, _, val = line.partition("=")
-        key = key.strip()
-        val = val.strip().strip('"').strip("'")
-        if key:
-            result[key] = val
-    return result
-
-
-def _resolve_key(name: str) -> str | None:
-    """Resolve an env var. Project .env wins — it's what the user edits."""
-    # 1. Project .env (user's working copy — highest priority)
-    project_env = ROOT_DIR / ".env"
-    val = _load_dotenv(project_env).get(name)
-    if val:
-        return val
-    # 2. Profile .env (Hermes copy)
-    profile_env = Path.home() / ".hermes" / "profiles" / "goblin-recon" / ".env"
-    val = _load_dotenv(profile_env).get(name)
-    if val:
-        return val
-    # 3. Process environment (may be stale from session start)
-    val = os.environ.get(name)
-    if val:
-        return val
-    return None
+from .env import resolve_key
 
 
 # ---- Exa -------------------------------------------------------------------
@@ -67,7 +28,7 @@ EXA_BASE = "https://api.exa.ai/search"
 
 def exa_search(query: str, limit: int = 5) -> list[dict[str, Any]]:
     """Search Exa for semantically relevant content."""
-    key = _resolve_key("EXA_API_KEY")
+    key = resolve_key("EXA_API_KEY")
     if not key:
         return [{"error": "EXA_API_KEY not set"}]
 
@@ -109,7 +70,7 @@ TAVILY_BASE = "https://api.tavily.com/search"
 
 def tavily_search(query: str, limit: int = 5, include_raw: bool = False) -> list[dict[str, Any]]:
     """Search Tavily for AI-optimized research results."""
-    key = _resolve_key("TAVILY_API_KEY")
+    key = resolve_key("TAVILY_API_KEY")
     if not key:
         return [{"error": "TAVILY_API_KEY not set"}]
 

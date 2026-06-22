@@ -155,7 +155,7 @@ if [ -f "$PROJECT_DIR/skills/goblin-recon/SKILL.md" ]; then
 fi
 
 # Install pipeline and reusable project skills
-PIPELINE_SKILLS=(orchestrator trend-radar source-hunter moment-finder competitor-scout caption-tone email-hook security-rail)
+PIPELINE_SKILLS=(orchestrator trend-radar source-hunter moment-finder competitor-scout caption-tone email-hook security-rail carousel-generator)
 for skill in "${PIPELINE_SKILLS[@]}"; do
     if [ -d "$PROJECT_DIR/skills/$skill" ]; then
         mkdir -p "$SKILLS_DIR/genx-marketing/$skill"
@@ -242,6 +242,7 @@ else
         echo -e "      TAVILY_API_KEY   — research search"
         echo -e "      FIRECRAWL_API_KEY  — deep page extraction"
         echo -e "      SCRAPEGRAPH_API_KEY — structured data extraction"
+        echo -e "      REPLICATE_API_TOKEN — optional carousel background generation"
         echo ""
     else
         echo -e "${RED}    ❌  No .env.example found — create .env manually${NC}"
@@ -348,7 +349,7 @@ echo -e "    Try:     ${CYAN}\"run social pulse\"${NC}"
 echo -e "             ${CYAN}\"find clips about AI agents\"${NC}"
 echo -e "             ${CYAN}\"what's trending on Instagram\"${NC}"
 echo ""
-echo -e "${DIM}    Docs:    GETTING_STARTED.md${NC}"
+echo -e "${DIM}    Docs:    docs/ops/getting-started.md${NC}"
 echo -e "${DIM}    Config:  config/${NC}"
 echo -e "${DIM}    Scripts: scripts/${NC}"
 echo -e "${DIM}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

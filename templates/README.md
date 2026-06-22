@@ -33,6 +33,8 @@ Use only these labels for user-facing work:
 | `caption-pack.md` | Platform-specific captions and post copy. |
 | `news-brief.md` | Single-story or multi-story news brief. |
 | `content-brief.md` | Standalone planning brief when requested. |
+| `carousel-brief.md` | Human-readable carousel plan, approval, QA, and revision record. |
+| `carousel-manifest.json` | Machine-readable carousel render source of truth. |
 
 ## Anti-Mismatch Rules
 
@@ -42,3 +44,4 @@ Use only these labels for user-facing work:
 - Keep the Decision section short enough to skim.
 - Keep Action Cells concrete enough to assign.
 - Run Security Rail before delivery.
+- For carousel exports, confirm readability, dimensions, page fit, safe claims, visual consistency, output files, and human approval.

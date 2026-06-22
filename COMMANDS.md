@@ -6,11 +6,11 @@ Use these phrases inside the Goblin Recon Hermes profile. Keep prompts simple an
 
 | Say this | Use it when | What you get |
 |---|---|---|
-| `run fast scan` | You want a quick daily check. | Reliable-source trend leads from YouTube, Reddit, tech news, Product Hunt, and public X when available. |
-| `run deep social scan` | You want a deeper weekly social scan. | Instagram/TikTok-first trend read with fallback to X, Reddit, and tech news if blocked. |
-| `run signal scan` | You want first-mover discovery before mainstream coverage. | Early signals from public X when available, Hacker News, GitHub Trending, ArXiv, and public Reddit fallback. |
-| `run full scan` | You want ideas and clips in one pass. | Social Pulse first, then Clip Mine for the strongest candidates only. |
-| `run full autonomous scan` | You want Goblin Recon to use all approved local/public tools without asking repeated confirmations. | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail, using only approved public/local sources. |
+| `run fast scan` | You want a quick daily check. | A short list of trend ideas from trusted public sources. |
+| `run deep social scan` | You want a deeper social check. | A closer look at Instagram and TikTok trends, with backup sources if access is blocked. |
+| `run signal scan` | You want early ideas. | Early AI signals before they are everywhere. |
+| `run full scan` | You want ideas and clips in one pass. | Finds trends, then finds clips for the strongest ideas. |
+| `run full autonomous scan` | You want the full approved workflow. | Runs the whole workflow without asking at each step. |
 
 ## Social Pulse
 
@@ -18,13 +18,29 @@ Use these when you need ideas, blog angles, carousels, hooks, or content strateg
 
 | Say this | Use it when | What you get |
 |---|---|---|
-| `run social pulse` | You want current AI content opportunities. | Ranked trend ideas with categories, hooks, formats, evidence, score, and next action. |
-| `what's trending on Instagram` | You care about IG formats and creator hooks. | IG-only creator scan with format analysis and blocked-source notes if access fails. |
-| `what's trending on TikTok` | You care about TikTok sounds, formats, and viral acceleration. | TikTok-only trend scan with format and sound notes when public access allows. |
-| `blog ideas` | You need long-form topics. | Social Pulse filtered into article angles and source-backed outlines. |
-| `carousel ideas` | You need swipe-post concepts. | Carousel-worthy topics, slide structure, hook, and fallback angle. |
-| `content strategy this week` | You want a simple posting plan. | Weekly content plan with priorities, effort, confidence, and distribution risk. |
-| `what formats are working?` | You want format inspiration before creating. | Current reel/carousel formats, hooks, and creators driving the pattern. |
+| `run social pulse` | You want content ideas. | Trend ideas with hooks, formats, sources, scores, and next steps. |
+| `what's trending on Instagram` | You want Instagram ideas. | Instagram trends, creator hooks, and format notes. |
+| `what's trending on TikTok` | You want TikTok ideas. | TikTok trends, sounds, and format notes when public access works. |
+| `blog ideas` | You need article topics. | Long-form ideas and simple outlines. |
+| `carousel ideas` | You need swipe-post ideas. | Carousel topics, slide ideas, and hooks. |
+| `run carousel generator` | You have a reference/template and need files. | Builds editable Instagram or Facebook carousel layers in `vault/carousels/`. |
+| `generate single post` | You need one social image. | Makes one editable social image for a topic. |
+| `content strategy this week` | You want a weekly plan. | A simple posting plan with priorities. |
+| `what formats are working?` | You want format inspiration. | Reel and carousel formats that are working now. |
+
+### Carousel Generator
+
+Use this when an idea is ready to become carousel assets.
+
+| Say this | Use it when | What you get |
+|---|---|---|
+| `run carousel generator` | You have a topic and reference/template. | Brief, manifest, assets, exports, and generation log in `vault/carousels/`. |
+| `make an Instagram carousel about [topic]` | You need Instagram slides. | Reference-first slide plan, then local rendered images after approval. |
+| `make a Facebook carousel about [topic]` | You need Facebook page images. | Facebook-sized rendered assets after approval. |
+
+Required process: provide a reference/template first, approve the slide plan before Replicate, then review final exports before use.
+
+QA checks: mobile readability, no AI-garbled final text, correct dimensions, page fit, safe claims, clear CTA, visual consistency, export files, and human approval.
 
 ## Clip Mine
 
@@ -32,9 +48,9 @@ Use these when you need source videos and editor-ready clips.
 
 | Say this | Use it when | What you get |
 |---|---|---|
-| `run clip mine` | You want clip candidates from current AI trends. | Timestamped 15-60s clip briefs with source links, transcript quote, brand gate, and editor notes. |
-| `find clips about [topic]` | You already know the topic. | Source Hunter plus Moment Finder for that topic. Example: `find clips about AI agents replacing SDRs`. |
-| `find the moment in [URL]` | You already have a video. | Best 15-60s segment from that source, if transcript/source access allows it. |
+| `run clip mine` | You want short clip ideas. | 15-60 second clip options with links, quotes, and editor notes. |
+| `find clips about [topic]` | You already know the topic. | Clip ideas for that one topic. Example: `find clips about AI agents replacing SDRs`. |
+| `find the moment in [URL]` | You already have a video. | The best 15-60 second section from that video, if available. |
 
 ### Best Ways to Request Clips
 
@@ -53,10 +69,10 @@ Use these when you need stored clips, duplicates, or status updates.
 
 | Say this | Use it when | What you get |
 |---|---|---|
-| `what clips are ready` | Editors need approved clips. | Approved clips waiting for handoff. |
-| `search clips about [topic]` | You want to check prior work. | Stored clips matching the topic, source, summary, or caption. |
-| `show clip [clip_id]` | You need one stored record. | Full clip record and regenerated brief if possible. |
-| `update clip status` | A clip moved in production. | Status change to `approved`, `in_production`, `scheduled`, `posted`, or `shelved`. |
+| `what clips are ready` | Editors need approved clips. | Approved clips ready for editors. |
+| `search clips about [topic]` | You want to check old clips. | Stored clips that match the topic. |
+| `show clip [clip_id]` | You need one saved clip. | The saved clip details. |
+| `update clip status` | A clip moved forward. | Changes a clip to `approved`, `in_production`, `scheduled`, `posted`, or `shelved`. |
 
 ### How to See Clips Yourself
 
@@ -73,8 +89,8 @@ Use these when public extraction is blocked or you have screenshots/captions fro
 
 | Say this | Use it when | What you get |
 |---|---|---|
-| `manual scan this [URL/screenshot/caption]` | You provide the source material manually. | Normalized social signal, score, category, recommendation, and next action. |
-| `run brand check on [content]` | You want to check copy before posting. | Pass/shelve/modify recommendation with blacklist and nuance-word flags. |
+| `manual scan this [URL/screenshot/caption]` | You paste in source material. | A cleaned-up, scored idea with a next step. |
+| `run brand check on [content]` | You want to check copy before posting. | Tells you if the copy should pass, change, or be shelved. |
 
 ## Captions
 
@@ -82,10 +98,10 @@ Use `skills/caption-tone/SKILL.md` for caption and description writing.
 
 | Say this | What you get |
 |---|---|
-| `write captions for this [brief/source]` | Professional GenX Academy captions first, with platform variants when useful. |
-| `make this more casual` | A looser social-native version, still checked against brand rules. |
-| `make this edgier` | A sharper version for controversial or opinion-led posts. |
-| `make this warmer` | A more human version for B2C or reflective posts. |
+| `write captions for this [brief/source]` | Writes captions from your brief or source. |
+| `make this more casual` | Makes the caption sound more natural. |
+| `make this edgier` | Makes the caption sharper. |
+| `make this warmer` | Makes the caption more human. |
 
 Default behavior: ask Output Direction first when missing, produce normal professional GenX copy, then ask if the user wants a different tone or voice for the use case.
 
@@ -95,9 +111,9 @@ Use `skills/email-hook/SKILL.md` for outbound subject lines, openers, and short 
 
 | Say this | What you get |
 |---|---|
-| `write email hooks for [offer/audience]` | Five subject/opening variants scored by the email gate. |
-| `write subject lines for [campaign]` | Campaign-aware subjects with psychological trigger notes. |
-| `validate this email` | PASS/FLAGGED/REJECT score across five dimensions. |
+| `write email hooks for [offer/audience]` | Writes and scores five subject lines and openers. |
+| `write subject lines for [campaign]` | Writes subject lines for one campaign. |
+| `validate this email` | Checks if an email is ready or needs changes. |
 
 Before generating, the agent should ask who it is for, where it goes, and what tone it should carry when that direction is missing.
 
@@ -105,7 +121,7 @@ Before generating, the agent should ask who it is for, where it goes, and what t
 
 | Say this | Use it when | What you get |
 |---|---|---|
-| `run competitor scan` | You want competitor intelligence. | Competitor report with claims, source URLs, risks, and brand gap analysis. |
+| `run competitor scan` | You want to check competitors. | Competitor changes, source links, risks, and suggested next moves. |
 
 ## Full Autonomous Mode
 
@@ -115,14 +131,14 @@ Say this when you want to give Goblin Recon full working permission for one scan
 run full autonomous scan
 ```
 
-This grants permission to:
+This lets Goblin Recon:
 
-- read project files and memory needed for the scan
-- use approved public web/search/browser extraction
-- run local Python tools and tests
-- create reports/briefs/caption packs in `vault/`
-- update local memory files when the workflow requires it
-- apply templates and Security Rail automatically
+- read the project files it needs
+- use approved public sources
+- run local Python checks and tools
+- create reports, briefs, and captions in `vault/`
+- update local memory when needed
+- run the safety check automatically
 
 It does **not** grant permission to:
 
@@ -147,12 +163,12 @@ Next recommended action
 
 | Prompt pattern | When to use it | Important instruction |
 |---|---|---|
-| `manual scan this ...` | For screenshots, pasted captions, or blocked social pages. | Include the URL, creator, date, visible metrics, caption, and your notes when possible. |
-| `find the moment in [URL]` | For one specific YouTube/video source. | The result must be 15-60 seconds and should not cut mid-sentence. |
-| `run brand check on ...` | For captions, hooks, summaries, or outbound copy. | The copy should be English-only and avoid blacklisted phrases. |
-| `write email hooks for ...` | For outbound/campaign copy. | Include offer, audience, and campaign type when possible. The agent must run `email_gate` before final delivery. |
-| `update clip status ...` | For Clip Vault changes. | Include clip ID and target status. Example: `update clip status CLIP-20260610-001 to approved`. |
-| `what did we do so far?` | For progress status. | The agent should give the latest changes first and avoid repeating the full old summary unless needed. |
+| `manual scan this ...` | For screenshots, pasted captions, or blocked social pages. | Add the URL, creator, date, numbers, caption, and notes if you have them. |
+| `find the moment in [URL]` | For one YouTube or video source. | Finds a 15-60 second moment that does not cut off mid-sentence. |
+| `run brand check on ...` | For captions, hooks, summaries, or emails. | Checks if the copy is safe to use or needs changes. |
+| `write email hooks for ...` | For outbound emails. | Add the offer, audience, and campaign type if you know them. |
+| `update clip status ...` | For saved clip updates. | Add clip ID and status. Example: `update clip status CLIP-20260610-001 to approved`. |
+| `what did we do so far?` | For progress status. | Shows what changed recently and what to do next. |
 
 ## Local Utility Commands
 

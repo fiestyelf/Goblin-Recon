@@ -4,9 +4,8 @@ version = "0.1.0"
 description = "Hermes agent assets and importable Python tools for AI trend research and content briefing."
 requires-python = ">=3.12"
 dependencies = [
-  "beautifulsoup4==4.12.3",
+  "pillow>=10.4.0",
   "PyYAML==6.0.2",
-  "requests==2.32.3",
   "youtube-transcript-api==1.2.4",
   "yt-dlp>=2026.3.0",
 ]

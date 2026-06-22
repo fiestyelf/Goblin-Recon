@@ -1,15 +1,15 @@
 # Goblin Recon — Command Reference
 
-> v1.0 — June 15, 2026
-> 33 commands across 6 workflows
+> v1.1 — June 21, 2026
+> 35 commands across 7 workflows
 
 ---
 
 ## Overview
 
-Goblin Recon exposes 33 commands organized into 6 workflows. Every command routes through the orchestrator, which selects the appropriate skill chain, scan mode, and stop condition.
+Goblin Recon has 33 simple commands across 6 workflows. You type the command in plain English, and Goblin Recon picks the right workflow.
 
-Commands are case-insensitive. Parameters in `[brackets]` are required. Parameters in `(parentheses)` are optional.
+Commands are not case-sensitive. Words in `[brackets]` mean you add your own topic, URL, or ID.
 
 ---
 
@@ -21,27 +21,27 @@ Social Pulse finds trending AI stories, hooks, formats, and content angles. It i
 
 | Command | Description | Scan Mode | Sources |
 |---------|------------|-----------|---------|
-| `run social pulse` | Full trend scan across all platforms | Deep Social | IG → TikTok → X → Reddit → Tech News |
-| `run fast scan` | Daily low-stress discovery | Fast | YouTube, Reddit, Tech News, Product Hunt |
-| `run deep social scan` | Weekly social-native deep dive | Deep Social | IG/TikTok first, then X/Reddit/News |
-| `run signal scan` | First-mover early-signal scan | Signal | X, Hacker News, GitHub, ArXiv (6h window) |
-| `manual scan [URL]` | Normalize human-provided material | Manual Assisted | User-supplied URLs, screenshots, or captions |
+| `run social pulse` | Find content ideas, blog angles, and hooks | Deep Social | IG → TikTok → X → Reddit → Tech News |
+| `run fast scan` | Quick daily trend check | Fast | YouTube, Reddit, Tech News, Product Hunt |
+| `run deep social scan` | Deeper Instagram and TikTok trend check | Deep Social | IG/TikTok first, then X/Reddit/News |
+| `run signal scan` | Find early AI signals before they are mainstream | Signal | X, Hacker News, GitHub, ArXiv |
+| `manual scan this [URL/screenshot/caption]` | Score something you paste in | Manual | Your URL, screenshot, caption, or notes |
 
 ### Platform-Specific Scans
 
 | Command | Description |
 |---------|------------|
-| `trending on Instagram` | Scan IG creator accounts (@therundownai, @rowancheung, @inflecta.ai, @ankitgupta.ai) |
-| `trending on TikTok` | Scan TikTok hashtags (#ainews, #artificialintelligence, #aiexplained) |
+| `trending on Instagram` | Find Instagram trends and creator hooks |
+| `trending on TikTok` | Find TikTok trends, sounds, and formats |
 
 ### Content Strategy
 
 | Command | Description |
 |---------|------------|
-| `blog ideas` | Trending stories filtered for long-form content angles |
-| `carousel ideas` | Trending stories filtered for carousel-worthy topics |
-| `content strategy` | Social Pulse results with editorial calendar recommendations |
-| `trending formats` | Current winning reel formats and hook styles |
+| `blog ideas` | Get article ideas from current trends |
+| `carousel ideas` | Get swipe-post ideas from current trends |
+| `content strategy` | Get a simple weekly posting plan |
+| `trending formats` | See reel and carousel formats working now |
 
 ---
 
@@ -53,15 +53,15 @@ Clip Mine finds source videos and extracts 15–60 second editor-ready moments. 
 
 | Command | Description | Layers Run |
 |---------|------------|------------|
-| `run clip mine` | Full pipeline from trending stories | Trend Radar → Source Hunter → Moment Finder |
-| `find clips about [topic]` | Source hunt + moment extraction for a specific topic | Source Hunter → Moment Finder |
-| `find the moment in [URL]` | Extract the best clip from a specific video | Moment Finder only |
+| `run clip mine` | Find short video clip ideas from trends | Trend → source → moment |
+| `find clips about [topic]` | Find clips about one topic | Source → moment |
+| `find the moment in [URL]` | Pick the best short clip from one video | Moment only |
 
 ### Combined Scan
 
 | Command | Description |
 |---------|------------|
-| `run full scan` | Social Pulse first, then Clip Mine for the top 2–3 candidates |
+| `run full scan` | Find trends, then clips for the best ones |
 
 ---
 
@@ -71,10 +71,10 @@ Clip Vault retrieves and manages stored clips across sessions. Storage backend: 
 
 | Command | Description |
 |---------|------------|
-| `clips ready` | List all approved clips awaiting editor handoff |
-| `search clips [query]` | Full-text search by topic, source, summary, or caption |
-| `show clip [id]` | Display a single clip record with full metadata |
-| `update clip [id] status [status]` | Move a clip through: `approved` → `in_production` → `scheduled` → `posted` → `shelved` |
+| `clips ready` | Show approved clips ready for editors |
+| `search clips [query]` | Search saved clips by topic |
+| `show clip [id]` | Show one saved clip |
+| `update clip [id] status [status]` | Change a saved clip status |
 
 ---
 
@@ -84,12 +84,12 @@ Competitor Scout monitors competitor pricing, features, positioning, and marketi
 
 | Command | Description | Depth |
 |---------|------------|-------|
-| `run competitor scan` | Standard change detection against last saved snapshot | Homepage + key pages |
-| `check competitors` | Quick pulse — surface-level changes only | Homepage only |
-| `competitor deep scan` | Full-site scrape of all sub-pages | All pages (events, blog, press, podcast, pricing, about) |
-| `competitor gap analysis` | Side-by-side comparison of competitor vs GenX Academy | Both sites, all dimensions |
-| `competitor gap reverse [name]` | What GenX is missing compared to a specific competitor | GenX site audit |
-| `compare SEO` | Indexable page count, backlinks, blog volume, meta tags | Both sites |
+| `run competitor scan` | Check competitors and suggest next moves | Homepage + key pages |
+| `check competitors` | Quick competitor check | Homepage only |
+| `competitor deep scan` | Check more competitor pages | All key public pages |
+| `competitor gap analysis` | Compare competitors with GenX Academy | Both sites |
+| `competitor gap reverse [name]` | Show what GenX may be missing | GenX site check |
+| `compare SEO` | Compare basic SEO signals | Both sites |
 
 ---
 
@@ -99,9 +99,9 @@ Email Hook generates and validates subject lines, openers, and short email draft
 
 | Command | Description |
 |---------|------------|
-| `write email hooks for [offer]` | Generate 5 subject + opener variants for an outbound campaign |
-| `write subject lines for [campaign]` | Subject-only variant generation |
-| `validate this email` | Run the email quality gate on existing copy |
+| `write email hooks for [offer]` | Write and score five subject lines and openers |
+| `write subject lines for [campaign]` | Write subject lines for one campaign |
+| `validate this email` | Check if an email is ready or needs changes |
 
 ---
 
@@ -109,8 +109,8 @@ Email Hook generates and validates subject lines, openers, and short email draft
 
 | Command | Description |
 |---------|------------|
-| `register all skills` | Re-register every skill with the Hermes skill registry |
-| `sync from github` | Pull latest repository changes and copy all files to the profile |
+| `register all skills` | Refresh the skills list |
+| `sync from github` | Pull the latest repo files into the profile |
 
 ---
 
@@ -120,15 +120,15 @@ The orchestrator classifies every command into one primary workflow before tool 
 
 | User Says | Routes To | Chains |
 |-----------|-----------|--------|
-| `run social pulse`, `run fast scan`, `run deep social scan`, `run signal scan`, `manual scan [URL]`, `trending on Instagram`, `trending on TikTok` | Social Pulse | trend-radar → report → auto-save |
-| `blog ideas`, `carousel ideas`, `content strategy`, `trending formats` | Social Pulse (filtered) | trend-radar → filter → report |
-| `run clip mine`, `run full scan` | Clip Mine | trend-radar → source-hunter → moment-finder → brand-gate → human-gate |
-| `find clips about [topic]` | Clip Mine | source-hunter → moment-finder → brand-gate → human-gate |
-| `find the moment in [URL]` | Clip Mine | moment-finder → brand-gate → human-gate |
-| `clips ready`, `search clips [query]`, `show clip [id]`, `update clip [id] status [status]` | Clip Vault | query vault → present |
-| `run competitor scan`, `check competitors`, `competitor deep scan`, `competitor gap analysis`, `competitor gap reverse`, `compare SEO` | Competitor Scout | scrape → diff → report → auto-save |
-| `write email hooks for [offer]`, `write subject lines for [campaign]`, `validate this email` | Email Hook | campaign select → generate → email-gate → present |
-| `register all skills`, `sync from github` | System | execute → confirm |
+| `run social pulse`, `run fast scan`, `run deep social scan`, `run signal scan`, `manual scan this [URL/screenshot/caption]`, `trending on Instagram`, `trending on TikTok` | Social Pulse | Find trends and save a report |
+| `blog ideas`, `carousel ideas`, `content strategy`, `trending formats` | Social Pulse | Find trends and turn them into the requested format |
+| `run clip mine`, `run full scan` | Clip Mine | Find trends, sources, and clip moments |
+| `find clips about [topic]` | Clip Mine | Find sources and clip moments for one topic |
+| `find the moment in [URL]` | Clip Mine | Find the best clip moment from one video |
+| `clips ready`, `search clips [query]`, `show clip [id]`, `update clip [id] status [status]` | Clip Vault | Search or update saved clips |
+| `run competitor scan`, `check competitors`, `competitor deep scan`, `competitor gap analysis`, `competitor gap reverse`, `compare SEO` | Competitor Scout | Check competitors and save a report |
+| `write email hooks for [offer]`, `write subject lines for [campaign]`, `validate this email` | Email Hook | Write or check email copy |
+| `register all skills`, `sync from github` | System | Run the system task and confirm it finished |
 
 ---
 
@@ -143,6 +143,18 @@ Every report is automatically saved after generation. The user does not need to 
 | Competitor Scout | `vault/reports/YYYY-MM-DD-competitor-scan.md` |
 | Email Hook | Not auto-saved (tactical output, not a report) |
 | Clip Vault | Not auto-saved (retrieval, not new content) |
+| Carousel Generator | `vault/carousels/YYYY-MM-DD-{topic}-{brand_slug}/` |
+
+---
+
+## 7. Carousel Generator — Social Image Production
+
+Carousel Generator builds multi-slide carousels and single social images. Asks 3 questions, renders editable layer files, exports to `vault/carousels/`.
+
+| Command | Description |
+|---------|------------|
+| `run carousel generator` | Build a multi-slide carousel for Instagram or Facebook |
+| `generate single post` | Make one social image for a topic |
 
 ---
 
@@ -150,10 +162,10 @@ Every report is automatically saved after generation. The user does not need to 
 
 | Mode | Use Case | Primary Sources | Skip |
 |------|----------|----------------|------|
-| **Fast Scan** | Daily low-stress | YouTube, Reddit, Tech News, Product Hunt | IG/TikTok (fragile) |
-| **Deep Social Scan** | Weekly or launch days | IG/TikTok first, then X, Reddit, News | None — but downgrade blocked sources |
-| **Signal Scan** | First-mover discovery | X, Hacker News, GitHub, ArXiv | Anything older than 6 hours |
-| **Manual Assisted** | Human provides material | User-supplied URLs, screenshots, captions | All automated sources |
+| **Fast Scan** | Quick daily check | YouTube, Reddit, Tech News, Product Hunt | IG/TikTok if blocked |
+| **Deep Social Scan** | Deeper social check | IG/TikTok first, then X, Reddit, News | Nothing by default |
+| **Signal Scan** | Early idea check | X, Hacker News, GitHub, ArXiv | Older items |
+| **Manual Assisted** | User gives the material | URLs, screenshots, captions, notes | Automated source hunting |
 
 ---
 

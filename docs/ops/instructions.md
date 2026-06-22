@@ -256,32 +256,41 @@ Use this table when you are not sure which command to run.
 
 | Say this | It does |
 |---|---|
-| `run social pulse` | Full scan: IG, TikTok, X, Reddit, Tech News |
-| `what's trending on Instagram` | IG-only creator scan with format analysis |
-| `what's trending on TikTok` | TikTok-only trend scan |
-| `blog ideas` | Social Pulse filtered for long-form content angles |
-| `carousel ideas` | Social Pulse filtered for carousel-worthy topics |
-| `content strategy this week` | Social Pulse + editorial suggestions |
-| `run clip mine` | Find best podcast clips from trending AI stories |
-| `find clips about [topic]` | Clips for a specific topic |
-| `find the moment in [URL]` | Extract best clip from a specific video |
-| `what clips are ready` | Approved clips awaiting editor handoff |
-| `run full scan` | Social Pulse + Clip Mine together |
-| `run competitor scan` | Competitor Scout |
+| `run fast scan` | Quick daily trend check |
+| `run deep social scan` | Deeper Instagram and TikTok trend check |
+| `run signal scan` | Early AI signals before they are mainstream |
+| `manual scan this [URL/screenshot/caption]` | Score something you paste in |
+| `run social pulse` | Find content ideas, blog angles, and hooks |
+| `what's trending on Instagram` | Instagram trends and creator hooks |
+| `what's trending on TikTok` | TikTok trends, sounds, and formats |
+| `blog ideas` | Article ideas from current trends |
+| `carousel ideas` | Swipe-post ideas from current trends |
+| `content strategy this week` | Simple weekly posting plan |
+| `run clip mine` | Find short video clip ideas |
+| `find clips about [topic]` | Find clips about one topic |
+| `find the moment in [URL]` | Pick the best short clip from one video |
+| `what clips are ready` | Approved clips ready for editors |
+| `run full scan` | Find trends, then clips for the best ones |
+| `run full autonomous scan` | Run the whole approved workflow without asking at each step |
+| `run competitor scan` | Check competitors and suggest next moves |
+| `run brand check on [content]` | Check copy against brand rules before posting |
+| `write email hooks for [offer/audience]` | Write and score email subject lines and openers |
 
 Simple rule:
 
 - If you do not know where to start, type `run full scan`.
-- If you already have a topic, type `find sources for [topic]`.
+- If you already have a topic, type `find clips about [topic]` or `find sources for [topic]`.
 - If you already have a video, type `find the moment in [video URL]`.
+- If you want the full workflow, type `run full autonomous scan`.
 - If you are planning a campaign or checking competitors, type `run competitor scan`.
 
 Examples:
 
 ```text
+run fast scan
 run full scan
-find trending AI stories
-find sources for AI agents replacing SDRs
+run full autonomous scan
+find clips about AI agents replacing SDRs
 find the moment in https://youtube.com/watch?v=VIDEO_ID
 run competitor scan
 ```
@@ -516,11 +525,18 @@ If nothing shows up, Hermes isn't installed. Ask your IT team for help.
 
 | You type | What it does |
 |----------|--------------|
-| `find trending AI stories` | Find top 5 AI trends |
-| `find sources for [topic]` | Find videos about topic |
-| `find the moment in [URL]` | Extract clip from video |
-| `run full scan` | Run everything at once |
+| `run fast scan` | Quick daily trend check |
+| `run deep social scan` | Deeper Instagram and TikTok trend check |
+| `run signal scan` | Find early AI signals |
+| `manual scan this [URL/screenshot/caption]` | Score something you paste in |
+| `find trending AI stories` | Find top AI trends |
+| `find clips about [topic]` | Find clips about one topic |
+| `find the moment in [URL]` | Pick the best short clip from one video |
+| `run full scan` | Find trends, then clips |
+| `run full autonomous scan` | Run the whole approved workflow |
 | `run competitor scan` | Check competitors |
+| `run brand check on [content]` | Check copy before posting |
+| `write email hooks for [offer/audience]` | Write email hooks |
 | `approve` | Save this clip brief |
 | `shelve` | Skip this clip brief |
 | `modify [instructions]` | Change and re-propose |

@@ -29,8 +29,7 @@ vault/*.jsonl
 !vault/reports/.gitkeep
 !vault/competitor-data/.gitkeep
 
-# Internal brand and planning docs — not for public repo
-docs/
+# Internal brand and planning notes — not for public repo
 personal-dumpground/
 PRE_LAUNCH_CHECKLIST.md
 VSCODE_CHANGES.md

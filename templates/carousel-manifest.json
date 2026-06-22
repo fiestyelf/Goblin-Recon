@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "job": {
+    "id": "YYYY-MM-DD-topic-page",
+    "generation_date": "YYYY-MM-DD",
+    "topic": "",
+    "source": "",
+    "platform": "instagram",
+    "account_slug": "",
+    "output_type": "carousel",
+    "carousel_type": "educational",
+    "target_audience": "",
+    "goal": "",
+    "cta": "",
+    "seed": 0
+  },
+  "reference": {
+    "type": "screenshot|image_set|canva|post_url|pdf|brand_sample|manual_notes",
+    "path_or_url": "",
+    "structure_summary": "",
+    "visual_style_summary": "",
+    "do_not_copy": "content, claims, or protected brand assets"
+  },
+  "memory_applied": {
+    "page_account": [],
+    "brand_client": [],
+    "platform": [],
+    "trend": [],
+    "style": [],
+    "performance": []
+  },
+  "layout": {
+    "width": 1080,
+    "height": 1350,
+    "safe_margin": 96,
+    "background_color": "#0F172A",
+    "text_color": "#F8FAFC",
+    "accent_color": "#FBBF24",
+    "font_family": "DejaVu Sans",
+    "logo_path": "",
+    "handle": ""
+  },
+  "approvals": {
+    "slide_plan_before_replicate": false,
+    "final_exports_before_use": false,
+    "approved_by": "",
+    "approval_notes": ""
+  },
+  "slides": [
+    {
+      "number": 1,
+      "role": "hook",
+      "kicker": "",
+      "headline": "",
+      "body": "",
+      "cta": "",
+      "image_prompt": "",
+      "replicate_model": "",
+      "background_asset": "assets/bg-slide-01.png",
+      "export_path": "exports/instagram/slide-01.png",
+      "revision_notes": []
+    }
+  ],
+  "paths": {
+    "output_root": "vault/carousels/YYYY-MM-DD-topic-page",
+    "brief": "brief.md",
+    "manifest": "manifest.json",
+    "generation_log": "generation-log.md",
+    "assets_dir": "assets/",
+    "exports_dir": "exports/"
+  },
+  "qa": {
+    "mobile_readability": "pending",
+    "no_ai_garbled_text": "pending",
+    "platform_dimensions": "pending",
+    "brand_page_fit": "pending",
+    "claim_safety": "pending",
+    "cta_clarity": "pending",
+    "visual_consistency": "pending",
+    "exports_exist": "pending",
+    "human_approval_recorded": "pending"
+  },
+  "revision_history": []
+}

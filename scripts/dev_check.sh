@@ -51,13 +51,14 @@ sep
 
 MISSING=0
 for f in \
-    "AGENTS.md" "SOUL.md" "INSTRUCTIONS.md" "README.md" \
+    "AGENTS.md" "SOUL.md" "HERMES.md" "README.md" "docs/ops/instructions.md" \
     "scripts/check_secrets.py" "scripts/query_clips.py" \
-    "goblin_recon/tools/extract_clip.py" "goblin_recon/tools/score_engagement.py" \
+    "goblin_recon/tools/clip_extractor.py" "goblin_recon/tools/scoring.py" \
     "goblin_recon/tools/youtube_tool.py" "goblin_recon/tools/social_intake.py" \
     "goblin_recon/tools/scoring.py" "goblin_recon/tools/clip_store.py" \
+    "goblin_recon/tools/carousel_renderer.py" "templates/carousel-brief.md" "templates/carousel-manifest.json" \
     "templates/social-pulse-report.md" "templates/clip-mine-brief.md" "templates/competitor-report.md" \
-    "skills/security-rail/SKILL.md" "skills/competitor-scout/SKILL.md" \
+    "skills/security-rail/SKILL.md" "skills/competitor-scout/SKILL.md" "skills/carousel-generator/SKILL.md" \
     "config/sources.yaml" "config/content-sources.yaml" "config/scoring.yaml" "config/competitors.yaml" "config/security.yaml"
 do
     if [ -f "$ROOT/$f" ]; then

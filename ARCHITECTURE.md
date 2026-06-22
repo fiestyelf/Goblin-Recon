@@ -1,357 +1,163 @@
 # Goblin Recon Architecture
 
-Goblin Recon is a semi-autonomous content intelligence system. It helps the team discover trends, find source videos, extract clip moments, package briefs, and remember decisions. It does not replace human judgment or editor production.
-
-## Core Principle
-
-Professional agents stay narrow, observable, and recoverable.
-
-Goblin Recon follows this pattern:
+Goblin Recon is a narrow content-intelligence agent. It routes one request to one useful workflow, uses public/approved sources only, scores the result, gates it, then stores only useful memory.
 
 ```text
-Router -> Workflow -> Tools -> Normalized Data -> Score -> Security Rail -> Human Gate -> Memory
+User Command
+  -> Intent Router
+  -> Primary Workflow
+  -> Canonical Tools
+  -> Normalized Record
+  -> Score / Gate
+  -> Human Decision
+  -> Vault / Memory / Report
 ```
 
-The Security Rail is the final safety/source-quality review before user-facing recommendations, competitor claims, publishing instructions, or operational cells are delivered.
+## Router
 
-The agent should not try to run every source, every tool, and every workflow for every request. It routes the user request to one focused workflow, uses the minimum reliable tools, presents decision-ready output, and stores only useful memory.
-
-## System Map
-
-```mermaid
-flowchart TD
-    A[User Command] --> B[Intent Router]
-
-    B --> C[Social Pulse]
-    B --> D[Clip Mine]
-    B --> E[Clip Vault]
-    B --> F[Competitor Scout]
-    B --> G[Email Hook]
-
-    C --> C1[Collect trend signals]
-    C1 --> C2[Social Intake]
-    C2 --> C3[Normalize social data]
-    C3 --> C4[Score trends]
-    C4 --> C5[Security Rail]
-    C5 --> C6[Output ranked content ideas]
-
-    D --> D1[Pick trend or topic]
-    D1 --> D2[Find source videos]
-    D2 --> D3[Pull transcript]
-    D3 --> D4[Check Clip Vault]
-    D4 --> D5[Find 15-60s moment]
-    D5 --> D6[Brand Gate]
-    D6 --> D7[Security Rail]
-    D7 --> D8[Human Approval]
-    D8 --> D9[Save approved or shelved clip]
-
-    E --> E1[Search clips.db]
-    E1 --> E2[Show ready clips]
-    E2 --> E3[Regenerate briefs]
-    E3 --> E4[Update production status]
-
-    F --> F1[Run competitor research]
-    F1 --> F2[Package competitor report]
-    F2 --> F3[Security Rail]
-    F3 --> F4[Cell-ready moves]
-
-    G --> G1[Confirm output direction]
-    G1 --> G2[Select campaign type]
-    G2 --> G3[Generate subject/opening variants]
-    G3 --> G4[Run Email Gate]
-    G4 --> G5[Security Rail]
-    G5 --> G6[Present ranked variants]
-```
-
-## The Four Core Workflows
-
-### 1. Social Pulse
-
-Purpose: find trending AI stories, hooks, formats, and content angles.
-
-Inputs:
-- `run social pulse`
-- `run fast scan`
-- `run deep social scan`
-- `what formats are working?`
-- `content strategy this week`
-- `manual scan this [URL/screenshot/caption]`
-
-Output: 5-10 ranked content opportunities with source URLs, publication dates, hook style, format type, trend score, confidence, and recommended next action.
-
-Social Pulse is intelligence, not production. It should not produce final clip briefs unless the user explicitly moves into Clip Mine.
-
-### 2. Clip Mine
-
-Purpose: find source videos and extract 15-60 second editor-ready moments.
-
-Inputs:
-- `run clip mine`
-- `find clips about [topic]`
-- `find the moment in [URL]`
-
-Output: 1-3 decision-ready clip briefs with timestamp links, source access, embed preview, clip window, caption, platform variants, vault check, Security Rail result, and rights-review note.
-
-Clip Mine preserves the original core architecture:
-
-```text
-Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Security Rail -> Human Gate
-```
-
-### 3. Clip Vault
-
-Purpose: remember approved, shelved, and production-status clips across sessions.
-
-Inputs:
-- `what clips are ready`
-- `search clips about [topic]`
-- `show clip [clip_id]`
-- `update clip status`
-
-Storage:
-- `vault/clips.db`
-- `vault/briefs/`
-- `memory/trend-history.md`
-
-Output: approved clip lists, regenerated briefs, duplicate warnings, and production status updates.
-
-### 4. Email Hook
-
-Purpose: generate and validate outbound email subject lines, openers, and short drafts.
-
-Inputs:
-- `write email hooks for [offer/audience]`
-- `write subject lines for [campaign]`
-- `validate this email`
-
-Output: ranked subject/opening variants with attention, psychological fit, brand voice, professional guardrail, and campaign alignment scores.
-
-Email Hook preserves the same gate-first architecture:
-
-```text
-Output Direction -> Campaign Fit -> Email Gate -> Security Rail -> Human Gate
-```
-
-## Intent Router
-
-The router chooses exactly one primary workflow before tools are used.
-
-| User Intent | Workflow | Notes |
+| Intent | Workflow | Output |
 |---|---|---|
-| Find trends or ideas | Social Pulse | Use scan mode to control depth. |
-| Find source video clips | Clip Mine | Run dedup before Moment Finder. |
-| Retrieve previous clips | Clip Vault | Query `vault/clips.db` first. |
-| Analyze competitors | Competitor Scout | Separate from trend and clip work; include Security Rail and cell-ready moves. |
-| Validate brand fit | Brand Gate | Can run as a standalone review. |
-| Generate email hooks or outbound drafts | Email Hook | Ask Output Direction first, then run Email Gate and Security Rail. |
+| Trends, hooks, formats, ideas | Social Pulse | Ranked content opportunities |
+| Source videos, timestamps | Clip Mine | Editor-ready clip briefs |
+| Prior clips/status | Clip Vault | Saved clips, briefs, status |
+| Competitor analysis | Competitor Scout | Competitor report |
+| Brand/voice fit | Brand Gate | Pass / revise / shelve |
+| Email hooks/drafts | Email Hook | Scored subject/opening variants |
+| Carousel/social image | Carousel Generator | Local rendered assets |
 
-If a request mixes workflows, run the smallest useful sequence and tell the user what sequence is being used.
+Rule: pick one primary workflow. If mixed, run the smallest sequence and state it.
 
-## Output Direction
+## Workflows
 
-Before producing brand-facing output, the router asks three questions in one short checkpoint:
-
-1. Who is this for? B2C, B2B, or Both?
-2. Where does it go? Faceless Instagram, personal brand, client work, internal use, email/outbound, or other?
-3. What tone should it carry? Professional, casual, edgy, warm, wry, reflective, analytical/data-driven, bold, or platform-native?
-
-The answer controls brand angle, destination, tone, scoring lens, template choice, and copy guardrails. If the user skips direction, default to Both / Faceless Instagram / professional and state that default before generating.
-
-## Scan Modes
-
-### Fast Scan
-
-Use for low-stress daily work.
-
-Sources:
-- YouTube
-- Reddit
-- Tech news
-- Product Hunt
-- X/Twitter only if approved API or public access is available
-
-Goal: produce useful candidates quickly without relying on fragile social scraping.
-
-### Deep Social Scan
-
-Use for weekly social-native discovery or important launches.
-
-Sources:
-- Instagram public creator pages
-- TikTok public pages or hashtags
-- X/Twitter validation
-- Reddit and tech news validation
-
-Goal: understand hooks, formats, viral signals, and creator patterns. Stop or downgrade when platforms block access.
-
-### Manual Assisted Scan
-
-Use when the human already has promising material.
-
-Inputs:
-- URLs
-- Screenshots
-- Captions
-- Creator handles
-- Notes from manual monitoring
-
-Goal: normalize, score, and turn human-provided signals into usable trend or clip candidates.
-
-## Social Extraction Reliability Ladder
-
-Social extraction is the current highest-priority operational constraint. Goblin Recon must not rely on "try to scrape everything" as its main strategy. It must capture social data through a stable intake layer.
-
-Extraction must follow this order:
-
-```mermaid
-flowchart TD
-    A[Need social data] --> B{Best available source?}
-    B --> C[Approved API or reliable public feed]
-    B --> D[Public browser extraction]
-    B --> E[Manual assisted input]
-    C --> F[Normalize data]
-    D --> G{Blocked or incomplete?}
-    G -->|No| F
-    G -->|Yes| E
-    E --> F
-    F --> H[Score and decide]
-```
-
-Rules:
-- Never bypass login, paywall, captcha, robots.txt, rate limits, or platform restrictions.
-- Never use personal employee accounts for automation.
-- If public extraction fails, mark `access_status: blocked` and switch to manual assisted input.
-- Treat Instagram and TikTok browser extraction as useful but fragile, not as the foundation of the system.
-
-## Social Intake Layer
-
-All social data, regardless of source, must pass through `goblin_recon.tools.social_intake` before Trend Radar scoring.
-
-Accepted inputs:
-- Approved API output
-- Public browser observations
-- User-provided URLs
-- Screenshot summaries
-- Captions
-- Visible metrics
-- Creator handles
-- Manual notes
-
-Core commands:
-
-```bash
-.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json
-.venv/bin/python -m goblin_recon.tools.social_intake --url "https://www.instagram.com/reel/..." --topic "AI agents" --caption "..."
-.venv/bin/python -m goblin_recon.tools.social_intake --input vault/intake/social-signal.json --store
-```
-
-Default local store:
+### Social Pulse
 
 ```text
-vault/social-signals.jsonl
+Scan mode -> collect public signals -> social_intake -> scoring -> Security Rail -> report
 ```
 
-The store is ignored by Git because it may contain unpublished content notes.
+Use for ideas, blogs, carousels, hooks, formats, and weekly strategy. Not for final clip production.
 
-## Normalized Social Record
-
-Every social signal should be converted into this shape before scoring:
+### Clip Mine
 
 ```text
-platform:
-creator:
-url:
-published_date:
-views:
-likes:
-comments:
-caption:
-hook:
-format_type:
-topic:
-category:
-why_it_is_trending:
-can_genx_adapt_this:
-confidence:
-access_status:
+Trend/topic -> source search -> transcript -> vault dedup -> moment selection -> Brand Gate -> Security Rail -> Human Gate
 ```
 
-This keeps the agent from mixing raw platform fragments with final recommendations.
+Use for 15-60 second clip briefs. Store metadata and short excerpts only, not full raw transcripts.
 
-## Tool Policy
+### Clip Vault
 
-Tools are helpers, not the architecture.
+```text
+clips.db -> search/get/update -> regenerate brief -> production status
+```
 
-| Tool or Integration | Role | Default |
-|---|---|---|
-| Built-in browser/web | Public inspection and discovery | Allowed when public access is available. |
-| `goblin_recon.tools.youtube_tool` | YouTube transcript extraction | Core Clip Mine tool. |
-| `goblin_recon.tools.clip_extractor` | Clip timestamp validation | Core Clip Mine tool. |
-| `goblin_recon.tools.social_intake` | Normalize API/public/manual social signals | Core Social Pulse tool. |
-| `goblin_recon.tools.clip_store` | Save clip metadata | Core Clip Vault tool. |
-| `scripts/query_clips.py` | Retrieve clips and regenerate briefs | Core Clip Vault tool. |
-| `goblin_recon.tools.brand_gate` | Check generated copy for blacklist and nuance words | Core Brand Gate helper. |
-| `goblin_recon.tools.email_gate` | Score outbound email drafts across five quality dimensions | Core Email Hook helper. |
-| `skills/security-rail/SKILL.md` | Review source quality, access safety, claims, usefulness, and human-review needs | Mandatory before user-facing delivery. |
-| MCP Memory | Store approved/shelved patterns | Optional, useful early. |
-| Fetch MCP | Extract normal public webpages | Optional, useful early. |
-| Firecrawl | Public web/news extraction | Later, after API key approval. |
-| Ghost Browser | JS-heavy public pages | Fallback only. |
-| Meta Instagram API | Approved Instagram data | Later, approval required. |
-| X/Twitter API | Approved public search/recent posts | Later, approval required. |
-| Reddit API | Approved public subreddit data | Good reliability candidate. |
-| YouTube Data API | Public metadata | Optional; transcripts do not need it. |
+Use before new clip work to avoid duplicates.
 
-Do not add integrations because they exist. Add them only when a workflow step is repeatedly painful and the integration is approved, read-only, and reliable.
+### Competitor Scout
 
-### Browser Extraction Discipline
+```text
+public sources -> normalized claims -> Security Rail -> report
+```
 
-- Do not guess article URLs from headlines or slugs. Extract real links from category pages, search pages, feeds, sitemaps, or approved APIs.
-- After one 404, stop guessing and return to an index/search page to extract the canonical `href`.
-- If a page returns a block page, captcha, DataDome/JS challenge, login wall, or rate-limit response, confirm once, mark `access_status: blocked`, and move on.
-- For JavaScript-heavy news pages, prefer broad link extraction before narrow selectors. The Verge often requires selecting generic image-backed links, for example: `main > div > a[href]` filtered to anchors with an image and a `theverge.com` URL.
+Every claim needs source URL and date.
 
-## Memory Policy
+### Email Hook
 
-Store:
-- Approved clips
-- Shelved clips with reasons
-- Duplicate decisions
-- Strong hook/format patterns
-- Recurring brand-gate decisions
-- Production statuses
+```text
+output direction -> campaign fit -> email_gate -> Security Rail -> ranked variants
+```
 
-Do not store:
-- API keys, cookies, tokens, or secrets
-- Full raw transcripts by default
-- Private personal data
-- Login-only or restricted source data
-- Unreviewed claims as facts
+Use for subject lines, openers, and short outbound drafts.
 
-## Failure Behavior
+### Carousel Generator
 
-The agent should fail cleanly.
+```text
+reference/template -> memory -> slide plan -> human approval -> Replicate visual layers -> Pillow renderer -> QA -> vault/carousels
+```
 
-| Failure | Behavior |
+Render final text locally with Pillow. Replicate is for visual/background layers only; gradient fallback is valid when the token is missing or generation fails. The Replicate MCP is for agent/tool calls; `carousel_renderer.py` uses `REPLICATE_API_TOKEN` directly for local render jobs. QA checks readability, platform dimensions, page/account fit, claim safety, visual consistency, exports, and human approval.
+
+## Canonical Tools
+
+| Tool | Job |
 |---|---|
-| Source has no URL | Do not include it. |
-| Publication date missing | Mark low confidence or shelve. |
-| Platform blocks access | Stop that source and switch to manual assisted input. |
-| Article URL returns 404 | Retry once by extracting a real `href`; do not keep guessing slugs. |
-| Claim has only one source | Mark unverified. |
-| Clip overlaps vault history | Differentiate or shelve before extraction. |
-| Brand gate fails | Shelve before Security Rail and Human Gate. |
-| Security Rail returns `REVISE` | Fix the output, then rerun the rail before delivery. |
-| Security Rail returns `SHELVE` | Do not deliver the recommendation or cell as usable. |
-| Security Rail returns `NEEDS HUMAN REVIEW` | Label clearly and require human approval before publishing or action. |
-| Human does not approve | Do not save as approved or send to editor. |
+| `api_search.py` | Exa/Tavily search |
+| `api_extract.py` | Firecrawl/ScrapeGraph extraction |
+| `env.py` | local/profile env lookup |
+| `youtube_tool.py` | transcripts and public metadata |
+| `clip_extractor.py` | timestamp/URL validation |
+| `scoring.py` | velocity, lifecycle, source diversity |
+| `social_intake.py` | normalize social observations |
+| `clip_store.py` | clip memory and brief rendering |
+| `brand_gate.py` | brand voice checks |
+| `email_gate.py` | email quality scoring |
+| `carousel_renderer.py` | carousel/social image output |
 
-## Professional Operating Model
+MCP source of truth: `mcp.json`.
 
-Goblin Recon should stay semi-autonomous:
+## Data Contracts
+
+### Social Signal
 
 ```text
-Agent gathers -> Agent structures -> Agent scores -> Security Rail checks -> Human approves -> Agent stores -> Editor produces
+platform, creator, url, published_date, views, likes, comments,
+caption, hook, format_type, topic, category,
+why_it_is_trending, can_genx_adapt_this, confidence, access_status
 ```
 
-This is intentional. The agent does leverage work; the human keeps judgment, rights review, and publishing approval.
+### Clip
+
+```text
+source_url, source_title, source_channel_or_account,
+start_sec, end_sec, duration_seconds,
+moment_summary, why_post, suggested_caption,
+brand_angle, brand_alignment_score, status
+```
+
+### Carousel
+
+```text
+job, reference, memory_applied, layout, approvals, slides, paths, qa, revision_history
+```
+
+Each slide stores role, kicker, headline, body, CTA, image_prompt, background asset path, export path, and revision notes.
+
+## Gates
+
+```text
+Trend score -> Source score -> Moment score -> Brand Gate -> Security Rail -> Human Gate
+```
+
+Security Rail decisions:
+
+```text
+APPROVE -> deliver
+REVISE -> fix then deliver
+SHELVE -> do not recommend
+NEEDS HUMAN REVIEW -> label clearly
+```
+
+Default when uncertain: **shelve**.
+
+## Source Policy
+
+```text
+Approved API/public feed -> public browser extraction -> manual assisted input
+```
+
+Never bypass login, paywall, captcha, robots.txt, rate limits, or platform restrictions. Never use personal employee accounts. If blocked, mark `access_status: blocked` and move on.
+
+## Memory
+
+| Path | Use |
+|---|---|
+| `vault/clips.db` | clip records and dedup |
+| `vault/briefs/` | generated clip briefs |
+| `vault/reports/` | scan/report outputs |
+| `vault/carousels/` | rendered carousel assets |
+| `memory/trend-history.md` | trend memory |
+| `memory/carousel/` | brand/platform carousel memory |
+
+## Final Rule
+
+The agent gathers, structures, scores, and recommends. Humans approve publishing, sensitive claims, external actions, and editor production.

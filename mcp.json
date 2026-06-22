@@ -56,6 +56,14 @@
         "set -a; source ./.env 2>/dev/null; set +a; exec npx -y mcp-remote@latest https://scrapegraph-mcp.onrender.com/mcp --header \"X-API-Key:${SCRAPEGRAPH_API_KEY}\""
       ],
       "description": "AI-powered structured extraction from URLs. Loads SCRAPEGRAPH_API_KEY from .env."
+    },
+    "replicate": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -a; source ./.env 2>/dev/null; set +a; exec npx -y replicate-mcp@latest"
+      ],
+      "description": "Image generation for carousel visual/background layers only. Loads REPLICATE_API_TOKEN from .env."
     }
   },
   "optionalServers": {

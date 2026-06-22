@@ -1,366 +1,149 @@
 ---
 name: orchestrator
-description: >
-  Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence.
-  For Clip Mine, preserve the core chain: Trend Radar → Source Hunter → Moment Finder → Brand Gate → Security Rail → Human Gate.
-  Supports Fast Scan, Deep Social Scan, Manual Assisted Scan, Signal Scan, and Full Autonomous Scan modes.
+description: Route Goblin Recon requests to one primary workflow and run the smallest useful sequence.
 category: genx-marketing
-version: 1.0.0
+version: 1.1.0
 ---
 
-# Orchestrator — Driver Skill
+# Orchestrator
 
-## Purpose
-Route user intent into the right Goblin Recon workflow, then run the smallest useful sequence. For Clip Mine, preserve the core chain: Trend Radar -> Source Hunter -> Moment Finder -> Brand Gate -> Security Rail -> Human Gate.
+Purpose: choose the workflow, set the stop condition, and avoid tool sprawl.
+
+Core shape:
+
+```text
+Router -> Workflow -> Tools -> Normalized Data -> Score/Gate -> Human Gate -> Memory
+```
 
 ## Triggers
-- "run full scan"
-- "run full autonomous scan"
-- "goblin recon go"
-- "find me content"
-- "run fast scan"
-- "run deep social scan"
-- "manual scan this [URL/screenshot/caption]"
-- "what clips are ready"
 
-## Tools Required
-- Loads and chains: trend-radar → source-hunter → moment-finder → security-rail
-- All config files
-- All templates
-- memory/brand-rules.md
-- config/brand-voice.yaml
+- `run fast scan`
+- `run deep social scan`
+- `run signal scan`
+- `manual scan this ...`
+- `run social pulse`
+- `run clip mine`
+- `find clips about ...`
+- `find the moment in ...`
+- `what clips are ready`
+- `run competitor scan`
+- `write email hooks ...`
+- `run carousel generator`
+- `run full scan`
+- `run full autonomous scan`
 
-## Optional Helpers
-- MCP Memory: store approved/shelved examples after human decision
-- Fetch MCP: extract readable text from approved public pages
-- Ghost Browser: fallback for approved public social or JavaScript-heavy pages when normal extraction fails
-- Firecrawl: extract approved public web pages after the API key is configured through environment variables
-- config/content-tracker.yaml: create Notion/Sheets tracking entries after approval when enabled
-- GPT Researcher, TrendRadar, Scrapling, and FunASR remain optional helpers only; they do not replace the core pipeline
+## Step 0 — Route
 
-## Execution Flow
+| Intent | Workflow | Stop when |
+|---|---|---|
+| Trends/hooks/formats/ideas | Social Pulse | ranked opportunities exist or sources fail |
+| Source videos/timestamps | Clip Mine | 1-3 viable briefs or no safe source |
+| Prior clips/status | Clip Vault | requested records shown/updated |
+| Competitors | Competitor Scout | sourced report complete |
+| Brand fit | Brand Gate | pass/revise/shelve returned |
+| Email hooks/drafts | Email Hook | scored variants returned |
+| Carousel/social image | Carousel Generator | local assets rendered |
 
-### Step 0: Intent Router
-```
-1. Classify the request before using tools:
-   - Trends, hooks, formats, ideas -> Social Pulse
-   - Source videos or timestamped moments -> Clip Mine
-   - Prior approved/shelved clips -> Clip Vault
-   - Competitor analysis -> Competitor Scout
-   - Brand fit review -> Brand Gate
-2. If the request mixes workflows, use the smallest useful sequence.
-3. For "run full scan", run Social Pulse first, then Clip Mine only for the strongest candidates.
-4. For "run full autonomous scan", run Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail using approved public/local sources without repeated confirmations.
-5. State the selected workflow and scan mode before collecting data.
-```
+If mixed, use the smallest chain. `run full scan` = Social Pulse, then Clip Mine for only the strongest 2-3 candidates.
 
-**Output:** Selected workflow, scan mode, and stop condition
+`run full autonomous scan` = Social Pulse + limited Clip Mine + optional competitor/caption packaging from approved public/local sources. Still stop for secrets, paid setup, login/paywall/captcha bypass, publishing/sending, destructive deletes, deploys, or commits.
 
-### Step 0.5: Scan Mode Selection
-```
-Fast Scan:
-  - Use for daily low-stress discovery
-  - Prefer YouTube, Reddit, Tech News, Product Hunt, and approved/public X
-  - Avoid fragile IG/TikTok extraction unless explicitly requested
+State selected workflow and scan mode before collecting data.
 
-Deep Social Scan:
-  - Use for weekly social-native discovery or important launches
-  - Start with Instagram/TikTok public surfaces
-  - Validate with X, Reddit, and Tech News
-  - Stop or downgrade any source that blocks public access
+## Step 1 — Safety Preflight
 
-Manual Assisted Scan:
-  - Use when the user provides URLs, screenshots, captions, creator handles, or notes
-  - Normalize the human-provided signal and score it
-  - Recommend Social Pulse, Clip Mine, or shelve
+- Public or explicitly approved sources only.
+- No keys/tokens/cookies in chat.
+- No personal social accounts.
+- No bypassing login, paywall, captcha, robots.txt, rate limits, or platform restrictions.
+- Human review required before publishing clips, claims, emails, or social posts.
 
-Full Autonomous Scan:
-  - User permission phrase: "run full autonomous scan"
-  - Use approved public/local sources and local tools without repeated yes/no prompts
-  - Produce Social Pulse/news brief, Clip Mine candidates, Competitor Scout report, Caption Pack, and Security Rail summary
-  - Still stop for secrets, external service setup, paid-service setup, publishing/sending, access-control bypass, destructive deletes, or irreversible deployment actions
+## Step 2 — Direction
+
+Before brand-facing output ask once:
+
+```text
+Audience? B2C / B2B / Both
+Destination? Faceless Instagram / personal brand / client work / internal / email / other
+Tone? professional / casual / edgy / warm / wry / reflective / analytical / bold / platform-native
 ```
 
-**Output:** Source plan and extraction depth
+If skipped: default to Both / Faceless Instagram / professional.
 
-### Step 1: Security Preflight
-```
-1. Load config/security.yaml
-2. Confirm no API keys or tokens are requested in chat
-3. Confirm sources are public or explicitly approved
-4. Stop if a source requires bypassing login, paywall, captcha, or access restrictions
-5. Remind user that human review is required before publishing
-```
+## Step 3 — Workflow Execution
 
-### Step 2: Initialize
-```
-1. Load all configuration files
-2. Load memory/brand-rules.md and config/brand-voice.yaml
-3. Load config/content-tracker.yaml if present
-4. Verify scripts are available
-5. Prepare memory/trend-history.md for dedup
-6. For Clip Vault requests, query vault/clips.db first and skip trend/source collection
-7. Report: "Starting [workflow] using [scan mode]..."
+### Social Pulse
+
+```text
+scan mode -> collect sources -> social_intake -> scoring -> Security Rail -> report
 ```
 
-### Step 2.5: Brand Calibration
-Before running the layers, calibrate the scan against the brand rules:
-- B2C filter: successful-on-paper, lost spark, wants real science plus real soul, no woo or preciousness.
-- B2B filter: burnt-out SME operator, wants implementation/results, no advice-merchant or consultant theater.
-- Voice filter: direct, precise, grounded, emotionally true; no blacklisted phrases in GenX-written copy.
-- Open decisions: do not guess B2C brand name, Sara visibility level, or domain mapping.
+Use `skills/trend-radar/SKILL.md`. Save final report to `vault/reports/`.
 
-### Step 3: Social Extraction Policy
-```
-1. Use this reliability ladder:
-   approved API/public feed -> public browser extraction -> manual assisted input
-2. Normalize every social signal through goblin_recon.tools.social_intake before scoring:
-   platform, creator, url, published_date, views, likes, comments, caption, hook,
-   format_type, topic, category, why_it_is_trending, can_genx_adapt_this,
-   confidence, access_status
-3. If public extraction fails, mark access_status=blocked and move on.
-4. Do not bypass platform restrictions or use personal accounts.
-5. Store useful manual/API/public observations in vault/social-signals.jsonl when they may help future scans.
+### Clip Mine
+
+```text
+trend/topic -> source-hunter -> transcript -> clip_store dedup -> moment-finder -> brand_gate -> Security Rail -> Human Gate
 ```
 
-**Output:** Normalized social records or blocked-source notes
+Use:
+- `skills/source-hunter/SKILL.md`
+- `skills/moment-finder/SKILL.md`
+- `goblin_recon.tools.youtube_tool`
+- `goblin_recon.tools.clip_extractor`
+- `goblin_recon.tools.clip_store`
 
-### Step 4: Run Layer 1 — Trend Radar
-```
-1. Execute trend-radar skill
-2. Apply the selected scan mode to source depth
-3. If no stories found: report and stop
-4. If stories found: proceed to Layer 2
-```
+Clip duration: 15-60 seconds. No full raw transcript storage.
 
-**Output:** Top 5 trending stories with scores
+### Clip Vault
 
-### Step 5: Run Layer 2 — Source Hunter
-```
-1. For each story from Layer 1:
-   a. Execute source-hunter skill
-   b. Find YouTube and Instagram sources
-   c. Pull transcripts for YouTube videos
-2. Collect all sources
-3. If no sources found for a story: note and continue
-```
+Query `vault/clips.db` first. Do not run trend/source collection.
 
-**Output:** 3-5 sources per story with transcript access status and short excerpts only when needed
+Useful commands:
 
-### Step 5.1: Vault Dedup Check
-```
-1. Before running Moment Finder, check vault/clips.db through goblin_recon.tools.clip_store for duplicate source URLs and overlapping timestamp windows.
-2. Use scripts/query_clips.py list --query "[topic or source]" when you need to retrieve similar prior clips by topic, source title, summary, why-post, or caption text.
-3. Also check memory/trend-history.md and vault/briefs/ for similar:
-   a. Trend/topic
-   b. Hook or claim
-   c. Audience tension
-   d. Competitor gap
-   e. Source or speaker
-4. If no overlap exists: mark Vault check as "no overlap" and continue
-5. If overlap exists but the angle is meaningfully different: mark "needs differentiation" and state the difference
-6. If overlap exists and the angle is not meaningfully different: shelve before clip extraction
-7. Record the dedup decision in the final brief
+```bash
+scripts/query_clips.py list --status approved
+scripts/query_clips.py list --query "topic"
+scripts/query_clips.py brief <clip_id>
 ```
 
-**Output:** Dedup decision for each story/source before clip extraction
+### Competitor Scout
 
-### Step 6: Run Layer 3 — Moment Finder
-```
-1. For each source with transcript:
-   a. Execute moment-finder skill
-   b. Find hot zones in transcript
-   c. Score and rank moments
-   d. Generate clip briefs
-2. Collect all clip briefs
-3. Rank by score (highest first)
-4. Each clip brief must include Decision, Effort, Confidence, Vault check, Fallback, AI search potential, and Platform Variants
-```
+Use `skills/competitor-scout/SKILL.md`. Every claim needs public URL + date. Run Security Rail.
 
-**Output:** 2-3 clip briefs per source with timestamps
+### Email Hook
 
-### Step 7: Brand Gate
+Use `skills/email-hook/SKILL.md` and `goblin_recon.tools.email_gate`. Run Security Rail before delivery.
 
-Before human approval, filter every trend, source, and clip brief:
+### Carousel Generator
 
-```
-For each clip brief:
-  1. Use Output Direction from session start (brand angle, destination, and tone). If missing, ask the 3-question Output Direction Pre-Check before judging the brief.
-  2. Confirm brand alignment >= 8/15
-  3. Scan GenX-written hook, caption, explanation, and next steps against config/brand-voice.yaml blacklist
-  4. If transcript contains blacklisted words, flag as quoted source material and do not reuse in GenX copy
-  5. Check B2C: science+soul, truly seen, depth plus play, no woo
-  6. Check B2B: results not advice, implementation, proof, no advice-merchant tone
-  7. Check first-touch feeling: recognized, challenged, relieved, provoked, or weak/generic
-  8. If any check fails: auto-shelve and record reason
+Use `skills/carousel-generator/SKILL.md` and `goblin_recon.tools.carousel_renderer`. Render locally; Replicate is optional fallback enhancement, not required.
+
+## Step 4 — Final Gate
+
+Before user delivery, run `skills/security-rail/SKILL.md` on reports, briefs, claims, copy, and recommendations.
+
+Decision handling:
+
+```text
+APPROVE -> deliver
+REVISE -> deliver revised safe version
+SHELVE -> do not recommend
+NEEDS HUMAN REVIEW -> label clearly
 ```
 
-Only briefs that pass the brand gate reach the Security Rail.
+## Output Contract
 
-### Step 7.5: Security Rail — Final Check
+Every report/brief starts with `## Decision` and includes:
 
-Before presenting results to the user, run `skills/security-rail/SKILL.md` on every final answer, report, clip brief, competitor finding, or publish/shelve recommendation.
+- recommendation
+- category when content-related
+- source URLs and dates
+- effort
+- confidence
+- vault check
+- fallback angle
+- AI search potential when relevant
+- next step
 
-```
-For each user-facing output:
-  1. Check source integrity: URLs, dates, timestamps, quotes, metrics, and unverified claims.
-  2. Check access/platform safety: public or approved sources only; no bypasses or private sources.
-  3. Check legal/copyright/human-review flags using LEGAL_GUARDRAILS.md.
-  4. Check business usefulness: specific, decision-ready, not vague or falsely certain.
-  5. Return one decision: APPROVE, REVISE, SHELVE, or NEEDS HUMAN REVIEW.
-```
-
-Security Rail handling:
-- `APPROVE`: present the output.
-- `REVISE`: present only the safer revised version.
-- `SHELVE`: do not recommend the item; explain the shelve reason briefly.
-- `NEEDS HUMAN REVIEW`: present with a clear human-review warning and do not call it publish-ready.
-
-Only outputs that pass Security Rail or are revised by Security Rail reach the Human Gate.
-
-### Step 8: Human Gate — Present Results
-
-**Format: One message per clip brief**
-
-```
-CLIP BRIEF: "[headline]"
-
-DECISION:
-Action: [approve / modify / shelve]
-Effort: [X] hours
-Confidence: [High / Medium / Low] — [reason]
-Vault check: [no overlap / similar exists / needs differentiation]
-Fallback: [alternative angle if rejected]
-AI search potential: [Strong / Medium / Weak] — [reason]
-
-Trend Score: [X]/100 | Source: [video title]
-URL: youtube.com/watch?v=XXX&t=[START] → t=[END]
-Duration: [X] seconds
-Brand Angle: [B2C/B2B/Both] | Brand Alignment: [X]/15
-First-Touch Feeling: [recognized/challenged/relieved/provoked/weak]
-Blacklist Flags: [none/list]
-
-THE MOMENT:
-"[transcript of the clip]"
-
-WHY POST:
-[1-2 sentences: why this will get engagement]
-
-CAPTION:
-"[suggested caption]"
-
-FORMAT: [faceless reel type]
-PLATFORM VARIANTS: [Instagram / LinkedIn / YouTube Shorts]
-#[tag1] #[tag2] #[tag3]
-
-Reply: approve / shelve / modify
-```
-
-**User Options:**
-- `approve` → Save to vault/briefs/, record in trend-history
-- `shelve` → Skip, record in trend-history for dedup
-- `modify [instructions]` → Revise and re-propose
-
-### Step 9: Handle User Responses
-
-**For each "approve":**
-```
-1. Save clip brief to vault/briefs/[date]-[headline].md
-2. Save structured clip metadata to vault/clips.db with goblin_recon.tools.clip_store using status=approved
-3. If the editor needs the brief later, regenerate it with scripts/query_clips.py brief [clip_id] --output vault/briefs/[clip_id].md
-4. Record in memory/trend-history.md
-5. If config/content-tracker.yaml tracking.enabled is true, create/update the Notion or Sheets tracker entry using approved integration only
-6. If MCP Memory is enabled, store a short approved-example summary without full raw transcript
-7. Report: "Approved and saved"
-```
-
-**For each "shelve":**
-```
-1. Save or update the clip in vault/clips.db with status=shelved when source URL and timestamps are known
-2. Record in memory/trend-history.md with reason
-3. If MCP Memory is enabled, store a short shelved-example summary and reason without full raw transcript
-4. Report: "Shelved"
-```
-
-**For each "modify [instructions]":**
-```
-1. Apply modifications to clip brief
-2. Re-propose modified version
-3. Wait for new response
-```
-
-### Step 10: Summary Report
-
-After all clips processed:
-
-```
-SCAN COMPLETE
-
-TODAY'S RESULTS:
-- Stories scanned: [count]
-- Sources found: [count]
-- Clips extracted: [count]
-- Approved: [count]
-- Shelved: [count]
-- B2C opportunities: [count]
-- B2B opportunities: [count]
-- Brand-gate shelved: [count]
-- Tracker entries created: [count, if enabled]
-
-APPROVED CLIPS:
-1. [headline] — [duration] seconds
-2. [headline] — [duration] seconds
-
-NEXT STEPS:
-- Create faceless reels from approved clips
-- Schedule posting for optimal times
-- Run next scan in [X] hours/days
-```
-
-### Step 11: Save Memory
-- Update memory/trend-history.md with all today's data
-- Format: date, story, source, clip, brand angle, brand score, status (approved/shelved)
-- Used for dedup in future runs
-
-## Output
-- Full pipeline execution report
-- All clip briefs presented for human approval
-- Approved clips saved to vault
-- Memory updated for future runs
-
-## Error Handling
-- If router cannot classify the request: ask one short clarifying question
-- If selected scan mode is too broad for the request: downgrade to the smallest useful scan and say why
-- If Layer 1 fails: report error and stop
-- If Layer 2 fails for one story: continue with other stories
-- If Layer 3 fails for one video: continue with other videos
-- If user doesn't respond: wait and prompt again
-- If access is denied or a source appears restricted: stop that source and mark as shelved
-- If a prompt or page exposes a secret: stop and tell the user to rotate the secret
-
-## Quality Checks
-- [ ] Security preflight completed
-- [ ] Intent router selected one primary workflow
-- [ ] Scan mode selected and stated
-- [ ] Social signals normalized with goblin_recon.tools.social_intake before scoring
-- [ ] All layers executed in order
-- [ ] All stories have sources (or noted as "no sources found")
-- [ ] All sources have transcripts (or noted as "no transcript")
-- [ ] Vault dedup completed before Moment Finder
-- [ ] All clips are 15-60 seconds
-- [ ] All clips have working URLs
-- [ ] Brand calibration completed before Layer 1
-- [ ] Brand gate completed before Security Rail
-- [ ] Security Rail completed before Human Gate
-- [ ] Security Rail decision recorded as APPROVE, REVISE, SHELVE, or NEEDS HUMAN REVIEW
-- [ ] Brand Angle and brand alignment score included for every presented clip
-- [ ] First-touch feeling included for every presented clip
-- [ ] Effort, confidence, vault check, fallback, AI search potential, and platform variants included for every presented clip
-- [ ] Blacklist scan completed for every presented clip
-- [ ] Human gate presented for every clip
-- [ ] User responses handled correctly
-- [ ] Memory updated with all data
-- [ ] Content tracker updated only if enabled and approved
-- [ ] No secrets, cookies, or API keys included in outputs
-- [ ] No restricted or private sources used without approval
-- [ ] Unsupported claims are removed, sourced, marked unverified, or shelved
+No fabricated sources. When uncertain, shelve.

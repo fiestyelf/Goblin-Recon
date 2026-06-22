@@ -341,7 +341,7 @@ search_files(target='files', pattern='glob')   ← Hermes built-in (primary)
 **Rule for file paths:**
 - Always use **project-relative paths** from the project root (`goblin-recon/`) — not `~/.hermes/` or absolute `/Users/...` unless specifically needed.
 - After writing a file, **always read it back** to verify the content was written correctly.
-- If a file path error occurs, try both relative (`config/hermes-mcp.yaml`) and project-absolute (`/path/to/project/config/hermes-mcp.yaml`) before giving up.
+- If a file path error occurs, try both relative paths and project-absolute paths before giving up.
 
 ```mermaid
 flowchart LR

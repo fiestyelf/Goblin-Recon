@@ -12,7 +12,8 @@ One-line purpose for every tracked file and folder in this repo.
 | `AGENTS.md` | Agent rulebook — identity, behavior, source verification, brand rules, security guardrails. |
 | `ARCHITECTURE.md` | Professional system map — router, workflows, scan modes, tool policy, social extraction ladder, and memory policy. |
 | `COMMANDS.md` | Plain-language command guide for scan modes, Clip Mine, Clip Vault, captions, email hooks, and setup commands. |
-| `GETTING_STARTED.md` | Quickstart for new users who already have Hermes. |
+| `docs/ops/getting-started.md` | Quickstart for new users who already have Hermes. |
+| `HERMES.md` | Hermes/Pi operator entrypoint and boundaries. |
 | `mcp.json` | Optional MCP helper server config. Disabled until approved. |
 
 ## Core Docs
@@ -20,8 +21,9 @@ One-line purpose for every tracked file and folder in this repo.
 | File | Job |
 |---|---|
 | `README.md` | Project overview. One-liner setup, commands, and pointers to detailed guides. |
-| `FILE_DESCRIPTIONS.md` | This file — one-line purpose for every file and folder. |
-| `INSTRUCTIONS.md` | Step-by-step setup and daily workflow guide for the GenX Academy marketing team. |
+| `docs/ops/file-descriptions.md` | This file — one-line purpose for every file and folder. |
+| `docs/ops/instructions.md` | Step-by-step setup and daily workflow guide for the GenX Academy marketing team. |
+| `docs/ops/launch-prep.md` | Launch readiness checklist. |
 
 ## Security, Legal, and API Docs
 
@@ -29,16 +31,16 @@ One-line purpose for every tracked file and folder in this repo.
 |---|---|
 | `SECURITY.md` | Security policy — secrets, public-source rules, retention, incident response. |
 | `API_KEYS.md` | Safe API key storage, rotation, and leak response. |
-| `API_KEYS_TODO.md` | Checklist for optional API keys that still need owner approval/configuration. |
-| `SOCIAL_API_SETUP.md` | Guide for adding approved social API keys (YouTube, Reddit, X/Twitter, etc.). |
-| `LEGAL_GUARDRAILS.md` | Platform, copyright, competitor research, and publishing rules. |
-| `HERMES_APPROVALS.md` | Which Hermes tool permissions to approve or deny. |
+| `docs/security/api-keys-todo.md` | Checklist for optional API keys that still need owner approval/configuration. |
+| `docs/ops/social-api-setup.md` | Guide for adding approved social API keys (YouTube, Reddit, X/Twitter, etc.). |
+| `docs/security/legal-guardrails.md` | Platform, copyright, competitor research, and publishing rules. |
+| `docs/hermes/approvals.md` | Which Hermes tool permissions to approve or deny. |
 
 ## Repository Safety
 
 | File | Job |
 |---|---|
-| `.gitignore` | Blocks secrets, environments, caches, logs, docs/, and vault outputs from being committed. |
+| `.gitignore` | Blocks secrets, environments, caches, logs, personal notes, and vault outputs from being committed. |
 | `.env.example` | Safe template showing environment variable names for optional API keys. |
 
 ## Python Project and Setup
@@ -63,7 +65,6 @@ One-line purpose for every tracked file and folder in this repo.
 | `config/content-sources.yaml` | YouTube channels, Instagram accounts, hashtags, and topic patterns for Source Hunter. |
 | `config/competitors.yaml` | Source-typed competitor tracking config with homepage, pricing, blog, docs, jobs, and other monitored pages. |
 | `config/security.yaml` | Machine-readable security defaults — public-only sources, rate limits, human review. |
-| `config/integrations.yaml` | Registry of optional integrations (all disabled by default). |
 | `config/social-extraction.yaml` | Platform-by-platform social extraction playbook for approved APIs, public access, and manual assisted intake. |
 | `config/content-tracker.yaml` | Optional Notion/Sheets content tracker config. Disabled by default. |
 
@@ -80,8 +81,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `skills/email-hook/SKILL.md` | Reusable outbound email subject/opening generator with automated quality-gate scoring. |
 | `skills/goblin-recon/SKILL.md` | Operational skill — setup, commands, pipeline workflow, scoring, and release pitfalls. |
 | `skills/security-rail/SKILL.md` | Mandatory final source/safety/usefulness review before user-facing output or operational cells. |
-| `config/hermes-mcp.yaml` | Portable MCP server config — appended to goblin-recon profile by `scripts/setup-mcp.sh`. No hardcoded paths. |
-| `scripts/setup-mcp.sh` | One-command MCP setup for cloned repos — creates profile, appends MCP config, enables tools, verifies .env keys. |
+| `mcp.json` | MCP server list for optional search, extraction, memory, and transcript helpers. |
 
 ## Scripts
 
@@ -95,13 +95,10 @@ One-line purpose for every tracked file and folder in this repo.
 | `goblin_recon.tools.brand_gate` | Checks GenX-written copy against the brand blacklist and nuance-word rules. |
 | `goblin_recon.tools.youtube_tool` | Pulls public YouTube captions/transcripts with timestamps. |
 | `goblin_recon.tools.clip_extractor` | Validates video URLs and clip boundaries, returns clip metadata. |
-| `goblin_recon.tools.extract_clip` | Compatibility entry point for clip URL extraction. |
 | `goblin_recon.tools.scoring` | Calculates engagement velocity scores for trends/sources. |
-| `goblin_recon.tools.score_engagement` | Compatibility entry point for engagement velocity scoring. |
 | `goblin_recon.tools.social_intake` | Normalizes approved API, public browser, or manual social observations into one schema before scoring. |
 | `goblin_recon.tools.clip_store` | Stores approved/shelved Clip Mine records in local SQLite for cross-session lookup and dedup. |
 | `goblin_recon.tools.email_gate` | Scores outbound email drafts across attention, psychological fit, brand voice, guardrails, and campaign alignment. |
-| `goblin_recon.tools.web_scraper` | Lightweight public web page fetch helper used for allowed public-source extraction. |
 | `scripts/query_clips.py` | CLI for searching stored clips, updating statuses, and exporting clip briefs. |
 | `updates/hermes/` | Tracked Hermes-provided upgrade/reference docs kept outside the Python package. |
 

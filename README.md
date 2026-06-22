@@ -24,7 +24,7 @@ bash scripts/dev_check.sh
 
 This runs tests, the secret scanner, and structure checks.
 
-Full setup guide → [`GETTING_STARTED.md`](GETTING_STARTED.md)
+Full setup guide → [`docs/ops/getting-started.md`](docs/ops/getting-started.md)
 
 ## Commands
 
@@ -32,28 +32,30 @@ Full command guide with plain-language descriptions → [`COMMANDS.md`](COMMANDS
 
 | Say this | It does |
 |---|---|
-| `run fast scan` | Low-stress daily scan using reliable sources first |
-| `run deep social scan` | Deeper Instagram/TikTok-first social trend scan |
-| `manual scan this [URL/screenshot/caption]` | Normalize and score human-provided social material |
-| `run social pulse` | Workflow — ideas, blogs, carousels, content strategy |
-| `run clip mine` | Workflow — podcast clips for faceless IG page |
-| `blog ideas` | Social Pulse filtered for long-form content |
-| `carousel ideas` | Social Pulse filtered for carousel topics |
-| `content strategy this week` | Social Pulse + editorial suggestions |
-| `find clips about [topic]` | Clip Mine for a specific topic |
-| `find the moment in [URL]` | Extract best clip from a video |
-| `run full scan` | Social Pulse + Clip Mine in sequence |
-| `run full autonomous scan` | Social Pulse + Clip Mine + Competitor Scout + Caption Pack + Security Rail using approved public/local sources, without repeated confirmations |
-| `what clips are ready` | Approved clips awaiting editor handoff |
-| `run competitor scan` | Competitor Scout with Security Rail and cell-ready moves |
-| `write email hooks for [offer/audience]` | Email Hook variants with quality-gate scores |
+| `run fast scan` | Quick daily trend check. |
+| `run deep social scan` | Deeper Instagram and TikTok trend check. |
+| `run signal scan` | Find early AI signals before they are mainstream. |
+| `manual scan this [URL/screenshot/caption]` | Score something you paste in. |
+| `run social pulse` | Find content ideas, blog angles, and hooks. |
+| `run clip mine` | Find short video clip ideas. |
+| `blog ideas` | Get article ideas from current trends. |
+| `carousel ideas` | Get swipe-post ideas from current trends. |
+| `content strategy this week` | Get a simple weekly posting plan. |
+| `find clips about [topic]` | Find clips about one topic. |
+| `find the moment in [URL]` | Pick the best short clip from one video. |
+| `run full scan` | Find trends, then find clips for the best ones. |
+| `run full autonomous scan` | Run the whole approved workflow without asking at each step. |
+| `what clips are ready` | Show approved clips ready for editors. |
+| `run competitor scan` | Check competitors and suggest next moves. |
+| `run brand check on [content]` | Check copy against brand rules before posting. |
+| `write email hooks for [offer/audience]` | Write and score email subject lines and openers. |
 
 ## Architecture
 
 Goblin Recon uses a professional semi-autonomous agent structure:
 
 ```text
-Router -> Workflow -> Tools -> Normalized Data -> Score -> Human Gate -> Memory
+Router -> Workflow -> Tools -> Normalized Data -> Score/Gate -> Human Gate -> Memory
 ```
 
 Full architecture guide → [`ARCHITECTURE.md`](ARCHITECTURE.md)
@@ -74,7 +76,7 @@ Store local social signals when useful:
 
 ## File Guide
 
-Every file explained → [`FILE_DESCRIPTIONS.md`](FILE_DESCRIPTIONS.md)
+Every file explained → [`docs/ops/file-descriptions.md`](docs/ops/file-descriptions.md)
 
 ---
 

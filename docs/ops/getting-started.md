@@ -119,14 +119,19 @@ Load this folder as the Goblin Recon agent. Follow AGENTS.md, SECURITY.md, LEGAL
 
 ## Daily Commands
 
-- `find trending AI stories` - Run Trend Radar.
-- `find sources for [topic]` - Run Source Hunter.
-- `find the moment in [video URL]` - Run Moment Finder.
-- `run full scan` - Run the full trend-to-clip pipeline.
-- `run competitor scan` - Run Competitor Scout.
-- `run brand check on [content]` - Validate content against GenX brand rules.
-- `write email hooks for [offer/audience]` - Generate and score outbound subject/opening variants.
-- `what did we find yesterday?` - Search previous session memory.
+- `run fast scan` - Do a quick daily trend check.
+- `run deep social scan` - Do a deeper Instagram and TikTok trend check.
+- `run signal scan` - Look for early AI signals before they are mainstream.
+- `manual scan this [URL/screenshot/caption]` - Score something you paste in.
+- `find trending AI stories` - Find today's top AI stories.
+- `find sources for [topic]` - Find videos and sources for one topic.
+- `find the moment in [video URL]` - Pick the best short clip from one video.
+- `run full scan` - Find trends, then find clips for the best ones.
+- `run full autonomous scan` - Run the whole approved workflow without asking at each step.
+- `run competitor scan` - Check competitors and suggest next moves.
+- `run brand check on [content]` - Check copy against brand rules before posting.
+- `write email hooks for [offer/audience]` - Write and score email subject lines and openers.
+- `what did we find yesterday?` - Look up yesterday's findings.
 
 ## Content Tracking
 

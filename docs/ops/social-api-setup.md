@@ -110,23 +110,9 @@ If any answer is unclear, do not enable it yet.
 
 ### Step 2: Add the key to `.env` or Hermes secrets
 
-Do not add keys to `config/integrations.yaml`. That file only lists which environment variable names should exist.
+Do not add keys to source files or chat. MCP servers are listed in `mcp.json`.
 
-### Step 3: Turn on the integration in `config/integrations.yaml`
-
-Change only the approved integration from:
-
-```yaml
-enabled: false
-```
-
-to:
-
-```yaml
-enabled: true
-```
-
-### Step 4: Test with a low-risk command
+### Step 3: Test with a low-risk command
 
 Start with read-only testing. Do not post, message, follow, like, vote, or comment.
 
