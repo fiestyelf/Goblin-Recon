@@ -290,7 +290,7 @@ ONLY use delegate/subagent tasks after data is already collected, and only for p
 When finding videos/clips for a trending story, search in this order:
 1. **YouTube** — Podcasts, interviews, analysis channels. Transcripts via `goblin_recon.tools.youtube_tool`.
 2. **Instagram Reels** — Creator accounts, hashtag search. Extract caption + format data.
-3. **TikTok** — Search queries from `config/content-sources.yaml`. Extract sound + format data.
+3. **TikTok** — Search queries from `config/sources.yaml` (`sources.content_sources`). Extract sound + format data.
 4. **Podcast platforms** — Apple Podcasts, Spotify for audio-only sources (secondary).
 
 ## Clip Rules

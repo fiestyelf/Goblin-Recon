@@ -59,7 +59,7 @@ for f in \
     "goblin_recon/tools/carousel_renderer.py" "templates/carousel-brief.md" "templates/carousel-manifest.json" \
     "templates/social-pulse-report.md" "templates/clip-mine-brief.md" "templates/competitor-report.md" \
     "skills/security-rail/SKILL.md" "skills/competitor-scout/SKILL.md" "skills/carousel-generator/SKILL.md" \
-    "config/sources.yaml" "config/content-sources.yaml" "config/scoring.yaml" "config/competitors.yaml" "config/security.yaml"
+    "config/sources.yaml" "config/scoring.yaml" "config/competitors.yaml" "config/security.yaml"
 do
     if [ -f "$ROOT/$f" ]; then
         echo "  ✓ $f"

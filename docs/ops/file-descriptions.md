@@ -62,7 +62,7 @@ One-line purpose for every tracked file and folder in this repo.
 | `config/brand-voice.yaml` | Brand voice rules, blacklist, brand gate thresholds, visual rules. |
 | `config/email-campaigns.yaml` | Email campaign types mapped to triggers, tones, CTAs, and subject formulas. |
 | `config/email-guardrails.yaml` | Email quality guardrails for spam triggers, filler openers, CTAs, and GenX subject rules. |
-| `config/content-sources.yaml` | YouTube channels, Instagram accounts, hashtags, and topic patterns for Source Hunter. |
+| `config/sources.yaml` → `sources.content_sources` | YouTube channels, Instagram accounts, hashtags, and topic patterns for Source Hunter. |
 | `config/competitors.yaml` | Source-typed competitor tracking config with homepage, pricing, blog, docs, jobs, and other monitored pages. |
 | `config/security.yaml` | Machine-readable security defaults — public-only sources, rate limits, human review. |
 | `config/social-extraction.yaml` | Platform-by-platform social extraction playbook for approved APIs, public access, and manual assisted intake. |

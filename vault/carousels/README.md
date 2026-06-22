@@ -7,7 +7,6 @@ Expected package shape:
 ```text
 <date-topic-page>/
   manifest.json
-  slide_spec.json
   brief.md
   generation-log.md
   assets/

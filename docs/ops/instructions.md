@@ -575,7 +575,7 @@ If nothing shows up, Hermes isn't installed. Ask your IT team for help.
 ## Customizing Goblin Recon
 
 ### Add Your Favorite YouTube Channels
-Edit `config/content-sources.yaml` and add channels under `youtube:` → `podcast_channels:`
+Edit `config/sources.yaml` and add channels under `sources:` → `content_sources:` → `youtube:` → `podcast_channels:`
 
 Example:
 ```yaml
@@ -586,7 +586,7 @@ Example:
 ```
 
 ### Add Instagram Accounts to Monitor
-Edit `config/content-sources.yaml` and add accounts under `instagram:` → `tech_accounts:`
+Edit `config/sources.yaml` and add accounts under `sources:` → `content_sources:` → `instagram:` → `tech_accounts:`
 
 Example:
 ```yaml

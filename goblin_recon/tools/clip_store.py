@@ -7,13 +7,13 @@ import sqlite3
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
 import hashlib
+
+from .clip_extractor import extract_youtube_id
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 VAULT_DIR = ROOT_DIR / "vault"
 DEFAULT_DB_PATH = VAULT_DIR / "clips.db"
-YOUTUBE_HOSTS = {"youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be"}
 VALID_STATUSES = {"pending_review", "approved", "in_production", "scheduled", "posted", "shelved"}
 
 COLUMNS = {
@@ -60,17 +60,6 @@ TEXT_SEARCH_COLUMNS = [
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
-
-def extract_youtube_id(url: str) -> str | None:
-    parsed = urlparse(url)
-    host = parsed.netloc.lower()
-    if host not in YOUTUBE_HOSTS:
-        return None
-    if host == "youtu.be":
-        return parsed.path.strip("/") or None
-    if parsed.path.startswith("/shorts/") or parsed.path.startswith("/embed/"):
-        return parsed.path.split("/")[2] or None
-    return parse_qs(parsed.query).get("v", [None])[0]
 
 
 def make_clip_id(source_url: str, start_sec: int, end_sec: int) -> str:

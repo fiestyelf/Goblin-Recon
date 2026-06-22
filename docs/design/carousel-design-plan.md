@@ -48,7 +48,7 @@ Pillow exports each slide as PNG
 3 files saved per slide:
   bg_1.png        ← just the background
   final_1.png     ← background + text combined
-  slide_spec.json ← all text/colors/fonts (re-renderable)
+  manifest.json ← all text/colors/fonts (re-renderable)
          ↓
 QA check: blacklist + brand voice + dimensions
          ↓
@@ -94,7 +94,7 @@ Trend:         what happened → why it matters → our take → CTA
 ```
 vault/carousels/
   2026-06-21-ai-tools-101-genx-b2b/
-    slide_spec.json          ← edit this to change text, re-render
+    manifest.json            ← edit this to change text, re-render
     assets/
       bg_1.png               ← background only (Replicate output)
       bg_2.png

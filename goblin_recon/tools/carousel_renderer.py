@@ -450,7 +450,6 @@ def render_carousel(manifest: dict[str, Any], output_root: str | Path = "vault/c
         "slides": rendered_slides,
     }
     (out_dir / "manifest.json").write_text(json.dumps(spec_payload, indent=2), encoding="utf-8")
-    (out_dir / "slide_spec.json").write_text(json.dumps(spec_payload, indent=2), encoding="utf-8")
     brief_path = data["brief_path"]
     if brief_path:
         source = Path(brief_path)

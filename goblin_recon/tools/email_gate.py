@@ -119,9 +119,10 @@ class EmailGate:
         self.brand_voice = _load_yaml(brand_voice_path)
 
     def evaluate(self, draft: EmailDraft) -> EvaluationResult:
+        specificity_points = _specificity_points(draft.subject, draft.body)
         return EvaluationResult(
-            attention=self._score_attention(draft),
-            psychological_fit=self._score_psychological_fit(draft),
+            attention=self._score_attention(draft, specificity_points),
+            psychological_fit=self._score_psychological_fit(draft, specificity_points),
             brand_voice=self._score_brand_voice(draft),
             professional_guardrails=self._score_professional_guardrails(draft),
             campaign_alignment=self._score_campaign_alignment(draft),
@@ -129,7 +130,7 @@ class EmailGate:
 
     # Dimension 1: attention score (0-25)
 
-    def _score_attention(self, draft: EmailDraft) -> DimensionScore:
+    def _score_attention(self, draft: EmailDraft, specificity_points: int) -> DimensionScore:
         score = 0
         flags = []
         subject = draft.subject.strip()
@@ -186,7 +187,7 @@ class EmailGate:
         if any(w in first_two.lower() for w in pain_words):
             score += 3
 
-        if _specificity_points(subject, first_two) >= 4:
+        if specificity_points >= 4:
             score += 3
 
         # Opener: no filler phrases
@@ -206,7 +207,7 @@ class EmailGate:
 
     # Dimension 2: psychological fit (0-20)
 
-    def _score_psychological_fit(self, draft: EmailDraft) -> DimensionScore:
+    def _score_psychological_fit(self, draft: EmailDraft, specificity_points: int) -> DimensionScore:
         score = 0
         flags = []
         campaign_config = self.campaigns.get("campaigns", {}).get(draft.campaign_type, {})
@@ -221,7 +222,7 @@ class EmailGate:
         score += min(matches * 5, 15)
 
         if secondary_trigger == "specificity":
-            score += min(_specificity_points(draft.subject, draft.body), 5)
+            score += min(specificity_points, 5)
         elif secondary_trigger:
             secondary_keywords = _load_nested(self.guardrails, f"triggers.{secondary_trigger}.keywords", [])
             secondary_matches = sum(1 for kw in secondary_keywords if kw in subject_lower or kw in body_lower)
@@ -392,16 +393,7 @@ def _has_pattern(text: str, pattern: str) -> bool:
 
 
 def _normalized_keywords(text: str) -> set[str]:
-    keywords = set()
-    for word in re.findall(r"[a-zA-Z]{4,}", text.lower()):
-        keywords.add(word)
-        if word.endswith("ing") and len(word) > 5:
-            keywords.add(word[:-3])
-        elif word.endswith("ed") and len(word) > 4:
-            keywords.add(word[:-2])
-        elif word.endswith("s") and len(word) > 4:
-            keywords.add(word[:-1])
-    return keywords
+    return set(re.findall(r"[a-zA-Z]{4,}", text.lower()))
 
 
 def _specificity_points(subject: str, body: str) -> int:

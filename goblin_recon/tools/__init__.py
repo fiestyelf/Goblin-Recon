@@ -6,7 +6,7 @@ from .brand_gate import check_text
 from .clip_extractor import extract_clip_metadata, extract_youtube_id
 from .clip_store import find_clips, get_clip, save_clip, update_status
 from .email_gate import EmailDraft, EmailGate
-from .scoring import calculate_velocity, calculate_velocity_with_lifecycle, enforce_source_diversity
+from .scoring import calculate_velocity, calculate_velocity_with_lifecycle
 from .social_intake import normalize_social_record
 from .youtube_tool import get_transcript, search_youtube
 
@@ -26,7 +26,6 @@ __all__ = [
     "EmailGate",
     "calculate_velocity",
     "calculate_velocity_with_lifecycle",
-    "enforce_source_diversity",
     "normalize_social_record",
     "get_transcript",
     "search_youtube",

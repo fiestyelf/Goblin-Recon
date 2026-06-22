@@ -9,7 +9,6 @@ import json
 import sys
 from argparse import ArgumentParser
 from datetime import datetime, timezone
-from typing import Any
 from urllib.parse import urlparse
 
 SUPPORTED_PLATFORMS = {"twitter", "x", "reddit", "youtube", "instagram", "tiktok"}
@@ -20,19 +19,6 @@ BENCHMARKS = {
     "youtube": (50, 500, 2000),
     "instagram": (20, 100, 500),
     "tiktok": (50, 300, 1500),
-}
-DOMAIN_WEIGHTS = {
-    "instagram": 1.0,
-    "tiktok": 0.9,
-    "x_twitter": 0.8,
-    "twitter": 0.8,
-    "x": 0.8,
-    "youtube": 0.7,
-    "reddit": 0.6,
-    "tech_news": 0.5,
-    "hacker_news": 0.5,
-    "github": 0.4,
-    "arxiv": 0.3,
 }
 MIN_ENGAGEMENT_FLOOR = 1000
 
@@ -166,79 +152,6 @@ def calculate_velocity_with_lifecycle(
     except Exception as exc:
         return {"error": str(exc), "score": 0, "lifecycle_state": "BASELINE"}
 
-
-def _story_domain(story: dict[str, Any]) -> str:
-    for key in ("source_domain", "domain", "source_type", "source_platform", "platform", "primary_source", "source"):
-        value = str(story.get(key) or "").strip().lower()
-        if value:
-            return value.replace("/", "_").replace(" ", "_")
-    for key in ("url", "source_url", "post_url"):
-        host = urlparse(str(story.get(key) or "")).netloc.lower().removeprefix("www.")
-        if not host:
-            continue
-        for token, domain in {
-            "instagram": "instagram",
-            "tiktok": "tiktok",
-            "x.com": "x_twitter",
-            "twitter": "x_twitter",
-            "youtube": "youtube",
-            "youtu.be": "youtube",
-            "reddit": "reddit",
-            "github": "github",
-            "arxiv": "arxiv",
-            "news.ycombinator": "hacker_news",
-        }.items():
-            if token in host:
-                return domain
-        return host
-    return "unknown"
-
-
-def enforce_source_diversity(
-    stories: list[dict[str, Any]],
-    *,
-    limit: int = 5,
-    min_source_domains: int = 3,
-    max_per_domain: int = 3,
-    domain_weights: dict[str, float] | None = None,
-) -> list[dict[str, Any]]:
-    if limit <= 0 or not stories:
-        return []
-    if max_per_domain <= 0:
-        raise ValueError("max_per_domain must be positive")
-
-    weights = {**DOMAIN_WEIGHTS, **(domain_weights or {})}
-    candidates = [(_story_domain(story), i, story) for i, story in enumerate(stories)]
-    selected: list[tuple[str, int, dict[str, Any]]] = []
-    seen: set[int] = set()
-    counts: dict[str, int] = {}
-
-    first_by_domain: dict[str, tuple[str, int, dict[str, Any]]] = {}
-    for candidate in candidates:
-        first_by_domain.setdefault(candidate[0], candidate)
-
-    target_domains = min(max(min_source_domains, 1), len(first_by_domain), limit)
-    for domain in sorted(first_by_domain, key=lambda d: (-weights.get(d, 0), first_by_domain[d][1]))[:target_domains]:
-        selected.append(first_by_domain[domain])
-        seen.add(first_by_domain[domain][1])
-        counts[domain] = 1
-
-    for domain, i, story in candidates:
-        if len(selected) >= limit:
-            break
-        if i not in seen and counts.get(domain, 0) < max_per_domain:
-            selected.append((domain, i, story))
-            seen.add(i)
-            counts[domain] = counts.get(domain, 0) + 1
-
-    for domain, i, story in candidates:
-        if len(selected) >= min(limit, len(stories)):
-            break
-        if i not in seen:
-            selected.append((domain, i, story))
-            seen.add(i)
-
-    return [story for _, _, story in selected]
 
 
 def main() -> int:

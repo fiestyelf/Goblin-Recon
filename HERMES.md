@@ -114,7 +114,7 @@ See `skills/<name>/SKILL.md` for the full content of any skill.
 | Brand voice config | `config/brand-voice.yaml` |
 | Source/scoring config | `config/sources.yaml`, `config/scoring.yaml` |
 | Competitor config | `config/competitors.yaml` |
-| Content sources | `config/content-sources.yaml` |
+| Content sources | `config/sources.yaml` → `sources.content_sources` |
 | Carousel memory | `memory/carousel/` |
 | Carousel outputs | `vault/carousels/` |
 | Replicate integration | `mcp.json` plus `REPLICATE_API_TOKEN` in `.env` |
